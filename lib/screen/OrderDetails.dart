@@ -299,7 +299,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
+                  backgroundColor: Colors.red,
                 ),
                 child: Text(
                   "পেমেন্ট করুন",

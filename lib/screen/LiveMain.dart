@@ -133,7 +133,7 @@ class _LiveMainState extends State<LiveMain> {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
+                    backgroundColor: Colors.blue,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14.r),
@@ -167,7 +167,7 @@ class _LiveMainState extends State<LiveMain> {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: boldRed,
+                    backgroundColor: boldRed,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14.r),
@@ -495,7 +495,7 @@ class _LiveMainState extends State<LiveMain> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: boldRed,
+                      backgroundColor: boldRed,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14.r),

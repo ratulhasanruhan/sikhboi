@@ -178,7 +178,7 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
                                               ),
                                             ),
                                             style: ElevatedButton.styleFrom(
-                                              primary: primaryColor,
+                                              backgroundColor: primaryColor,
                                             ),
                                           ),
                                        ],

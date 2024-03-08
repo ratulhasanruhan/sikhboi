@@ -61,7 +61,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                   const SizedBox(height: 18),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: boldRed,
+                      backgroundColor: boldRed,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14.r),

@@ -126,7 +126,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 )));
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.redAccent,
+                                backgroundColor: Colors.redAccent,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12.r),
                                 ),
