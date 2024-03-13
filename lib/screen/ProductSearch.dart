@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sikhboi/screen/ProductDetails.dart';
 
 import '../utils/colors.dart';
@@ -116,7 +114,7 @@ class _ProductSearchState extends State<ProductSearch> {
             ],
           ),
           SizedBox(
-            height: 12.h,
+            height: 12,
           ),
           StreamBuilder(
               stream: searchQuery != ''
@@ -140,16 +138,16 @@ class _ProductSearchState extends State<ProductSearch> {
                         return Card(
                           elevation: 0.7,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.r),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           color: Colors.white,
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                            padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 InkWell(
-                                  borderRadius: BorderRadius.circular(12.r),
+                                  borderRadius: BorderRadius.circular(12),
                                   onTap: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetails(data: snapshot.data.docs[index].data(), id: snapshot.data.docs[index].id)));
                                   },
@@ -157,16 +155,16 @@ class _ProductSearchState extends State<ProductSearch> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderRadius: BorderRadius.circular(12),
                                         child: Image.network(
                                           snapshot.data.docs[index]['image'][0],
                                           fit: BoxFit.cover,
-                                          height: 100.h,
+                                          height: 100,
                                           width: double.infinity,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 6.h,
+                                        height: 6,
                                       ),
                                       Text(
                                         snapshot.data.docs[index]['name'],
@@ -175,7 +173,7 @@ class _ProductSearchState extends State<ProductSearch> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 6.h,
+                                        height: 6,
                                       ),
                                     ],
                                   ),
@@ -192,7 +190,7 @@ class _ProductSearchState extends State<ProductSearch> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 10.w,
+                                      width: 10,
                                     ),
                                     Text(
                                       '৳'+' ${snapshot.data.docs[index]['price']*1.2}',

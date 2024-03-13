@@ -1,8 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/FreeLive.dart';
@@ -115,7 +113,7 @@ class _LiveMainState extends State<LiveMain> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(12.r),
+        padding: EdgeInsets.all(12),
         children: [
           const SizedBox(height: 5),
           const Text(
@@ -136,10 +134,10 @@ class _LiveMainState extends State<LiveMain> {
                     backgroundColor: Colors.blue,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.r),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                     padding: EdgeInsets.symmetric(
-                      vertical: 8.h,
+                      vertical: 8,
                     ),
                   ),
                   onPressed: () {
@@ -163,17 +161,17 @@ class _LiveMainState extends State<LiveMain> {
                   ),
                 ),
               ),
-              SizedBox(width: 12.w),
+              SizedBox(width: 12),
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: boldRed,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.r),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                     padding: EdgeInsets.symmetric(
-                      vertical: 8.h,
+                      vertical: 8,
                     ),
                   ),
                   onPressed: () {},
@@ -227,13 +225,13 @@ class _LiveMainState extends State<LiveMain> {
           AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn,
-              height: freeForm ? 450.h : 0,
+              height: freeForm ? 450 : 0,
               child: freeForm
                   ? Container(
-                padding: EdgeInsets.all(14.r),
+                padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(14.r),
+                  borderRadius: BorderRadius.circular(14),
                   border: Border.all(
                     color: boldRed,
                     width: 2,
@@ -278,7 +276,7 @@ class _LiveMainState extends State<LiveMain> {
                           isDense: true,
                           filled: true,
                           border: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
+                            borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
                         ),
@@ -306,7 +304,7 @@ class _LiveMainState extends State<LiveMain> {
                           filled: true,
                           isDense: true,
                           border: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
+                            borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
                         ),
@@ -336,7 +334,7 @@ class _LiveMainState extends State<LiveMain> {
                           filled: true,
                           isDense: true,
                           border: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
+                            borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
                         ),
@@ -364,7 +362,7 @@ class _LiveMainState extends State<LiveMain> {
                           filled: true,
                           isDense: true,
                           border: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
+                            borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide.none,
                           ),
                         ),
@@ -425,11 +423,11 @@ class _LiveMainState extends State<LiveMain> {
                             },
                             color: boldRed,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14.r),
+                              borderRadius: BorderRadius.circular(14),
                             ),
                             padding: EdgeInsets.symmetric(
-                              vertical: 10.h,
-                              horizontal: 40.w,
+                              vertical: 10,
+                              horizontal: 40,
                             ),
                             child: const Text(
                               'সাবমিট',
@@ -498,11 +496,11 @@ class _LiveMainState extends State<LiveMain> {
                       backgroundColor: boldRed,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14.r),
+                        borderRadius: BorderRadius.circular(14),
                       ),
                       padding: EdgeInsets.symmetric(
-                        vertical: 8.h,
-                        horizontal: 20.w,
+                        vertical: 8,
+                        horizontal: 20,
                       ),
                     ),
                   ),

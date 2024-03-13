@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/HomeVideoPlayer.dart';
 import 'package:sikhboi/screen/LearningType.dart';
-import 'package:sikhboi/screen/PlayVideo.dart';
 import 'package:sikhboi/screen/WithdrawPoints.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/widgets/loginPermission.dart';
@@ -63,9 +61,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                     alignment: Alignment.topRight,
                     children: [
                       Container(
-                        height: 250.h,
+                        height: 250,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.r),
+                            borderRadius: BorderRadius.circular(12),
                             image: DecorationImage(
                               image: CachedNetworkImageProvider(value['home_banner']),
                               fit: BoxFit.cover,
@@ -114,15 +112,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
 
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('assets/logo.png', height: 40.h),
+        title: Image.asset('assets/logo.png', height: 40),
         centerTitle: true,
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 8.w),
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+            margin: EdgeInsets.only(right: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.red,
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
@@ -141,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   ),
                   padding: EdgeInsets.all(3),
                 ),
-                SizedBox(width: 8.w),
+                SizedBox(width: 8),
 
                 box.get('phone') == '' || box.get('phone') == null
                 ? InkWell(
@@ -203,8 +201,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(
-          horizontal: 14.w,
-          vertical: 16.h,
+          horizontal: 14,
+          vertical: 16,
         ),
         children: [
           Row(
@@ -212,17 +210,17 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
             children: [
               Material(
                 color: Color(0xFF0092FF),
-                borderRadius: BorderRadius.circular(30.r),
+                borderRadius: BorderRadius.circular(30),
                 child: InkWell(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => LearningType()));
                   },
-                  borderRadius: BorderRadius.circular(30.r),
+                  borderRadius: BorderRadius.circular(30),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(30.r),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -230,10 +228,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                       children: [
                         Lottie.asset(
                           'assets/video_clip.json',
-                          height: 45.h,
+                          height: 45,
                         ),
                         SizedBox(
-                          width: 8.w,
+                          width: 8,
                         ),
                         Text(
                           'Our Course',
@@ -244,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                           ),
                         ),
                         SizedBox(
-                          width: 8.w,
+                          width: 8,
                         ),
                       ],
                     ),
@@ -257,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   Navigator.push(context, MaterialPageRoute(builder: (context) => LiveMain()));
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => FreeLive()));
                 },
-                borderRadius: BorderRadius.circular(30.r),
+                borderRadius: BorderRadius.circular(30),
                 child: Stack(
                   alignment: Alignment.centerLeft,
                   children: [
@@ -267,12 +265,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                           width: 45,
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w,),
+                          padding: EdgeInsets.symmetric(horizontal: 14,),
                           decoration: BoxDecoration(
                             color: Color(0xFFFF0000),
                             borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(30.r),
-                              bottomRight: Radius.circular(30.r),
+                              topRight: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
                             ),
                           ),
                           child: Text(
@@ -311,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
             ],
           ),
           SizedBox(
-            height: 16.h,
+            height: 16,
           ),
 
           TextField(
@@ -327,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
               filled: true,
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(30.r),
+                borderRadius: BorderRadius.circular(30),
               ),
               prefixIconConstraints: BoxConstraints(
                 minWidth: 56,
@@ -338,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30.r),
+                    borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
@@ -358,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
           ),
 
           SizedBox(
-            height: 16.h,
+            height: 16,
           ),
 
           StreamBuilder(
@@ -389,7 +387,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                                   },
                                   borderRadius: BorderRadius.circular(8),
                                   child: Container(
-                                    height: 170.h,
+                                    height: 180,
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
@@ -427,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 10.0),
                               child: Container(
-                                height: 170.h,
+                                height: 170,
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -467,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
               }
               return Shimmer(
                   child: Container(
-                    height: 170.h,
+                    height: 170,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         color: Colors.white,

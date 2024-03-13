@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import '../screen/PremiumPlan.dart';
 import '../utils/colors.dart';
@@ -12,8 +11,8 @@ upgradeDialog(BuildContext context) {
           backgroundColor: Colors.white,
           title: Lottie.asset(
             'assets/premium.json',
-            height: 100.h,
-            width: 100.w,
+            height: 100,
+            width: 100,
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -22,7 +21,7 @@ upgradeDialog(BuildContext context) {
                 'উপার্জন করতে হলে আপনার একাউন্টটি প্রিমিয়াম করতে হবে। ',
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 8.h),
+              SizedBox(height: 8),
               MaterialButton(
                 onPressed: () {
                   Navigator.push(
@@ -32,7 +31,7 @@ upgradeDialog(BuildContext context) {
                 },
                 color: pinkish,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Text(
                   'প্রিমিয়াম করুন',

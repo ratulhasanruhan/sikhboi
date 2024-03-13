@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:sikhboi/screen/Home.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -69,7 +66,7 @@ class _RegisterState extends State<Register> {
                 Column(
                   children: [
                     SizedBox(
-                      height: 40.h,
+                      height: 40,
                     ),
 
                     TextFormField(
@@ -85,7 +82,7 @@ class _RegisterState extends State<Register> {
                           filled: true,
                           hintText: 'নাম',
                           border: UnderlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.r),
+                              borderRadius: BorderRadius.circular(6),
                               borderSide: BorderSide.none
                           ),
                           prefixIcon: Padding(
@@ -109,7 +106,7 @@ class _RegisterState extends State<Register> {
                       },
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: phoneController,
@@ -198,7 +195,7 @@ class _RegisterState extends State<Register> {
                           )),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: passCOntroller,
@@ -241,7 +238,7 @@ class _RegisterState extends State<Register> {
                       },
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 40,
                     ),
                     RoundedLoadingButton(
                       elevation: 0,
@@ -251,7 +248,7 @@ class _RegisterState extends State<Register> {
                         style: TextStyle(color: Colors.white, fontSize: 22),
                       ),
                       color: primaryColor,
-                      width: ScreenUtil().screenWidth,
+                      width: MediaQuery.of(context).size.width,
                       controller: _btnController,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -330,7 +327,7 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 12.h, top: 10.h),
+                  padding: EdgeInsets.only(bottom: 12, top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

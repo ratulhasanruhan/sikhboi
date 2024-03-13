@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:sikhboi/main.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -48,10 +45,10 @@ class _LoginState extends State<Login> {
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 30.h,),
-                    Center(child: Image.asset('assets/logo.png', height: 125.h,)),
+                    SizedBox(height: 30,),
+                    Center(child: Image.asset('assets/logo.png', height: 125,)),
                     SizedBox(
-                      height: 70.h,
+                      height: 70,
                     ),
                     TextFormField(
                       controller: phoneController,
@@ -132,7 +129,7 @@ class _LoginState extends State<Login> {
                       },
                     ),
                     SizedBox(
-                      height: 75.h,
+                      height: 75,
                     ),
                     RoundedLoadingButton(
                       elevation: 0,
@@ -144,7 +141,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       color: primaryColor,
-                      width: ScreenUtil().screenWidth,
+                      width: MediaQuery.of(context).size.width,
                       controller: _btnController,
                       onPressed: () async{
                         if(_formKey.currentState!.validate()){
@@ -195,7 +192,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),

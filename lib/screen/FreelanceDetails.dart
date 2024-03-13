@@ -1,10 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -40,7 +37,7 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
             alignment: Alignment.topRight,
             children: [
               Container(
-                height: 200.h,
+                height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -70,8 +67,8 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result['isSuccess'] ? 'সফলভাবে সংরক্ষণ করা হয়েছে' : 'সংরক্ষণ করা যায়নি')));
                   },
                   icon: Container(
-                    height: 40.h,
-                    width: 40.w,
+                    height: 40,
+                    width: 40,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -82,7 +79,7 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
             ],
           )
               : Container(
-            height: 200.h,
+            height: 200,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -197,7 +194,7 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
             }
           ),
 
-          SizedBox(height: 20.h),
+          SizedBox(height: 20),
           MaterialButton(
               onPressed: (){
                 if(Hive.box('user').get('phone') == '' || Hive.box('user').get('phone') == null){
@@ -209,7 +206,7 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            height: 40.h,
+            height: 40,
             color: primaryColor,
             child: const Text(
               'কাজের এন্ট্রিগুলো দেখুন',
@@ -219,7 +216,7 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
               ),
             ),
           ),
-          SizedBox(height: 40.h),
+          SizedBox(height: 40),
 
         ],
       ),

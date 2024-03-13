@@ -2,10 +2,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sikhboi/screen/OrderDetails.dart';
 import 'package:sikhboi/utils/colors.dart';
 
@@ -63,7 +61,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       );
                     },
                     options: CarouselOptions(
-                      height: 220.h,
+                      height: 220,
                       viewportFraction: 1,
                       autoPlay: true,
                       autoPlayInterval: Duration(seconds: 2),
@@ -73,10 +71,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     )
                 ),
                 SizedBox(
-                  height: 6.h,
+                  height: 6,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,7 +87,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                       ),
                       SizedBox(
-                        height: 6.h,
+                        height: 6,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +104,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ),
                               ),
                               SizedBox(
-                                width: 10.w,
+                                width: 10,
                               ),
                               Text(
                                 '৳'+' ${widget.data['price']*1.2}',
@@ -128,7 +126,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.redAccent,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.r),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                               child: Text(
@@ -147,21 +145,21 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
 
                 SizedBox(
-                  height: 8.h,
+                  height: 8,
                 ),
 
               ],
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 10,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: pinkish,
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Text(
               'রেটিংস এবং রিভিউ',
@@ -182,7 +180,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         if(snapshot.hasData){
                           return Expanded(
                             child: ListView.builder(
-                                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
                                 primary: true,
                                 shrinkWrap: true,
                                 itemCount: snapshot.data.docs.length,
@@ -227,7 +225,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       snapshot.data.docs[index]['image'] != null ?
 
                                       SizedBox(
-                                        height: 40.h,
+                                        height: 40,
                                         child: ListView.builder(
                                           shrinkWrap: true,
                                             primary: false,
@@ -235,7 +233,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                             itemCount: snapshot.data.docs[index]['image'].length,
                                             itemBuilder: (context, i){
                                               return Padding(
-                                                padding: EdgeInsets.only(right: 10.w),
+                                                padding: EdgeInsets.only(right: 10),
                                                 child: InkWell(
                                                   onTap: (){
                                                     final imageProvider = Image.network(snapshot.data.docs[index]['image'][i]).image;
@@ -244,12 +242,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                     });
                                                   },
                                                   child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(8.r),
+                                                    borderRadius: BorderRadius.circular(8),
                                                     child: Image.network(
                                                       snapshot.data.docs[index]['image'][i],
                                                       fit: BoxFit.cover,
-                                                      width: 40.w,
-                                                      height: 40.h,
+                                                      width: 40,
+                                                      height: 40,
                                                     ),
                                                   ),
                                                 ),
@@ -263,7 +261,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
 
                                       SizedBox(
-                                        height: 10.h,
+                                        height: 10,
                                       )
 
                                     ],
@@ -281,7 +279,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20.h,
+                            height: 20,
                           ),
                           Icon(
                             Icons.star_border,

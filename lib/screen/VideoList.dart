@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/screen/Learning.dart';
@@ -67,7 +65,7 @@ class _VideoListState extends State<VideoList> {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         primary: true,
         shrinkWrap: true,
         children: [
@@ -78,7 +76,7 @@ class _VideoListState extends State<VideoList> {
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 4,),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(10),
                       child: YoutubePlayer(
                         controller: YoutubePlayerController(
                           initialVideoId: snapshot.data['intro'],
@@ -92,7 +90,7 @@ class _VideoListState extends State<VideoList> {
                   );
                 }
                 return Container(
-                  height: 200.h,
+                  height: 200,
                   color: Colors.black87,
                   child: Center(
                       child: Column(
@@ -102,13 +100,13 @@ class _VideoListState extends State<VideoList> {
                               color: Colors.white,
                             ),
                             SizedBox(
-                              height: 10.h,
+                              height: 10,
                             ),
                             Text(
                               'Intro Video',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16.sp,
+                                fontSize: 16,
                               ),
                             ),
                           ]
@@ -118,7 +116,7 @@ class _VideoListState extends State<VideoList> {
               }
           ),
           SizedBox(
-            height: 10.h,
+            height: 10,
           ),
           FirestoreListView(
             primary: false,
@@ -132,7 +130,7 @@ class _VideoListState extends State<VideoList> {
                 color: Colors.red,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   onTap: ()async{
 

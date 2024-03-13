@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'EarningQuestion.dart';
@@ -28,18 +26,18 @@ class _EarningState extends State<Earning> {
               var data = snapshot.data.docs;
 
               return GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 18.h),
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 18),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 10.w,
-                    mainAxisSpacing: 10.h,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
                   itemCount: data.length,
                   itemBuilder: (context, index){
                     return Card(
                       color: Color(0xFF04583e),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: BorderRadius.circular(10),
                         onTap: (){
                           Navigator.push(
                             context,
@@ -53,8 +51,8 @@ class _EarningState extends State<Earning> {
                           children: [
                             Image.network(
                               data[index]['icon'],
-                              height: 90.h,
-                              width: 90.w,
+                              height: 90,
+                              width: 90,
                             ),
                             Text(
                               data[index].id,

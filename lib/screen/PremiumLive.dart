@@ -2,13 +2,10 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:jitsi_meet_v1/feature_flag/feature_flag.dart';
 import 'package:jitsi_meet_v1/jitsi_meet.dart';
-import 'package:lottie/lottie.dart';
-import 'package:slide_countdown/slide_countdown.dart';
 import 'package:youtube_metadata/youtube.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart' as player;
 import '../utils/colors.dart';
@@ -48,7 +45,7 @@ class _PremiumLiveState extends State<PremiumLive> {
           builder: (context,AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return ListView(
-                padding: EdgeInsets.all(12.r),
+                padding: EdgeInsets.all(12),
                 children: [
                   const SizedBox(height: 5),
                   Text(
@@ -64,10 +61,10 @@ class _PremiumLiveState extends State<PremiumLive> {
                       backgroundColor: boldRed,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14.r),
+                        borderRadius: BorderRadius.circular(14),
                       ),
                       padding: EdgeInsets.symmetric(
-                        vertical: 8.h,
+                        vertical: 8,
                       ),
                     ),
                     onPressed: () async{
@@ -145,7 +142,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                               },
                               borderRadius: BorderRadius.circular(8),
                               child: Container(
-                                height: 170.h,
+                                height: 170,
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -183,7 +180,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: Container(
-                            height: 170.h,
+                            height: 170,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -219,7 +216,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                       }
                   ),
                   SizedBox(
-                    height: 16.h,
+                    height: 16,
                   ),
                   Card(
                     elevation: 5,

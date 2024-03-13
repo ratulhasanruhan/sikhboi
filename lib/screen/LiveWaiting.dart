@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 
@@ -30,7 +29,7 @@ class _LiveWaitingState extends State<LiveWaiting> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(12.r),
+        padding: EdgeInsets.all(12),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +44,7 @@ class _LiveWaitingState extends State<LiveWaiting> {
                     color: Colors.black87
                 ),
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -61,7 +60,7 @@ class _LiveWaitingState extends State<LiveWaiting> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 12.h),
+                    SizedBox(height: 12),
                     Text(
                       "COUNTDOWN",
                       style: GoogleFonts.oswald(
@@ -70,7 +69,7 @@ class _LiveWaitingState extends State<LiveWaiting> {
                           color: Colors.black54
                       ),
                     ),
-                    SizedBox(height: 6.h),
+                    SizedBox(height: 6),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -88,12 +87,12 @@ class _LiveWaitingState extends State<LiveWaiting> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 10),
 
                   ],
                 ),
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               Text(
                 'ক্লাস শুরু হবে রাত ৯ টায়',
                 textAlign: TextAlign.center,

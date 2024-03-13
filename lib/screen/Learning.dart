@@ -1,16 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/firestore.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
-import 'package:sikhboi/screen/Home.dart';
-import 'package:sikhboi/screen/HomeScreen.dart';
 import 'package:sikhboi/screen/LearningType.dart';
-import 'package:sikhboi/utils/colors.dart';
-
 import 'VideoList.dart';
 
 class Learning extends StatefulWidget {
@@ -55,7 +47,7 @@ class _LearningState extends State<Learning> {
               },
               radius: 10,
               child: Container(
-                height: 175.h,
+                height: 175,
                 decoration: BoxDecoration(
                   color: Color(0xFF272264),
                   borderRadius: BorderRadius.circular(10),

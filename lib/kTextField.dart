@@ -1,21 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sikhboi/utils/colors.dart';
 
 class kTextField extends StatelessWidget {
-  kTextField({Key? key,
+  const kTextField({Key? key,
     required this.type,
     required this.controller,
     required this.hint,
     required this.icon,
   }) : super(key: key);
 
-  TextInputType type;
-  String hint;
-  IconData icon;
-  TextEditingController controller;
+  final TextInputType type;
+  final String hint;
+  final IconData icon;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class kTextField extends StatelessWidget {
           filled: true,
           hintText: hint,
           border: UnderlineInputBorder(
-              borderRadius: BorderRadius.circular(6.r),
+              borderRadius: BorderRadius.circular(6),
               borderSide: BorderSide.none
           ),
           hintStyle: TextStyle(
@@ -55,6 +53,7 @@ class kTextField extends StatelessWidget {
         if(val!.isEmpty){
           return 'আপনার $hint লিখুন';
         }
+        return null;
       },
     );
   }

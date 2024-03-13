@@ -1,15 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/firestore.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/PremiumVideoList.dart';
-import 'package:sikhboi/screen/VideoList.dart';
 import 'package:sikhboi/widgets/loginPermission.dart';
-import '../utils/colors.dart';
 import 'LearningType.dart';
 
 class LearningPremium extends StatefulWidget {
@@ -62,7 +57,7 @@ class _LearningPremiumState extends State<LearningPremium> {
               },
               radius: 10,
               child: Container(
-                height: 175.h,
+                height: 175,
                 decoration: BoxDecoration(
                   color: Color(0xFF272264),
                   borderRadius: BorderRadius.circular(10),

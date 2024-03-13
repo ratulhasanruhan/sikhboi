@@ -1,15 +1,11 @@
 import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sikhboi/screen/CategoryProducts.dart';
 import 'package:sikhboi/screen/ProductSearch.dart';
 import 'package:sikhboi/utils/colors.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'ProductDetails.dart';
 
@@ -38,8 +34,8 @@ class _EcomState extends State<Ecom> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20.r),
-                            bottomRight: Radius.circular(20.r),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
                           ),
                           child: StreamBuilder(
                             stream: FirebaseFirestore.instance.collection('admin').doc('home').snapshots(),
@@ -55,7 +51,7 @@ class _EcomState extends State<Ecom> {
                                       );
                                     },
                                     options: CarouselOptions(
-                                      height: 220.h,
+                                      height: 220,
                                       viewportFraction: 1,
                                       autoPlay: true,
                                       autoPlayInterval: Duration(seconds: 2),
@@ -70,20 +66,20 @@ class _EcomState extends State<Ecom> {
                           ),
                         ),
                         SizedBox(
-                          height: 45.h,
+                          height: 45,
                         ),
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsets.all(18.h),
+                      padding: EdgeInsets.all(18),
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22.r),
+                          borderRadius: BorderRadius.circular(22),
                         ),
                         elevation: 5,
                         shadowColor: waterColor,
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(18.r),
+                          borderRadius: BorderRadius.circular(18),
                           onTap: () {
                             Navigator.push(
                               context,
@@ -93,9 +89,9 @@ class _EcomState extends State<Ecom> {
                             );
                           },
                           child: Container(
-                            padding: EdgeInsets.all(11.h),
+                            padding: EdgeInsets.all(11),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(22.r),
+                              borderRadius: BorderRadius.circular(22),
                               color: Colors.white,
                             ),
                             child: Row(
@@ -105,7 +101,7 @@ class _EcomState extends State<Ecom> {
                                   color: Colors.grey,
                                 ),
                                 SizedBox(
-                                  width: 10.w,
+                                  width: 10,
                                 ),
                                 Text(
                                   'কী ধরণের পণ্য খুঁজছেন?',
@@ -130,7 +126,7 @@ class _EcomState extends State<Ecom> {
               builder: (context,AsyncSnapshot snapshot) {
                 if(snapshot.hasData){
                   return SizedBox(
-                    height: 90.h,
+                    height: 90,
                     child: ListView.builder(
                       shrinkWrap: true,
                       primary: false,
@@ -138,7 +134,7 @@ class _EcomState extends State<Ecom> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Padding(
-                            padding: EdgeInsets.only(left: 20.w),
+                            padding: EdgeInsets.only(left: 20),
                             child: Column(
                               children: [
                                 InkWell(
@@ -150,14 +146,14 @@ class _EcomState extends State<Ecom> {
                                   },
                                   borderRadius: BorderRadius.circular(18),
                                   child: Container(
-                                    height: 50.h,
-                                    width: 50.w,
+                                    height: 50,
+                                    width: 50,
                                     decoration: BoxDecoration(
                                       color: listBack[Random().nextInt(listBack.length)],
                                       shape: BoxShape.circle,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(8.h),
+                                      padding: EdgeInsets.all(8),
                                       child: Image.network(
                                         snapshot.data.docs[index]['icon'],
                                         fit: BoxFit.cover,
@@ -166,7 +162,7 @@ class _EcomState extends State<Ecom> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 5.h,
+                                  height: 5,
                                 ),
                                 Text(
                                   snapshot.data.docs[index]['name'],
@@ -184,7 +180,7 @@ class _EcomState extends State<Ecom> {
                   );
                 }
                 return SizedBox(
-                  height: 90.h,
+                  height: 90,
                   child: ListView.builder(
                     shrinkWrap: true,
                       primary: false,
@@ -192,18 +188,18 @@ class _EcomState extends State<Ecom> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Padding(
-                            padding: EdgeInsets.only(left: 20.w),
+                            padding: EdgeInsets.only(left: 20),
                           child: Column(
                             children: [
                               Container(
-                                height: 50.h,
-                                width: 50.w,
+                                height: 50,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   color: listBack[Random().nextInt(listBack.length)],
                                   shape: BoxShape.circle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8.h),
+                                  padding: EdgeInsets.all(8),
                                   child: Image.network(
                                     'https://cdn-icons-png.flaticon.com/512/3300/3300371.png',
                                     fit: BoxFit.cover,
@@ -211,7 +207,7 @@ class _EcomState extends State<Ecom> {
                                 ),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 5,
                               ),
                               Text(
                                 'Fashion',
@@ -234,7 +230,7 @@ class _EcomState extends State<Ecom> {
               builder: (context,AsyncSnapshot snapshot) {
                 if(snapshot.hasData){
                   return GridView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       primary: false,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -249,16 +245,16 @@ class _EcomState extends State<Ecom> {
                         return Card(
                           elevation: 0.7,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.r),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           color: Colors.white,
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(12.r),
+                            borderRadius: BorderRadius.circular(12),
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(data: snapshot.data.docs[index].data(), id: snapshot.data.docs[index].id,)));
                             },
                             child: Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                              padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -267,16 +263,16 @@ class _EcomState extends State<Ecom> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderRadius: BorderRadius.circular(12),
                                         child: Image.network(
                                           snapshot.data.docs[index]['image'][0],
                                           fit: BoxFit.cover,
-                                          height: 100.h,
+                                          height: 100,
                                           width: double.infinity,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 6.h,
+                                        height: 6,
                                       ),
                                       Text(
                                         snapshot.data.docs[index]['name'],
@@ -287,7 +283,7 @@ class _EcomState extends State<Ecom> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 6.h,
+                                        height: 6,
                                       ),
                                     ],
                                   ),
@@ -303,7 +299,7 @@ class _EcomState extends State<Ecom> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 10.w,
+                                        width: 10,
                                       ),
                                       Text(
                                         '৳'+' ${snapshot.data.docs[index]['price']*1.2}',

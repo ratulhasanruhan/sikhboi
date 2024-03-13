@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -50,7 +48,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+          padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           physics: const BouncingScrollPhysics(),
           children: [
             TextFormField(
@@ -87,9 +85,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                 if(val!.isEmpty){
                   return "পুরাতন পাসওয়ার্ড লিখুন";
                 }
+                return null;
               },
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 16),
             TextFormField(
               controller: newPassword,
               style: GoogleFonts.poppins(
@@ -127,9 +126,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                 if(val.length < 6){
                   return "পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে";
                 }
+                return null;
               },
             ),
-            SizedBox(height: 25.h,),
+            SizedBox(height: 25,),
             RoundedLoadingButton(
               color: primaryColor,
               controller: _btnController,

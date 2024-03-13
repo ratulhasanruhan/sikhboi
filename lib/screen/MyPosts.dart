@@ -1,15 +1,12 @@
 import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:sikhboi/screen/AddPost.dart';
 import 'package:sikhboi/screen/Comments.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/time_difference.dart';
@@ -36,7 +33,7 @@ class _MyPostsState extends State<MyPosts> {
         centerTitle: true,
       ),
       body: FirestoreListView(
-          padding: EdgeInsets.symmetric(horizontal: 8.w,),
+          padding: EdgeInsets.symmetric(horizontal: 8,),
           query: FirebaseFirestore.instance.collection('posts').where('user', isEqualTo: user).orderBy('time', descending: true),
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, snapshot){
@@ -109,7 +106,7 @@ class _MyPostsState extends State<MyPosts> {
                     )
                         : Image.network(
                       data['image'],
-                      height: 270.h,
+                      height: 270,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -158,7 +155,7 @@ class _MyPostsState extends State<MyPosts> {
                                                     children: [
                                                       const Text('Likes'),
                                                       SizedBox(
-                                                        width: 8.w,
+                                                        width: 8,
                                                       ),
                                                       const Icon(
                                                         Icons.favorite,

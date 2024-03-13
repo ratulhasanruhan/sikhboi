@@ -1,17 +1,12 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:sikhboi/utils/colors.dart';
-
-import 'Home.dart';
 
 class AddFreelanceEntry extends StatefulWidget {
   final String id;
@@ -91,8 +86,8 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
               )
                   : Image.file(
                 File(image!.path),
-                height: 100.h,
-                width: 100.w,
+                height: 100,
+                width: 100,
               ),
             ),
             const SizedBox(height: 12),
@@ -138,7 +133,7 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
                                   builder: (context){
                                     return AlertDialog(
                                       backgroundColor: Colors.white,
-                                      title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                      title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                       content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -146,7 +141,7 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
                                             'আপনার কাজটি সফলভাবে জমা দেয়া হয়েছে।',
                                             textAlign: TextAlign.center,
                                           ),
-                                          SizedBox(height: 8.h),
+                                          SizedBox(height: 8),
                                           MaterialButton(
                                             onPressed: (){
                                               int count = 0;
@@ -161,7 +156,7 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
                                             ),
                                             color: pinkish,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12.r),
+                                              borderRadius: BorderRadius.circular(12),
                                             ),
                                           )
                                         ],
@@ -182,7 +177,7 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
                             builder: (context){
                               return AlertDialog(
                                 backgroundColor: Colors.white,
-                                title: Lottie.asset('assets/error.json', height: 150.h, width: 150.w),
+                                title: Lottie.asset('assets/error.json', height: 150, width: 150),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -190,7 +185,7 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
                                       'আপনার ফ্রীলান্সার কোডটি সঠিক নয়।',
                                       textAlign: TextAlign.center,
                                     ),
-                                    SizedBox(height: 8.h),
+                                    SizedBox(height: 8),
                                     MaterialButton(
                                       onPressed: (){
                                         Navigator.of(context).pop();
@@ -207,7 +202,7 @@ class _AddFreelanceEntryState extends State<AddFreelanceEntry> {
                                       ),
                                       color: pinkish,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12.r),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                     )
                                   ],

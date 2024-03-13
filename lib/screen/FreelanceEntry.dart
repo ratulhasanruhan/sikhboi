@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -92,14 +89,14 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                                       borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                                       child: Image.network(
                                         snap.data?.docs[0].data()['image'],
-                                        height: 200.h,
+                                        height: 200,
                                         width: double.infinity,
                                       ),
                                     )
                                         : Container(),
                                     Container(
                                       width: double.infinity,
-                                      height: 40.h,
+                                      height: 40,
                                       decoration: BoxDecoration(
                                         color: primaryColor,
                                       ),
@@ -110,7 +107,7 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 22.sp,
+                                            fontSize: 22,
                                           ),
                                         ),
                                       ),
@@ -172,7 +169,7 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                             Lottie.asset(
                                 'assets/confetti.json',
                               fit: BoxFit.cover,
-                              height: 200.h,
+                              height: 200,
                               width: double.infinity,
                             ),
                           ],
@@ -207,7 +204,7 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                             child: Image.network(
                                 snapshot['image'],
-                                height: 200.h,
+                                height: 200,
                                 width: double.infinity,
                               ),
                           )
@@ -307,7 +304,7 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                                                        builder: (context){
                                                          return AlertDialog(
                                                            backgroundColor: Colors.white,
-                                                           title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                                           title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                                            content: Column(
                                                              mainAxisSize: MainAxisSize.min,
                                                              children: [
@@ -315,7 +312,7 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                                                                  'আপনার কাজটি সফফভাবে সম্পন্ন হয়েছে।',
                                                                  textAlign: TextAlign.center,
                                                                ),
-                                                               SizedBox(height: 8.h),
+                                                               SizedBox(height: 8),
                                                                MaterialButton(
                                                                  onPressed: (){
                                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -329,7 +326,7 @@ class _FreelanceEntryState extends State<FreelanceEntry> {
                                                                  ),
                                                                  color: pinkish,
                                                                  shape: RoundedRectangleBorder(
-                                                                   borderRadius: BorderRadius.circular(12.r),
+                                                                   borderRadius: BorderRadius.circular(12),
                                                                  ),
                                                                )
                                                              ],

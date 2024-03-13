@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/Notifications.dart';
@@ -168,7 +166,7 @@ class _FreelanceState extends State<Freelance> {
                             ),
                           ),
                           SizedBox(
-                            height: 4.h,
+                            height: 4,
                           ),
                           Text(
                             snapshot['title'],
@@ -178,7 +176,7 @@ class _FreelanceState extends State<Freelance> {
                             ),
                           ),
                           SizedBox(
-                            height: 4.h,
+                            height: 4,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

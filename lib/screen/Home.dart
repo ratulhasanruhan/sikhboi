@@ -2,7 +2,6 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sikhboi/screen/Ecom.dart';
 import 'package:sikhboi/screen/Freelance.dart';
 import 'package:sikhboi/screen/HomeScreen.dart';
@@ -41,8 +40,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      builder: (BuildContext context, Widget? child) {
         return Scaffold(
           bottomNavigationBar: FlashyTabBar(
             height: 55,
@@ -86,8 +83,6 @@ class _HomePageState extends State<HomePage> {
               Ecom()
             ],
           ),
-        );
-      },
     );
   }
 }

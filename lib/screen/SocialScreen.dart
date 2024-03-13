@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
@@ -38,7 +37,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
         builder: (context, AsyncSnapshot snapshot){
               if(snapshot.hasData){
                 return ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     physics: BouncingScrollPhysics(),
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index){
@@ -119,7 +118,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                                                 children: [
                                                   Icon(FeatherIcons.heart),
                                                   SizedBox(
-                                                    width: 8.w,
+                                                    width: 8,
                                                   ),
                                                   Text(likeData.length.toString(),
                                                     style: GoogleFonts.poppins(
@@ -156,7 +155,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                               ),
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: 5,
                             ),
 
                           ],
@@ -172,10 +171,10 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
       ),
               Positioned(
                 top: 34,
-                left: 22.w,
-                right: 22.w,
+                left: 22,
+                right: 22,
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     height: 48,
                     decoration: BoxDecoration(
                       color: Color(0xFF2D2F94),
@@ -194,7 +193,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                             },
                             borderRadius: BorderRadius.circular(30),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w,),
+                              padding: EdgeInsets.symmetric(horizontal: 20,),
                               height: 35,
                               decoration: BoxDecoration(
                                 color: Colors.transparent,
@@ -221,7 +220,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                             },
                             borderRadius: BorderRadius.circular(30),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w,),
+                              padding: EdgeInsets.symmetric(horizontal: 20,),
                               height: 35,
                               decoration: BoxDecoration(
                                 color: Colors.transparent,
@@ -252,7 +251,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
             builder: (context, AsyncSnapshot snapshot){
               if(snapshot.hasData){
                 return ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     physics: BouncingScrollPhysics(),
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index){
@@ -413,7 +412,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                                                                   children: [
                                                                     const Text('Likes'),
                                                                     SizedBox(
-                                                                      width: 8.w,
+                                                                      width: 8,
                                                                     ),
                                                                     const Icon(
                                                                       Icons.favorite,
@@ -503,7 +502,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                               ),
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: 5,
                             ),
 
 
@@ -529,10 +528,10 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
           ),
           Positioned(
             top: 34,
-            left: 22.w,
-            right: 22.w,
+            left: 22,
+            right: 22,
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 height: 48,
                 decoration: BoxDecoration(
                   color: Color(0xFF2D2F94),
@@ -551,7 +550,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                         },
                         borderRadius: BorderRadius.circular(30),
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w,),
+                          padding: EdgeInsets.symmetric(horizontal: 20,),
                           height: 35,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -578,7 +577,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                         },
                         borderRadius: BorderRadius.circular(30),
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w,),
+                          padding: EdgeInsets.symmetric(horizontal: 20,),
                           height: 35,
                           decoration: BoxDecoration(
                             color: Colors.transparent,

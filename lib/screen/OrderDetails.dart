@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/PaymentScreen.dart';
 import 'package:sikhboi/utils/Checker.dart';
-import 'package:sikhboi/widgets/loginPermission.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -80,7 +77,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               ),
             ),
             SizedBox(
-              height: 14.h,
+              height: 14,
             ),
             TextFormField(
               controller: nameController,
@@ -103,7 +100,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               },
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             TextFormField(
               controller: phoneController,
@@ -126,7 +123,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               },
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             TextFormField(
               controller: promoCodeController,
@@ -144,7 +141,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             TextFormField(
               controller: jelaController,
@@ -167,7 +164,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               },
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             TextFormField(
               controller: postController,
@@ -190,7 +187,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               },
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             TextFormField(
               controller: addressController,
@@ -216,7 +213,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               },
             ),
             SizedBox(
-              height: 18.h,
+              height: 18,
             ),
 
             Row(
@@ -240,7 +237,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               ],
             ),
             SizedBox(
-              height: 4.h,
+              height: 4,
             ),
             ElevatedButton(
                 onPressed: () async{
@@ -311,7 +308,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 )
             ),
             SizedBox(
-              height: 24.h,
+              height: 24,
             ),
           ],
         ),

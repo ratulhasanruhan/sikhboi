@@ -1,12 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
@@ -87,7 +84,7 @@ class _WriteReviewState extends State<WriteReview> {
 
               images.isEmpty
                   ? Container(
-                    height: 180.h,
+                    height: 180,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
@@ -109,7 +106,7 @@ class _WriteReviewState extends State<WriteReview> {
                     ),
               )
                   : SizedBox(
-                    height: 180.h,
+                    height: 180,
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -120,8 +117,8 @@ class _WriteReviewState extends State<WriteReview> {
                           child: Stack(
                             children: [
                               Container(
-                                height: 180.h,
-                                width: 180.w,
+                                height: 180,
+                                width: 180,
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10),

@@ -2,24 +2,17 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lottie/lottie.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:sikhboi/main.dart';
 import 'package:sikhboi/model/UserModel.dart';
 import 'package:sikhboi/screen/Login.dart';
 import 'package:sikhboi/screen/WithdrawPoints.dart';
-import 'package:sikhboi/widgets/upgradeDialog.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
@@ -28,7 +21,6 @@ import '../utils/colors.dart';
 import 'ChangePassword.dart';
 import 'MyPosts.dart';
 import 'Notifications.dart';
-import 'PremiumPlan.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -72,21 +64,21 @@ class _ProfileState extends State<Profile> {
             var data = UserModel.fromJson(snapshot.data!.data() as Map<String, dynamic>);
 
             return ListView(
-              padding: EdgeInsets.all(12.r),
+              padding: EdgeInsets.all(12),
               physics: ClampingScrollPhysics(),
               children: [
                 Center(
                   child:  WidgetCircularAnimator(
                     innerColor: primaryColor,
                     outerColor: primaryColor,
-                    size: 125.h,
+                    size: 125,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         Container(
-                            height: 85.r,
-                            width: 85.r,
-                            padding: EdgeInsets.all(3.5.r),
+                            height: 85,
+                            width: 85,
+                            padding: EdgeInsets.all(3.5),
                             decoration: BoxDecoration(
                               color: primaryColor,
                               shape: BoxShape.circle,
@@ -135,7 +127,7 @@ class _ProfileState extends State<Profile> {
                           icon: Icon(
                             Icons.edit,
                             color: Colors.white,
-                            size: 25.r,
+                            size: 25,
                           ),
                         )
                       ],
@@ -143,7 +135,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 10,
                 ),
                 Text(
                   data.name,
@@ -155,7 +147,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 10,
                 ),
                 Card(
                   elevation: 2,
@@ -194,7 +186,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 4,
                 ),
                 Card(
                   elevation: 2,
@@ -273,7 +265,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 4,
                 ),
                 Card(
                   elevation: 2,
@@ -352,7 +344,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 4,
                 ),
                 Card(
                   elevation: 2,
@@ -383,7 +375,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 4,
                 ),
                 Card(
                   elevation: 2,
@@ -414,7 +406,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 4,
                 ),
                 Card(
                   elevation: 2,
@@ -443,7 +435,7 @@ class _ProfileState extends State<Profile> {
                                         textAlign: TextAlign.center,
                                       ),
                                       SizedBox(
-                                        height: 2.h,
+                                        height: 2,
                                       ),
                                       Text(
                                         value.data()!['mycode'],
@@ -496,7 +488,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 4,
                 ),
                 Card(
                   elevation: 2,

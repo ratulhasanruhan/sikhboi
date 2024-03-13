@@ -1,15 +1,12 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -46,7 +43,7 @@ class _AddPostState extends State<AddPost> {
             elevation: 3,
             shadowColor: waterColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6.r),
+              borderRadius: BorderRadius.circular(6),
             ),
             child: Column(
               children: [
@@ -70,14 +67,14 @@ class _AddPostState extends State<AddPost> {
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(6.r),
-                      topRight: Radius.circular(6.r),
+                      topLeft: Radius.circular(6),
+                      topRight: Radius.circular(6),
                     ),
                     child: image == null
 
                         ? Image.asset(
                       isVideo ? 'assets/add_video.png' : 'assets/add_image.png',
-                      height: 140.h,
+                      height: 140,
                       width: double.infinity,
                     )
                         : Stack(
@@ -85,7 +82,7 @@ class _AddPostState extends State<AddPost> {
 
                         isVideo
                         ? Container(
-                          height: 140.h,
+                          height: 140,
                           width: double.infinity,
                           child: Center(
                               child: Text(
@@ -100,7 +97,7 @@ class _AddPostState extends State<AddPost> {
                         )
                         :Image.file(
                           File(image!.path),
-                          height: 140.h,
+                          height: 140,
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -114,14 +111,14 @@ class _AddPostState extends State<AddPost> {
                               });
                             },
                             child: Container(
-                              padding:  EdgeInsets.all(4.r),
+                              padding:  EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
                                 Icons.delete,
-                                size: 20.r,
+                                size: 20,
                                 color: Colors.red,
                               ),
                             ),
@@ -132,7 +129,7 @@ class _AddPostState extends State<AddPost> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +143,7 @@ class _AddPostState extends State<AddPost> {
                       )
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 10,
                     ),
                     Switch(
                         value: isVideo,
@@ -168,7 +165,7 @@ class _AddPostState extends State<AddPost> {
                         },
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 10,
                     ),
                     Text(
                       'Video',

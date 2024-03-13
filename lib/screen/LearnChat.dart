@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/LearnChatModel.dart';
 
 class LearnChat extends StatefulWidget {
@@ -48,7 +47,7 @@ class _LearnChatState extends State<LearnChat> {
             ),
           ],
         ),
-        leadingWidth: 72.w,
+        leadingWidth: 72,
         leading: Row(
           children: [
             IconButton(

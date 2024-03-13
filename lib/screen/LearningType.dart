@@ -1,16 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
 import 'package:sikhboi/screen/LearningPremium.dart';
-
 import '../utils/colors.dart';
-import '../utils/constants.dart';
 import 'Dictionary.dart';
-import 'Earning.dart';
 import 'Home.dart';
 import 'Learning.dart';
 
@@ -216,16 +210,16 @@ class _LearningTypeState extends State<LearningType> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => Dictionary()));
                     },
-                    borderRadius: BorderRadius.circular(12.r),
+                    borderRadius: BorderRadius.circular(12),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Lottie.asset('assets/dictionary.json', height: 90.h),
+                        Lottie.asset('assets/dictionary.json', height: 90),
                         Text(
                           'শব্দার্থ',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 26.sp,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.start,
@@ -250,7 +244,7 @@ class _LearningTypeState extends State<LearningType> {
                 ),
               ),
               SizedBox(
-                width: 12.w,
+                width: 12,
               ),
               Expanded(
                 child: Card(
@@ -262,12 +256,12 @@ class _LearningTypeState extends State<LearningType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Lottie.asset('assets/knowledge.json', height: 90.h),
+                        Lottie.asset('assets/knowledge.json', height: 90),
                         Text(
                           'ইংরেজি',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 26.sp,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.start,

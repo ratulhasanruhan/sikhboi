@@ -1,16 +1,12 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:sikhboi/screen/Home.dart';
-
 import '../utils/colors.dart';
 import '../utils/constants.dart';
 
@@ -58,18 +54,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
           physics: const BouncingScrollPhysics(),
           children: [
             SizedBox(
-              height: 20.h,
+              height: 20,
             ),
             Text(
               widget.amount.toString()+ ' ৳',
               style: TextStyle(
-                fontSize: 30.sp,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              height: 20.h,
+              height: 20,
             ),
             Text(
               'পেমেন্ট মেথড:',
@@ -79,13 +75,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
               ),
               child: Column(
@@ -235,7 +231,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
             SizedBox(
-              height: 20.h,
+              height: 20,
             ),
             Text(
               'পেমেন্টের পরে তত্থগুলো পূরণ করুন:',
@@ -245,19 +241,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
               ),
               child: Column(
                 children: [
                   SizedBox(
-                    height: 5.h,
+                    height: 5,
                   ),
                   TextFormField(
                     controller: numberPay,
@@ -265,26 +261,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     decoration: InputDecoration(
                       hintText: 'যে নম্বর থেকে পে করেছেন',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 10,
                   ),
                   TextFormField(
                     controller: transId,
                     decoration: InputDecoration(
                       hintText: 'ট্রান্সেকশন আইডি',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                 ])
             ),
             SizedBox(
-              height: 10.h,
+              height: 10,
             ),
             ElevatedButton(
                 onPressed: () async{
@@ -322,7 +318,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     builder: (context){
                                       return AlertDialog(
                                         backgroundColor: Colors.white,
-                                        title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                        title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -330,7 +326,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               'আপনার পেমেন্টটি সফল হয়েছে। শীঘ্রই যাচাই করে সম্পন্ন করে দেয়া হবে। এবং আপনার পোস্ট করা কাজটি লাইভ করে দেয়া হবে।',
                                               textAlign: TextAlign.center,
                                             ),
-                                            SizedBox(height: 8.h),
+                                            SizedBox(height: 8),
                                             MaterialButton(
                                               onPressed: (){
                                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -344,7 +340,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               ),
                                               color: pinkish,
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12.r),
+                                                borderRadius: BorderRadius.circular(12),
                                               ),
                                             )
                                           ],
@@ -397,7 +393,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       builder: (context){
                                         return AlertDialog(
                                           backgroundColor: Colors.white,
-                                          title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                          title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                           content: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -405,7 +401,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 'আপনার পেমেন্টটি সফল হয়েছে। শীঘ্রই যাচাই করে অর্ডার সম্পন্ন করে দেয়া হবে। এবং অতি শীঘ্রই আপনি আপনার কাঙ্ক্ষিত পণ্যটি পেয়ে যাবেন। ধন্যবাদ।',
                                                 textAlign: TextAlign.center,
                                               ),
-                                              SizedBox(height: 8.h),
+                                              SizedBox(height: 8),
                                               MaterialButton(
                                                 onPressed: (){
 
@@ -424,7 +420,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 ),
                                                 color: pinkish,
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(12.r),
+                                                  borderRadius: BorderRadius.circular(12),
                                                 ),
                                               )
                                             ],
@@ -466,7 +462,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     builder: (context){
                                       return AlertDialog(
                                         backgroundColor: Colors.white,
-                                        title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                        title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -474,7 +470,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               'আপনার পেমেন্টটি সফল হয়েছে। শীঘ্রই যাচাই করে অর্ডার সম্পন্ন করে দেয়া হবে। এবং অতি শীঘ্রই আপনি আপনার কাঙ্ক্ষিত পণ্যটি পেয়ে যাবেন। ধন্যবাদ।',
                                               textAlign: TextAlign.center,
                                             ),
-                                            SizedBox(height: 8.h),
+                                            SizedBox(height: 8),
                                             MaterialButton(
                                               onPressed: (){
                                                 int count = 0;
@@ -491,7 +487,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               ),
                                               color: pinkish,
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12.r),
+                                                borderRadius: BorderRadius.circular(12),
                                               ),
                                             )
                                           ],
@@ -529,7 +525,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   builder: (context){
                                     return AlertDialog(
                                       backgroundColor: Colors.white,
-                                      title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                      title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                       content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -537,7 +533,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             'আপনার পেমেন্টটি সফল হয়েছে। শীঘ্রই যাচাই করে সম্পন্ন করে দেয়া হবে। ধন্যবাদ!',
                                             textAlign: TextAlign.center,
                                           ),
-                                          SizedBox(height: 8.h),
+                                          SizedBox(height: 8),
                                           MaterialButton(
                                             onPressed: (){
                                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -551,7 +547,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             ),
                                             color: pinkish,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12.r),
+                                              borderRadius: BorderRadius.circular(12),
                                             ),
                                           )
                                         ],
@@ -580,7 +576,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   builder: (context){
                                     return AlertDialog(
                                       backgroundColor: Colors.white,
-                                      title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                      title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                       content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -588,7 +584,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             'আপনার পেমেন্টটি সফল হয়েছে। শীঘ্রই যাচাই করে সম্পন্ন করে দেয়া হবে। এবং আপনার পোস্ট করা কাজটি লাইভ করে দেয়া হবে।',
                                             textAlign: TextAlign.center,
                                           ),
-                                          SizedBox(height: 8.h),
+                                          SizedBox(height: 8),
                                           MaterialButton(
                                             onPressed: (){
                                               int count = 0;
@@ -605,7 +601,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             ),
                                             color: pinkish,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12.r),
+                                              borderRadius: BorderRadius.circular(12),
                                             ),
                                           )
                                         ],
@@ -646,7 +642,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               builder: (context){
                                 return AlertDialog(
                                   backgroundColor: Colors.white,
-                                  title: Lottie.asset('assets/success.json', height: 150.h, width: 150.w),
+                                  title: Lottie.asset('assets/success.json', height: 150, width: 150),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -654,7 +650,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         'আপনার পেমেন্টটি সফল হয়েছে। শীঘ্রই যাচাই করে সম্পন্ন করে দেয়া হবে। ধন্যবাদ!',
                                         textAlign: TextAlign.center,
                                       ),
-                                      SizedBox(height: 8.h),
+                                      SizedBox(height: 8),
                                       MaterialButton(
                                         onPressed: (){
                                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -668,7 +664,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         ),
                                         color: pinkish,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12.r),
+                                          borderRadius: BorderRadius.circular(12),
                                         ),
                                       )
                                     ],
@@ -691,7 +687,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
             ),
             SizedBox(
-              height: 20.h,
+              height: 20,
             ),
           ],
 

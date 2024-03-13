@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sikhboi/screen/PaymentScreen.dart';
@@ -100,6 +97,7 @@ class _AddFreelanceState extends State<AddFreelance> {
                 if(val == null){
                   return 'কাজের ক্যাটেগরি নির্বাচন করুন';
                 }
+                return null;
               },
             ),
             const SizedBox(
@@ -158,8 +156,8 @@ class _AddFreelanceState extends State<AddFreelance> {
               },
               child: image == null
                   ? Container(
-                height: 100.h,
-                width: 100.w,
+                height: 100,
+                width: 100,
                 color: Colors.grey[300],
                 child: const Icon(
                   Icons.attachment_rounded,
@@ -168,8 +166,8 @@ class _AddFreelanceState extends State<AddFreelance> {
               )
                   : Image.file(
                 File(image!.path),
-                height: 100.h,
-                width: 100.w,
+                height: 100,
+                width: 100,
               ),
             ),
 

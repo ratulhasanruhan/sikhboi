@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../screen/Login.dart';
 import '../screen/Register.dart';
 
@@ -12,7 +10,7 @@ void loginPermissionDialog(BuildContext context) {
         return AlertDialog(
           title: Image.asset(
             'assets/permission.png',
-            height: 100.h,
+            height: 100,
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
