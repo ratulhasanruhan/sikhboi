@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import 'ProductDetails.dart';
 
@@ -39,12 +39,12 @@ class _CategoryProductsState extends State<CategoryProducts> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: YoutubePlayer(
-                controller: YoutubePlayerController(
-                  initialVideoId: widget.video,
-                  flags: YoutubePlayerFlags(
-                    autoPlay: true,
-                    loop: true,
-                    useHybridComposition: true,
+                controller: YoutubePlayerController.fromVideoId(
+                  videoId: widget.video,
+                  autoPlay: true,
+                  params: const YoutubePlayerParams(
+                    showControls: true,
+                    showFullscreenButton: true,
                   ),
                 ),
               ),

@@ -47,11 +47,8 @@ dependencies:
   image_picker: ^0.8.7
   percent_indicator: ^4.2.3
   provider: ^6.0.1
-  fluttertoast: ^8.2.1
   cached_network_image:
   widget_circular_animator: ^1.0.0
-  youtube_player_iframe: ^4.0.4
-  youtube_metadata: ^1.0.1
   skeletons:
   comment_box: ^0.0.18
   share_plus: ^6.3.1
@@ -60,7 +57,7 @@ dependencies:
   appinio_swiper: ^1.1.1
   circular_countdown_timer: ^0.2.3
   easy_image_viewer: ^1.2.0
-  youtube_player_flutter: ^8.1.2
+  youtube_player_iframe: ^4.0.4
   image_gallery_saver: ^2.0.3
   dio: ^5.1.1
   flutter_rating_bar: ^4.0.1
@@ -74,9 +71,8 @@ dependencies:
   flutter_chat_bubble: ^2.0.2
   animated_text_kit: ^4.2.2
   shimmer:
-  #flutter_alarm_clock: ^0.1.1
   slide_countdown: ^1.5.2
-  jitsi_meet_v1: ^5.0.0
+
 
 
   #firebase

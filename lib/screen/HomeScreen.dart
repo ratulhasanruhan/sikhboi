@@ -7,12 +7,12 @@ import 'package:sikhboi/screen/HomeVideoPlayer.dart';
 import 'package:sikhboi/screen/LearningType.dart';
 import 'package:sikhboi/screen/WithdrawPoints.dart';
 import 'package:sikhboi/utils/colors.dart';
+import 'package:sikhboi/utils/getVideoUrl.dart';
+import 'package:sikhboi/utils/yt_details.dart';
 import 'package:sikhboi/widgets/loginPermission.dart';
 import 'package:skeletons/skeletons.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart' as player;
 import 'LiveMain.dart';
 import 'Profile.dart';
-import 'package:youtube_metadata/youtube_metadata.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -371,17 +371,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return FutureBuilder(
-                          future: YoutubeMetaData.getData(snapshot.data.docs[index]['link']),
+                          future: getDetail(snapshot.data.docs[index]['link']),
                           builder: (context,AsyncSnapshot future) {
                             if(future.hasData){
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10.0),
                                 child: InkWell(
                                   onTap: (){
+                                    print(future.data);
                                     Navigator.push(context, MaterialPageRoute(builder: ((context) => HomePlayVideo(
-                                        videoId: player.YoutubePlayer.convertUrlToId(snapshot.data.docs[index]['link'])!,
-                                        title: future.data.title,
-                                        description: future.data.description,
+                                        videoId: getVideoID(snapshot.data.docs[index]['link']),
+                                        title: future.data['title'],
+                                        description: future.data['title'],
                                         id: snapshot.data.docs[index].id,
                                     ))));
                                   },
@@ -406,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                                         ],
                                         image: DecorationImage(
                                           image: CachedNetworkImageProvider(
-                                            future.data.thumbnailUrl,
+                                            future.data['thumbnail_url'],
                                           ),
                                           fit: BoxFit.cover,
                                         )

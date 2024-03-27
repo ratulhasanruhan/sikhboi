@@ -23,6 +23,7 @@ class _PlayVideoState extends State<PlayVideo> {
   late Orientation _currentOrientation;
 
   double get _adWidth => MediaQuery.of(context).size.width - (2 * _insets);
+  YoutubePlayerController _controller = YoutubePlayerController();
 
   @override
   void didChangeDependencies() {
@@ -113,16 +114,18 @@ class _PlayVideoState extends State<PlayVideo> {
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayerScaffold(
-      controller: YoutubePlayerController.fromVideoId(
-        videoId: widget.videoId,
-        autoPlay: true,
-        params: YoutubePlayerParams(
-          mute: false,
-          showControls: true,
-          showFullscreenButton: true,
-        ),
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: widget.videoId,
+      autoPlay: true,
+      params: YoutubePlayerParams(
+        mute: false,
+        showControls: true,
+        showFullscreenButton: true,
       ),
+    );
+
+    return YoutubePlayerScaffold(
+      controller: _controller,
       aspectRatio: 16 / 9,
       builder: (context, player) {
         return Scaffold(
@@ -142,6 +145,7 @@ class _PlayVideoState extends State<PlayVideo> {
                             } else {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => VideoList(catId: widget.catId!,)));
                             }
+                            _controller.mute();
                           },
                           icon: const Icon(Icons.arrow_back_ios)
                       ),

@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/PaymentScreen.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../utils/colors.dart';
 import 'PremiumPlayVideo.dart';
 
@@ -22,6 +21,8 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
 
   var user = Hive.box('user').get('phone');
   bool isSubscribed = false;
+
+  YoutubePlayerController controller = YoutubePlayerController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +60,20 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
               stream: FirebaseFirestore.instance.collection('paid_course').doc(widget.catId).snapshots(),
               builder: (context,AsyncSnapshot snapshot) {
                 if(snapshot.hasData){
+                  controller = YoutubePlayerController.fromVideoId(
+                    videoId: snapshot.data['intro'],
+                    autoPlay: true,
+                    params: const YoutubePlayerParams(
+                      showFullscreenButton: true,
+                    ),
+                  );
+
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 4,),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: YoutubePlayer(
-                        controller: YoutubePlayerController(
-                          initialVideoId: snapshot.data['intro'],
-                          flags: const YoutubePlayerFlags(
-                            autoPlay: true,
-                            mute: false,
-                          ),
-                        ),
+                        controller: controller,
                       ),
                     ),
                   );
@@ -121,6 +124,7 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
                     onTap: ()async{
 
                      if(isSubscribed){
+                       controller.mute();
                        Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumPlayVideo(videoId: data['youtube'], link: data['link'], name: data['name'],)));
                      }
 
@@ -189,7 +193,6 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
                            }
                        );
                      }
-
 
                     },
                     title: Text(

@@ -5,8 +5,8 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/screen/Learning.dart';
 import 'package:sikhboi/screen/PlayVideo.dart';
-import 'package:youtube_metadata/youtube.dart' as yt;
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:sikhboi/utils/yt_details.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class VideoList extends StatefulWidget {
   const VideoList({required this.catId, Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class VideoList extends StatefulWidget {
 
 class _VideoListState extends State<VideoList> {
   InterstitialAd? _interstitialAd;
+  YoutubePlayerController controller = YoutubePlayerController();
 
   @override
   void initState() {
@@ -42,6 +43,13 @@ class _VideoListState extends State<VideoList> {
             debugPrint('InterstitialAd failed to load: $error');
           },
         ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.close();
   }
 
   @override
@@ -73,18 +81,21 @@ class _VideoListState extends State<VideoList> {
               stream: FirebaseFirestore.instance.collection('course').doc(widget.catId).snapshots(),
               builder: (context,AsyncSnapshot snapshot) {
                 if(snapshot.hasData){
+                  controller = YoutubePlayerController.fromVideoId(
+                    videoId: snapshot.data['intro'],
+                    autoPlay: true,
+                    params: const YoutubePlayerParams(
+                      showControls: true,
+                      showFullscreenButton: true,
+                    ),
+                  );
+
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 4,),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: YoutubePlayer(
-                        controller: YoutubePlayerController(
-                          initialVideoId: snapshot.data['intro'],
-                          flags: const YoutubePlayerFlags(
-                            autoPlay: true,
-                            mute: false,
-                          ),
-                        ),
+                        controller: controller,
                       ),
                     ),
                   );
@@ -133,14 +144,14 @@ class _VideoListState extends State<VideoList> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   onTap: ()async{
+                    controller.close();
+                    controller.mute();
 
-                    _interstitialAd?.show();
-
-                    await yt.YoutubeMetaData.getData('https://www.youtube.com/watch?v=' + data['youtube']).then((metaData) {
+                    await getDetail('https://www.youtube.com/watch?v=' + data['youtube']).then((metaData) {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => PlayVideo(
-                        title: metaData.title!,
+                        title: metaData['title'],
                         videoId: data['youtube'],
-                        description: metaData.description!,
+                        description: metaData['title'],
                         catId: widget.catId,
                       )));
                     });

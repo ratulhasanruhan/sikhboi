@@ -4,10 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:jitsi_meet_v1/feature_flag/feature_flag.dart';
-import 'package:jitsi_meet_v1/jitsi_meet.dart';
-import 'package:youtube_metadata/youtube.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart' as player;
+import 'package:sikhboi/utils/getVideoUrl.dart';
+import 'package:sikhboi/utils/yt_details.dart';
 import '../utils/colors.dart';
 import 'LiveWaiting.dart';
 import 'PlayVideo.dart';
@@ -70,13 +68,13 @@ class _PremiumLiveState extends State<PremiumLive> {
                     onPressed: () async{
                       if(DateTime.now().isAfter(DateTime.parse(snapshot.data['time'].toDate().toString())))
                         try {
-                          FeatureFlag featureFlag = FeatureFlag();
+                   /*       FeatureFlag featureFlag = FeatureFlag();
                           featureFlag.welcomePageEnabled = false;
 
                           var options = JitsiMeetingOptions(room: snapshot.data['meeting_id'])
                             ..userDisplayName = user;
 
-                          await JitsiMeet.joinMeeting(options);
+                          await JitsiMeet.joinMeeting(options);*/
                         } catch (error) {
                           debugPrint("error: $error");
                         }
@@ -88,13 +86,13 @@ class _PremiumLiveState extends State<PremiumLive> {
                       onTap: () async{
                         if(DateTime.now().isAfter(DateTime.parse(snapshot.data['time'].toDate().toString())))
                           try {
-                            FeatureFlag featureFlag = FeatureFlag();
+                           /* FeatureFlag featureFlag = FeatureFlag();
                             featureFlag.welcomePageEnabled = false;
 
                             var options = JitsiMeetingOptions(room: snapshot.data['meeting_id'])
                               ..userDisplayName = user;
 
-                            await JitsiMeet.joinMeeting(options);
+                            await JitsiMeet.joinMeeting(options);*/
                           } catch (error) {
                             debugPrint("error: $error");
                           }
@@ -128,7 +126,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                   ),
                   const SizedBox(height: 5),
                   FutureBuilder(
-                      future: YoutubeMetaData.getData(snapshot.data['promo']),
+                      future: getDetail(snapshot.data['promo']),
                       builder: (context,AsyncSnapshot future) {
                         if(future.hasData){
                           return Padding(
@@ -136,9 +134,9 @@ class _PremiumLiveState extends State<PremiumLive> {
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: ((context) => PlayVideo(
-                                  videoId: player.YoutubePlayer.convertUrlToId(snapshot.data['free_promo'])!,
-                                  title: future.data.title,
-                                  description: future.data.description,))));
+                                  videoId: getVideoID(snapshot.data['free_promo']),
+                                  title: future.data['title'],
+                                  description: future.data['title'],))));
                               },
                               borderRadius: BorderRadius.circular(8),
                               child: Container(

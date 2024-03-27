@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class PremiumPlayVideo extends StatefulWidget {
   String videoId;
@@ -16,14 +16,13 @@ class _PremiumPlayVideoState extends State<PremiumPlayVideo> {
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayerBuilder(
-        player: YoutubePlayer(
-            controller: YoutubePlayerController(
-              initialVideoId: widget.videoId,
-              flags: YoutubePlayerFlags(
-                autoPlay: true,
-              ),
-            ),
+    return YoutubePlayerScaffold(
+        controller: YoutubePlayerController.fromVideoId(
+          videoId: widget.videoId,
+          autoPlay: true,
+          params: const YoutubePlayerParams(
+            showFullscreenButton: true,
+          ),
         ),
         builder: (context, player) {
           return Scaffold(

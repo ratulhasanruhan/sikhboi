@@ -17,7 +17,7 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  MobileAds.instance.initialize();
+  //MobileAds.instance.initialize();
 
   await Hive.initFlutter();
   await Hive.openBox('user');
