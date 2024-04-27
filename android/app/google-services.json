@@ -7,9 +7,46 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:224257014426:android:2c9752d10960ad08f8bd23",
+        "mobilesdk_app_id": "1:224257014426:android:ae1ff1e00f5f82b6f8bd23",
         "android_client_info": {
-          "package_name": "com.example.sikhboi"
+          "package_name": "com.rhrsoft.sikhboi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224257014426-ah1ine7egretm9bc91fc8q4mqo61koqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5m9sj9l_3bU6w8Sbwo3THYAYS-8g7mSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224257014426-ah1ine7egretm9bc91fc8q4mqo61koqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "224257014426-ov10mlrheq9gr0o7p3u1fl4jkuo2m4uv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sikhboi"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7656295061287292~3714609334"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224257014426:android:23fbb19023a511e5f8bd23",
+        "android_client_info": {
+          "package_name": "com.rhrsoft.sikhboi_admin"
         }
       },
       "oauth_client": [
@@ -43,9 +80,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:224257014426:android:ae1ff1e00f5f82b6f8bd23",
+        "mobilesdk_app_id": "1:224257014426:android:4a4e54a45a914a11f8bd23",
         "android_client_info": {
-          "package_name": "com.rhrsoft.sikhboi"
+          "package_name": "com.rhrsoft.sikhboinew"
         }
       },
       "oauth_client": [
