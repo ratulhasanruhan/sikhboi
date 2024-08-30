@@ -47,7 +47,7 @@ class _LearnChatState extends State<LearnChat> {
             ),
           ],
         ),
-        leadingWidth: 72,
+        leadingWidth: 75,
         leading: Row(
           children: [
             IconButton(
@@ -60,7 +60,7 @@ class _LearnChatState extends State<LearnChat> {
               ),
             ),
             CircleAvatar(
-              radius: 15,
+              radius: 13,
               backgroundColor: Colors.white,
               backgroundImage: NetworkImage(
                   "https://lh3.googleusercontent.com/CmH_wma2nqnYeVYoGoyD_O0sp-ySSH5uoczhgORsSwMYxw60_hDdyujFyydgZasasw",
@@ -115,7 +115,18 @@ class _LearnChatState extends State<LearnChat> {
                   );
 
                   await FirebaseFirestore.instance.collection('english').get().then((value) {
-                    if(value.docs.where((element) => element['q'] == writeController.text.toUpperCase()).toList().isEmpty){
+                    if(value.docs.where((element) => element['q'] == writeController.text.trim()).toList().isNotEmpty){
+                      value.docs.where((element) => element['q'] == writeController.text.trim()).forEach((element) {
+                        messageList.add(
+                          LearnChatModel(
+                            chat: element['a'],
+                            isUser: false,
+                          ),
+                        );
+                      });
+
+                    }
+                    else{
                       messageList.add(
                         LearnChatModel(
                           chat: "Sorry, Your grammar is not correct. Please try again.",
@@ -123,14 +134,6 @@ class _LearnChatState extends State<LearnChat> {
                         ),
                       );
                     }
-                    value.docs.where((element) => element['q'] == writeController.text.trim()).forEach((element) {
-                      messageList.add(
-                        LearnChatModel(
-                          chat: element['a'],
-                          isUser: false,
-                        ),
-                      );
-                    });
                   });
                   setState(() {
                     isLoaded = false;
