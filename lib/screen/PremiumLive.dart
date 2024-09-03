@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 import 'package:sikhboi/utils/getVideoUrl.dart';
 import 'package:sikhboi/utils/yt_details.dart';
 import '../utils/colors.dart';
@@ -87,7 +86,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                       onTap: () async{
                         if(DateTime.now().isAfter(DateTime.parse(snapshot.data['time'].toDate().toString())))
                           try {
-                            var jitsiMeet = JitsiMeet();
+                       /*     var jitsiMeet = JitsiMeet();
                             var options = JitsiMeetConferenceOptions(
                               serverURL: "https://meet.jit.si",
                               room: snapshot.data['meeting_id'],
@@ -98,7 +97,7 @@ class _PremiumLiveState extends State<PremiumLive> {
                                 displayName: user!['name'],
                               ),
                             );
-                            jitsiMeet.join(options);
+                            jitsiMeet.join(options);*/
 
                           } catch (error) {
                             debugPrint("error: $error");
