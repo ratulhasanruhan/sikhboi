@@ -149,7 +149,7 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: 10,
                 ),
-                Card(
+          /*      Card(
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4),
@@ -197,7 +197,7 @@ class _ProfileState extends State<Profile> {
                     onTap: () async{
                       if(data.point >= 1000){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => WithdrawPoints(points: data.point,)));
-                      } /*else if(!data.upgraded){
+                      } *//*else if(!data.upgraded){
                         showDialog(
                             context: context,
                             builder: (context){
@@ -233,7 +233,7 @@ class _ProfileState extends State<Profile> {
                               );
                             }
                         );
-                      }*/
+                      }*//*
 
                       else{
                         showTopSnackBar(
@@ -266,7 +266,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox(
                   height: 4,
-                ),
+                ),*/
                 Card(
                   elevation: 2,
                   shape: RoundedRectangleBorder(

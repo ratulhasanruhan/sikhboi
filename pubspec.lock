@@ -909,6 +909,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.0"
+  jitsi_meet_flutter_sdk:
+    dependency: "direct main"
+    description:
+      name: jitsi_meet_flutter_sdk
+      sha256: af3bbc824ae75cf8a04262f07bbe023b802d4ddeb6862da2f050bf0196cc90d7
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.1.2"
   js:
     dependency: transitive
     description:

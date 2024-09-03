@@ -225,7 +225,7 @@ class _LiveMainState extends State<LiveMain> {
           AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn,
-              height: freeForm ? 450 : 0,
+              height: freeForm ? 480 : 0,
               child: freeForm
                   ? Container(
                 padding: EdgeInsets.all(14),

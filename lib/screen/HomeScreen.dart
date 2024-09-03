@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         title: Image.asset('assets/logo.png', height: 40),
         centerTitle: true,
         actions: [
-          Container(
+          /*Container(
             margin: EdgeInsets.only(right: 8),
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
@@ -184,19 +184,20 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                 )
               ],
             ),
-          )
+          )*/
+          IconButton(
+              onPressed: (){
+                if(box.get('phone') == '' || box.get('phone') == null) {
+                  loginPermissionDialog(context);
+                } else {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+                }
+              },
+              iconSize: 30,
+              icon: Icon(Icons.account_circle_outlined, color: primaryColor,)
+          ),
         ],
-        leading: IconButton(
-            onPressed: (){
-              if(box.get('phone') == '' || box.get('phone') == null) {
-                loginPermissionDialog(context);
-              } else {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
-              }
-            },
-            iconSize: 30,
-            icon: Icon(Icons.account_circle_outlined, color: primaryColor,)
-        ),
+        leading: Container(),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

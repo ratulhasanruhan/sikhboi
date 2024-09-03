@@ -72,6 +72,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   shimmer:
   slide_countdown: ^1.5.2
+  jitsi_meet_flutter_sdk: ^10.1.2
 
 
 

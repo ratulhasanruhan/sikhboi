@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sikhboi/screen/FreeApps.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
 import 'package:sikhboi/screen/LearningPremium.dart';
 import '../utils/colors.dart';
@@ -208,15 +209,15 @@ class _LearningTypeState extends State<LearningType> {
                   color: Color(0xFF1063A3),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Dictionary()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => FreeApps()));
                     },
                     borderRadius: BorderRadius.circular(12),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Lottie.asset('assets/dictionary.json', height: 90),
+                        Lottie.asset('assets/download.json', height: 90),
                         Text(
-                          'শব্দার্থ',
+                          'সফটওয়্যার',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 26,
@@ -225,7 +226,7 @@ class _LearningTypeState extends State<LearningType> {
                           textAlign: TextAlign.start,
                         ),
                         Text(
-                          'ইংরেজি সকল শব্দার্থ শিখুন',
+                          'ফ্রি এপস ডাউনলোড',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
