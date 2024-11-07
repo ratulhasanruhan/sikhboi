@@ -159,7 +159,7 @@ class _LoginState extends State<Login> {
                             }
                             else{
                               showTopSnackBar(
-                                  context,
+                                  Overlay.of(context),
                                   CustomSnackBar.error(message: 'আপনার পাসওয়ার্ড সঠিক নয়')
                               );
                               _btnController.error();
@@ -171,7 +171,7 @@ class _LoginState extends State<Login> {
                           }
                           else{
                             showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 CustomSnackBar.error(message: 'আপনার মোবাইল নম্বরটি নিবন্ধিত নয়।\nরেজিস্ট্রেশন করুন')
                             );
                             _btnController.error();

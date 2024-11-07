@@ -308,7 +308,7 @@ class _ProfileState extends State<Profile> {
                                         });
                                         Navigator.pop(context);
                                         showTopSnackBar(
-                                          context,
+                                          Overlay.of(context),
                                           CustomSnackBar.success(
                                               message: "Profile updated successfully",
                                             backgroundColor: Colors.green,

@@ -122,7 +122,7 @@ class _WithdrawPointsState extends State<WithdrawPoints> {
                       'time': DateTime.now(),
                     });
                     _btnController.success();
-                    showTopSnackBar(context, CustomSnackBar.success(
+                    showTopSnackBar(Overlay.of(context), CustomSnackBar.success(
                       message: 'Withdraw request sent',
                       backgroundColor: Colors.green,
                     ));
@@ -131,7 +131,7 @@ class _WithdrawPointsState extends State<WithdrawPoints> {
                     });
                 }
                 else{
-                  showTopSnackBar(context, CustomSnackBar.error(
+                  showTopSnackBar(Overlay.of(context), CustomSnackBar.error(
                     message: 'আপনার পর্যাপ্ত টাকা নেই',
                     backgroundColor: Colors.red,
                   ));

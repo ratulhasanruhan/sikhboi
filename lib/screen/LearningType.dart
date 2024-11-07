@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/FreeApps.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
@@ -18,9 +19,13 @@ class LearningType extends StatefulWidget {
 
 class _LearningTypeState extends State<LearningType> {
 
-/*
   NativeAd? _nativeAd;
   bool _nativeAdIsLoaded = false;
+  InterstitialAd? _interstitialAd;
+
+  // TODO: replace this test ad unit with your own ad unit.
+  final adUnitId = 'ca-app-pub-7656295061287292/3154036780';
+
 
 
   @override
@@ -28,6 +33,7 @@ class _LearningTypeState extends State<LearningType> {
     // TODO: implement initState
     super.initState();
     loadAd();
+    loadInersAd();
   }
 
   @override
@@ -82,7 +88,24 @@ class _LearningTypeState extends State<LearningType> {
                 size: 16.0)))
       ..load();
   }
-*/
+
+  void loadInersAd() {
+    InterstitialAd.load(
+        adUnitId: adUnitId,
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          // Called when an ad is successfully received.
+          onAdLoaded: (ad) {
+            debugPrint('$ad loaded.');
+            // Keep a reference to the ad so you can show it later.
+            _interstitialAd = ad;
+          },
+          // Called when an ad request failed.
+          onAdFailedToLoad: (LoadAdError error) {
+            debugPrint('InterstitialAd failed to load: $error');
+          },
+        ));
+  }
 
 
   @override
@@ -210,6 +233,8 @@ class _LearningTypeState extends State<LearningType> {
                   child: InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => FreeApps()));
+                      _interstitialAd?.show();
+
                     },
                     borderRadius: BorderRadius.circular(12),
                     child: Column(
@@ -293,7 +318,7 @@ class _LearningTypeState extends State<LearningType> {
           ),
 
 
-          /* ConstrainedBox(
+           ConstrainedBox(
             constraints: const BoxConstraints(
               minWidth: 320, // minimum recommended width
               minHeight: 320, // minimum recommended height
@@ -301,7 +326,7 @@ class _LearningTypeState extends State<LearningType> {
               maxHeight: 400,
             ),
             child: AdWidget(ad: _nativeAd!),
-          )*/
+          )
 
           ]
       ),

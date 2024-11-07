@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:sikhboi/screen/FreelanceEntry.dart';
 import 'package:sikhboi/widgets/loginPermission.dart';
 
@@ -61,7 +61,7 @@ class _FreelanceDetailsState extends State<FreelanceDetails> {
                         widget.data['image'],
                         options: Options(responseType: ResponseType.bytes));
 
-                   final result = await ImageGallerySaver.saveImage(
+                   final result = await ImageGallerySaverPlus.saveImage(
                         Uint8List.fromList(response.data)
                     );
                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result['isSuccess'] ? 'সফলভাবে সংরক্ষণ করা হয়েছে' : 'সংরক্ষণ করা যায়নি')));

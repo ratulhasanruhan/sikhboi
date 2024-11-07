@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/FreeLive.dart';
@@ -29,7 +30,7 @@ class _LiveMainState extends State<LiveMain> {
 
   var box = Hive.box('user');
 
-/*  @override
+  @override
   void initState() {
     super.initState();
 
@@ -90,7 +91,7 @@ class _LiveMainState extends State<LiveMain> {
                 style: NativeTemplateFontStyle.normal,
                 size: 16.0)))
       ..load();
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +185,7 @@ class _LiveMainState extends State<LiveMain> {
                           }
                           else{
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               const CustomSnackBar.error(message: "আপনার পেমেন্টটি পর্যালোচনায় রয়েছে। অতি শীঘ্রই আপনাকে এক্সেস দেয়া হবে। ধন্যবাদ।"),
                             );
                           }
@@ -389,7 +390,7 @@ class _LiveMainState extends State<LiveMain> {
                                   }
                                   else{
                                     showTopSnackBar(
-                                      context,
+                                      Overlay.of(context),
                                       const CustomSnackBar.error(message: "আপনার রেফারেল কোডটি সঠিক নয়।"),
                                     );
                                   }
@@ -509,8 +510,8 @@ class _LiveMainState extends State<LiveMain> {
               ],
             ),
 
-        /*  SizedBox(
-            height: 28.h,
+          SizedBox(
+            height: 28,
           ),
           ConstrainedBox(
             constraints: const BoxConstraints(
@@ -520,7 +521,7 @@ class _LiveMainState extends State<LiveMain> {
               maxHeight: 200,
             ),
             child: AdWidget(ad: _nativeAd!),
-          ),*/
+          ),
         ],
       ),
     );

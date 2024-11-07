@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/Home.dart';
 import 'package:sikhboi/utils/time_difference.dart';
-
 import '../utils/colors.dart';
 import 'AddFreelanceEntry.dart';
 
 class FreelanceEntry extends StatefulWidget {
-  String id;
-  QueryDocumentSnapshot<Map<String, dynamic>> data;
-  FreelanceEntry({Key? key, required this.id, required this.data}) : super(key: key);
+  final String id;
+  final QueryDocumentSnapshot<Map<String, dynamic>> data;
+  FreelanceEntry({super.key, required this.id, required this.data});
 
   @override
   State<FreelanceEntry> createState() => _FreelanceEntryState();

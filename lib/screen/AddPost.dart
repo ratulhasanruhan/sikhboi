@@ -155,7 +155,7 @@ class _AddPostState extends State<AddPost> {
                               });
                             }else{
                               showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 CustomSnackBar.error(
                                   message: 'Video upload is disabled by admin',
                                 ),
@@ -251,7 +251,7 @@ class _AddPostState extends State<AddPost> {
                           Future.delayed(const Duration(seconds: 1), () {
                             Navigator.pop(context);
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               CustomSnackBar.success(
                                 message: "Successfully posted",
                                 backgroundColor: Colors.green,

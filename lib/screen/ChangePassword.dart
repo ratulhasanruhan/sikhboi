@@ -143,7 +143,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         _btnController.success();
                         Navigator.pop(context);
                         showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           CustomSnackBar.success(
                             message: "Password changed succesfully",
                             backgroundColor: Colors.green,
@@ -152,7 +152,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       });
                     }else{
                       showTopSnackBar(
-                        context,
+                        Overlay.of(context),
                         CustomSnackBar.error(message: 'পুরাতন পাসওয়ার্ড ভুল হয়েছে'),
                       );
                       _btnController.error();

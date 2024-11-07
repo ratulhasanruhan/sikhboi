@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutterfire_ui/firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
@@ -63,7 +63,7 @@ class _MyPostsState extends State<MyPosts> {
                                   await FirebaseStorage.instance.refFromURL(data['image']).delete().then((value) {
                                     database.collection('posts').doc(snapshot.id).delete().then((value) {
                                       showTopSnackBar(
-                                        context,
+                                        Overlay.of(context),
                                         CustomSnackBar.success(
                                           message: 'Post Deleted',
                                         ),

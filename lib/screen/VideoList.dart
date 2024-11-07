@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutterfire_ui/firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/screen/Learning.dart';
 import 'package:sikhboi/screen/PlayVideo.dart';

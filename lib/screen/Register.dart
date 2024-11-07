@@ -268,7 +268,7 @@ class _RegisterState extends State<Register> {
 
                             if (userExists) {
                               showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 const CustomSnackBar.error(message: "আপনার মোবাইল নম্বর ইতিমধ্যে নিবন্ধিত রয়েছে।\nলগইন করুন "),
                               );
                               _btnController.error();
@@ -278,7 +278,7 @@ class _RegisterState extends State<Register> {
                             }
                             else if(referUsers.isEmpty){
                               showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 const CustomSnackBar.error(message: "আপনার রেফারেল কোডটি সঠিক নয়।"),
                               );
                               _btnController.error();
