@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/HomeVideoPlayer.dart';
 import 'package:sikhboi/screen/LearningType.dart';
+import 'package:sikhboi/screen/NoticeScreen.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/getVideoUrl.dart';
 import 'package:sikhboi/utils/yt_details.dart';
@@ -26,9 +27,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
   var box = Hive.box('user');
   String searchText = '';
 
+  int noticeLength = 0;
+
   @override
   void initState() {
     super.initState();
+
+    getNoticeLength();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showBanner();
@@ -47,6 +52,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  getNoticeLength() async{
+    await FirebaseFirestore.instance.collection('notice').get().then((value) {
+      setState(() {
+        noticeLength = value.docs.length;
+      });
+    });
   }
 
   showBanner() async{
@@ -103,8 +116,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         }
       });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +207,58 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
               icon: Icon(Icons.account_circle_outlined, color: primaryColor,)
           ),
         ],
-        leading: Container(),
+        leadingWidth: 110,
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+          child: InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeScreen()));
+            },
+            child: Badge(
+              isLabelVisible: noticeLength == 0 ? false : true,
+              label: Text(
+                  noticeLength.toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: Colors.orange,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.red,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.warning_rounded,
+                        color: Colors.red,
+                        size: 16,
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      'Notice',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

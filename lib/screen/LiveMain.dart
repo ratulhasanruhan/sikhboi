@@ -22,6 +22,8 @@ class _LiveMainState extends State<LiveMain> {
   bool freeForm = false;
   bool premiumForm = false;
 
+  BannerAd? _bannerAd;
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -33,64 +35,33 @@ class _LiveMainState extends State<LiveMain> {
   @override
   void initState() {
     super.initState();
-
     loadAd();
   }
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
-    _nativeAd?.dispose();
+    _bannerAd?.dispose();
   }
 
-  NativeAd? _nativeAd;
-  bool _nativeAdIsLoaded = false;
+  void loadAd() async {
 
-  void loadAd() {
-    _nativeAd = NativeAd(
-        adUnitId: 'ca-app-pub-3028551801469741/4330188944',
-        listener: NativeAdListener(
-          onAdLoaded: (ad) {
-            debugPrint('$NativeAd loaded.');
-            setState(() {
-              _nativeAdIsLoaded = true;
-            });
-          },
-          onAdFailedToLoad: (ad, error) {
-            // Dispose the ad here to free resources.
-            debugPrint('$NativeAd failed to load: $error');
-            ad.dispose();
-          },
-        ),
-        request: const AdRequest(),
-        // Styling
-        nativeTemplateStyle: NativeTemplateStyle(
-            // Required: Choose a template.
-            templateType: TemplateType.small,
-            // Optional: Customize the ad's style.
-            mainBackgroundColor: Colors.white,
-            cornerRadius: 10.0,
-            callToActionTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.white,
-                backgroundColor: Colors.green,
-                style: NativeTemplateFontStyle.bold,
-                size: 16.0),
-            primaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.blueGrey,
-                backgroundColor: Colors.white,
-                style: NativeTemplateFontStyle.normal,
-                size: 16.0),
-            secondaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.green,
-                backgroundColor: Colors.white,
-                style: NativeTemplateFontStyle.monospace,
-                size: 16.0),
-            tertiaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.brown,
-                backgroundColor: Colors.amber,
-                style: NativeTemplateFontStyle.normal,
-                size: 16.0)))
-      ..load();
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-3028551801469741/7298730114',
+      request: const AdRequest(),
+      size: AdSize.mediumRectangle,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+
+        },
+        onAdFailedToLoad: (ad, err) {
+          debugPrint('BannerAd failed to load: $err');
+          // Dispose the ad here to free resources.
+          ad.dispose();
+        },
+      ),
+    )..load();
   }
 
   @override
@@ -513,15 +484,18 @@ class _LiveMainState extends State<LiveMain> {
           SizedBox(
             height: 28,
           ),
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              minWidth: 320, // minimum recommended width
-              minHeight: 90, // minimum recommended height
-              maxWidth: 400,
-              maxHeight: 200,
+          _bannerAd != null ?
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SafeArea(
+              child: SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
             ),
-            child: AdWidget(ad: _nativeAd!),
-          ),
+          )
+              : SizedBox(),
         ],
       ),
     );

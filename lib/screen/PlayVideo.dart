@@ -17,99 +17,50 @@ class PlayVideo extends StatefulWidget {
 
 class _PlayVideoState extends State<PlayVideo> {
   static const _insets = 16.0;
-  BannerAd? _inlineAdaptiveAd;
-  bool _isLoaded = false;
-  AdSize? _adSize;
+  BannerAd? _bannerAd;
   late Orientation _currentOrientation;
 
   double get _adWidth => MediaQuery.of(context).size.width - (2 * _insets);
   YoutubePlayerController _controller = YoutubePlayerController();
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadAd();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _currentOrientation = MediaQuery.of(context).orientation;
-    _loadAd();
+    loadAd();
   }
 
-  void _loadAd() async {
-    await _inlineAdaptiveAd?.dispose();
-    setState(() {
-      _inlineAdaptiveAd = null;
-      _isLoaded = false;
-    });
+  void loadAd() async {
 
-    // Get an inline adaptive size for the current orientation.
-    AdSize size = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
-        _adWidth.truncate());
-
-    _inlineAdaptiveAd = BannerAd(
-      // TODO: replace this test ad unit with your own ad unit.
+    _bannerAd = BannerAd(
       adUnitId: 'ca-app-pub-3028551801469741/7770740500',
-      size: size,
-      request: AdRequest(),
+      request: const AdRequest(),
+      size: AdSize.mediumRectangle,
       listener: BannerAdListener(
-        onAdLoaded: (Ad ad) async {
-          print('Inline adaptive banner loaded: ${ad.responseInfo}');
+        onAdLoaded: (ad) {
 
-          // After the ad is loaded, get the platform ad size and use it to
-          // update the height of the container. This is necessary because the
-          // height can change after the ad is loaded.
-          BannerAd bannerAd = (ad as BannerAd);
-          final AdSize? size = await bannerAd.getPlatformAdSize();
-          if (size == null) {
-            print('Error: getPlatformAdSize() returned null for $bannerAd');
-            return;
-          }
-
-          setState(() {
-            _inlineAdaptiveAd = bannerAd;
-            _isLoaded = true;
-            _adSize = size;
-          });
         },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Inline adaptive banner failedToLoad: $error');
+        onAdFailedToLoad: (ad, err) {
+          debugPrint('BannerAd failed to load: $err');
+          // Dispose the ad here to free resources.
           ad.dispose();
         },
       ),
-    );
-    await _inlineAdaptiveAd!.load();
-  }
-
-  /// Gets a widget containing the ad, if one is loaded.
-  ///
-  /// Returns an empty container if no ad is loaded, or the orientation
-  /// has changed. Also loads a new ad if the orientation changes.
-  Widget _getAdWidget() {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        if (_currentOrientation == orientation &&
-            _inlineAdaptiveAd != null &&
-            _isLoaded &&
-            _adSize != null) {
-          return Align(
-              child: Container(
-                width: _adWidth,
-                height: _adSize!.height.toDouble(),
-                child: AdWidget(
-                  ad: _inlineAdaptiveAd!,
-                ),
-              ));
-        }
-        // Reload the ad if the orientation changes.
-        if (_inlineAdaptiveAd == null) {
-          _loadAd();
-        }
-        return Container();
-      },
-    );
+    )..load();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _inlineAdaptiveAd?.dispose();
+    _bannerAd?.dispose();
   }
 
   @override
@@ -165,7 +116,18 @@ class _PlayVideoState extends State<PlayVideo> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      _getAdWidget()
+                      _bannerAd != null ?
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SafeArea(
+                          child: SizedBox(
+                            width: _bannerAd!.size.width.toDouble(),
+                            height: _bannerAd!.size.height.toDouble(),
+                            child: AdWidget(ad: _bannerAd!),
+                          ),
+                        ),
+                      )
+                          : SizedBox(),
 
                     ],
                   ),
