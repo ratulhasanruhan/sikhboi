@@ -40,7 +40,7 @@ class _EarningQuestionState extends State<EarningQuestion> {
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      adUnitId: 'ca-app-pub-7656295061287292/9893306196',
+      adUnitId: 'ca-app-pub-3028551801469741/9550855912',
       size: size,
       request: AdRequest(),
       listener: BannerAdListener(

@@ -45,7 +45,7 @@ class _PlayVideoState extends State<PlayVideo> {
 
     _inlineAdaptiveAd = BannerAd(
       // TODO: replace this test ad unit with your own ad unit.
-      adUnitId: 'ca-app-pub-7656295061287292/3386186712',
+      adUnitId: 'ca-app-pub-3028551801469741/7770740500',
       size: size,
       request: AdRequest(),
       listener: BannerAdListener(

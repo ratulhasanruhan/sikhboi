@@ -29,7 +29,7 @@ class _VideoListState extends State<VideoList> {
 
   void loadAd() {
     InterstitialAd.load(
-        adUnitId: 'ca-app-pub-7656295061287292/5413584255',
+        adUnitId: 'ca-app-pub-3028551801469741/4807061048',
         request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           // Called when an ad is successfully received.

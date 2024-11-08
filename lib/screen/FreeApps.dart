@@ -27,7 +27,7 @@ class _FreeAppsState extends State<FreeApps> {
 
   void loadAd() {
     RewardedAd.load(
-        adUnitId: "ca-app-pub-7656295061287292/3154036780",
+        adUnitId: "ca-app-pub-3028551801469741/2741904985",
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           // Called when an ad is successfully received.

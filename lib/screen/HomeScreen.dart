@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/HomeVideoPlayer.dart';
 import 'package:sikhboi/screen/LearningType.dart';
-import 'package:sikhboi/screen/WithdrawPoints.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/getVideoUrl.dart';
 import 'package:sikhboi/utils/yt_details.dart';
@@ -502,7 +501,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   shimmer: ShimmerState(),
               );
             }
-          )
+          ),
 
 
         ],

@@ -48,7 +48,7 @@ class _LiveMainState extends State<LiveMain> {
 
   void loadAd() {
     _nativeAd = NativeAd(
-        adUnitId: 'ca-app-pub-7656295061287292/5626758125',
+        adUnitId: 'ca-app-pub-3028551801469741/4330188944',
         listener: NativeAdListener(
           onAdLoaded: (ad) {
             debugPrint('$NativeAd loaded.');

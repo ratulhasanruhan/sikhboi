@@ -19,12 +19,8 @@ class LearningType extends StatefulWidget {
 
 class _LearningTypeState extends State<LearningType> {
 
-  NativeAd? _nativeAd;
-  bool _nativeAdIsLoaded = false;
-  InterstitialAd? _interstitialAd;
-
-  // TODO: replace this test ad unit with your own ad unit.
-  final adUnitId = 'ca-app-pub-7656295061287292/3154036780';
+  BannerAd? _bannerAd;
+  RewardedAd? _rewardedAd;
 
 
 
@@ -33,79 +29,73 @@ class _LearningTypeState extends State<LearningType> {
     // TODO: implement initState
     super.initState();
     loadAd();
-    loadInersAd();
+    loadReward();
   }
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
-    _nativeAd?.dispose();
+    _bannerAd?.dispose();
   }
 
-  void loadAd() {
-    _nativeAd = NativeAd(
-        adUnitId: 'ca-app-pub-7656295061287292/8980196698',
-        listener: NativeAdListener(
-          onAdLoaded: (ad) {
-            debugPrint('$NativeAd loaded.');
-            setState(() {
-              _nativeAdIsLoaded = true;
-            });
-          },
-          onAdFailedToLoad: (ad, error) {
+  void loadReward() {
+    RewardedAd.load(
+        adUnitId: 'ca-app-pub-3028551801469741/8788308704',
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+        // Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+      ad.fullScreenContentCallback = FullScreenContentCallback(
+        // Called when the ad showed the full screen content.
+          onAdShowedFullScreenContent: (ad) {},
+          // Called when an impression occurs on the ad.
+          onAdImpression: (ad) {},
+          // Called when the ad failed to show full screen content.
+          onAdFailedToShowFullScreenContent: (ad, err) {
             // Dispose the ad here to free resources.
-            debugPrint('$NativeAd failed to load: $error');
             ad.dispose();
           },
-        ),
-        request: const AdRequest(),
-        // Styling
-        nativeTemplateStyle: NativeTemplateStyle(
-          // Required: Choose a template.
-            templateType: TemplateType.medium,
-            // Optional: Customize the ad's style.
-            mainBackgroundColor: Colors.blue,
-            cornerRadius: 10.0,
-            callToActionTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.white,
-                backgroundColor: Colors.red,
-                style: NativeTemplateFontStyle.monospace,
-                size: 16.0),
-            primaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.red,
-                backgroundColor: Colors.cyan,
-                style: NativeTemplateFontStyle.italic,
-                size: 16.0),
-            secondaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.green,
-                backgroundColor: Colors.black,
-                style: NativeTemplateFontStyle.bold,
-                size: 16.0),
-            tertiaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.brown,
-                backgroundColor: Colors.amber,
-                style: NativeTemplateFontStyle.normal,
-                size: 16.0)))
-      ..load();
+          // Called when the ad dismissed full screen content.
+          onAdDismissedFullScreenContent: (ad) {
+            // Dispose the ad here to free resources.
+            ad.dispose();
+          },
+          // Called when a click is recorded for an ad.
+          onAdClicked: (ad) {});
+
+      debugPrint('$ad loaded.');
+      // Keep a reference to the ad so you can show it later.
+      _rewardedAd = ad;
+    },
+    // Called when an ad request failed.
+    onAdFailedToLoad: (LoadAdError error) {
+    debugPrint('RewardedAd failed to load: $error');
+    },
+    ),
+    );
   }
 
-  void loadInersAd() {
-    InterstitialAd.load(
-        adUnitId: adUnitId,
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          // Called when an ad is successfully received.
-          onAdLoaded: (ad) {
-            debugPrint('$ad loaded.');
-            // Keep a reference to the ad so you can show it later.
-            _interstitialAd = ad;
-          },
-          // Called when an ad request failed.
-          onAdFailedToLoad: (LoadAdError error) {
-            debugPrint('InterstitialAd failed to load: $error');
-          },
-        ));
+
+  void loadAd() async {
+
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-3028551801469741/4142486687',
+      request: const AdRequest(),
+      size: AdSize.mediumRectangle,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+
+        },
+        onAdFailedToLoad: (ad, err) {
+          debugPrint('BannerAd failed to load: $err');
+          // Dispose the ad here to free resources.
+          ad.dispose();
+        },
+      ),
+    )..load();
   }
+
 
 
   @override
@@ -136,6 +126,7 @@ class _LearningTypeState extends State<LearningType> {
             child: InkWell(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => Learning()));
+                _rewardedAd?.show(onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) {});
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -233,7 +224,7 @@ class _LearningTypeState extends State<LearningType> {
                   child: InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => FreeApps()));
-                      _interstitialAd?.show();
+                      _rewardedAd?.show(onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) {});
 
                     },
                     borderRadius: BorderRadius.circular(12),
@@ -278,6 +269,8 @@ class _LearningTypeState extends State<LearningType> {
                   child: InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => LearnChat()));
+                      _rewardedAd?.show(onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) {});
+
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -317,16 +310,23 @@ class _LearningTypeState extends State<LearningType> {
 
           ),
 
-
-           ConstrainedBox(
-            constraints: const BoxConstraints(
-              minWidth: 320, // minimum recommended width
-              minHeight: 320, // minimum recommended height
-              maxWidth: 400,
-              maxHeight: 400,
+            SizedBox(
+              height: 16,
             ),
-            child: AdWidget(ad: _nativeAd!),
-          )
+
+            _bannerAd != null ?
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SafeArea(
+                child: SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              ),
+            )
+                : SizedBox(),
+
 
           ]
       ),
