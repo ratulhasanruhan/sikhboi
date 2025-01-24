@@ -1,11 +1,13 @@
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:sikhboi/screen/Ecom.dart';
 import 'package:sikhboi/screen/Freelance.dart';
 import 'package:sikhboi/screen/HomeScreen.dart';
+import 'package:sikhboi/screen/LearnChat.dart';
+import 'package:sikhboi/screen/LearningType.dart';
 import 'package:sikhboi/screen/SocialScreen.dart';
+import 'package:sikhboi/utils/assets_path.dart';
+
+import '../utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,33 +43,78 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
         return Scaffold(
-          bottomNavigationBar: FlashyTabBar(
-            height: 55,
-            selectedIndex: _selectedIndex,
-            showElevation: true,
-            onItemSelected: (index) => setState(() {
-              _selectedIndex = index;
-              _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 300), curve: Curves.ease);
-            }),
-            items: [
-              FlashyTabBarItem(
-                icon: Icon(FeatherIcons.home),
-                title: Text('হোম'),
-              ),
-              FlashyTabBarItem(
-                icon: Icon(Icons.comment_bank_outlined),
-                title: Text('সোশ্যাল'),
-              ),
-              FlashyTabBarItem(
-                icon: Icon(Icons.screen_search_desktop_outlined),
-                title: Text('ফ্রিল্যান্স'),
-              ),
-              FlashyTabBarItem(
-                icon: Icon(FeatherIcons.shoppingCart),
-                title: Text('ই-কমার্স'),
-              ),
-            ],
+          backgroundColor: backGreen,
+          bottomNavigationBar: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
+            ),
+            child: BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                  _pageController.jumpToPage(index);
+                });
+              },
+              type: BottomNavigationBarType.fixed,
+              elevation: 0,
+              iconSize: 38,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    AssetsPath.home,
+                    width: 38,
+                    height: 38,
+                  ),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    AssetsPath.course,
+                    width: 38,
+                    height: 38,
+                  ),
+                  label: 'Course',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    AssetsPath.translate,
+                    width: 38,
+                    height: 38,
+                  ),
+                  label: 'Translate',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    AssetsPath.social,
+                    width: 38,
+                    height: 38,
+                  ),
+                  label: 'Social',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    AssetsPath.freelance,
+                    width: 38,
+                    height: 38,
+                  ),
+                  label: 'Freelance',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    AssetsPath.ecom,
+                    width: 38,
+                    height: 38,
+                  ),
+                  label: 'Ecom',
+                ),
+              ],
+              selectedItemColor: color2,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              backgroundColor: greenish,
+            ),
           ),
           body: PageView(
             controller: _pageController,
@@ -78,6 +125,8 @@ class _HomePageState extends State<HomePage> {
             },
             children: [
               HomeScreen(),
+              LearningType(),
+              LearnChat(),
               SocialScreen(),
               Freelance(),
               Ecom()

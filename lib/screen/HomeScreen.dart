@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/HomeVideoPlayer.dart';
 import 'package:sikhboi/screen/LearningType.dart';
-import 'package:sikhboi/screen/NoticeScreen.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/getVideoUrl.dart';
 import 'package:sikhboi/utils/yt_details.dart';
@@ -13,6 +12,7 @@ import 'package:sikhboi/widgets/loginPermission.dart';
 import 'package:skeletons/skeletons.dart';
 import 'LiveMain.dart';
 import 'Profile.dart';
+import 'WithdrawPoints.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   var box = Hive.box('user');
   String searchText = '';
+  bool searBox = false;
 
   int noticeLength = 0;
 
@@ -119,50 +120,78 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: backGreen,
       appBar: AppBar(
-        title: Image.asset('assets/logo.png', height: 40),
+        backgroundColor: backGreen,
+        leading: Image.asset('assets/logo.png', height: 40),
         centerTitle: true,
         actions: [
-          /*Container(
+          IconButton(
+              onPressed: (){
+
+              },
+              iconSize: 30,
+              icon: Badge(
+                isLabelVisible: noticeLength == 0 ? false : true,
+                label: Text(
+                  noticeLength.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                backgroundColor: Colors.redAccent,
+                child: Icon(
+                  Icons.notifications_active_rounded,
+                  color: color2dark,
+                ),
+              )
+          ),
+          Container(
             margin: EdgeInsets.only(right: 8),
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: primaryColor,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
-                Container(
-                  child: Text(
-                      '৳',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white
-                  ),
-                  padding: EdgeInsets.all(3),
-                ),
-                SizedBox(width: 8),
-
                 box.get('phone') == '' || box.get('phone') == null
                 ? InkWell(
                   onTap: () {
                     loginPermissionDialog(context);
                   },
-                  child: const Text(
-                    '0.00 টাকা',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                  child: Row(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '0.00',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Pt.',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.person_pin,
+                        color: Colors.white,
+                      )
+                    ],
                   ),
                 )
                 : StreamBuilder(
@@ -171,15 +200,37 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                     if(snapshot.hasData){
                       return InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => WithdrawPoints(points: snapshot.data['point'])));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
                         },
-                        child: Text(
-                          snapshot.data['point'].toString()+'.00' + ' টাকা',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                        child: Row(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${snapshot.data['point']}.00',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'Pt.',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.person_pin,
+                              color: Colors.white,
+                            )
+                          ],
                         ),
                       );
                     }
@@ -194,68 +245,147 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                 )
               ],
             ),
-          )*/
-          IconButton(
-              onPressed: (){
-                if(box.get('phone') == '' || box.get('phone') == null) {
-                  loginPermissionDialog(context);
-                } else {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
-                }
-              },
-              iconSize: 30,
-              icon: Icon(Icons.account_circle_outlined, color: primaryColor,)
-          ),
+          )
         ],
         leadingWidth: 110,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-          child: InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeScreen()));
-            },
-            child: Badge(
-              isLabelVisible: noticeLength == 0 ? false : true,
-              label: Text(
-                  noticeLength.toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: Colors.orange,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.red,
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.warning_rounded,
-                        color: Colors.red,
-                        size: 16,
-                      ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(40),
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      searBox = !searBox;
+                      searchText = '';
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: light_green,
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    SizedBox(width: 4),
-                    Text(
-                      'Notice',
+                    child: Icon(
+                      Icons.search,
+                      color: color2dark,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      searBox = false;
+                      searchText = '';
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: light_green,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "All",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                        color: color2dark,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      searBox = false;
+                      searchText = 'Soft Skill';
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: light_green,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "Soft Skill",
+                      style: TextStyle(
+                        color: color2dark,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      searBox = false;
+                      searchText = 'Hard Skill';
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: light_green,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "Hard Skill",
+                      style: TextStyle(
+                        color: color2dark,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      searBox = false;
+                      searchText = 'Ai Tools';
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: light_green,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "Ai Tools",
+                      style: TextStyle(
+                        color: color2dark,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      searBox = false;
+                      searchText = 'Event';
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: light_green,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "Event",
+                      style: TextStyle(
+                        color: color2dark,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -267,121 +397,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
           vertical: 16,
         ),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Material(
-                color: Color(0xFF0092FF),
-                borderRadius: BorderRadius.circular(30),
-                child: InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LearningType()));
-                  },
-                  borderRadius: BorderRadius.circular(30),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Lottie.asset(
-                          'assets/video_clip.json',
-                          height: 45,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          'Our Course',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
 
-              InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LiveMain()));
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => FreeLive()));
-                },
-                borderRadius: BorderRadius.circular(30),
-                child: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 45,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 14,),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFF0000),
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(30),
-                              bottomRight: Radius.circular(30),
-                            ),
-                          ),
-                          child: Text(
-                            'Live',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFF0000),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Lottie.asset(
-                          'assets/live.json',
-                          height: 25,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-
-            ],
-          ),
-          SizedBox(
-            height: 16,
-          ),
-
-          TextField(
+          searBox
+          ? TextField(
             onChanged: (value){
               setState(() {
                 searchText = value;
               });
             },
             decoration: InputDecoration(
-              hintText: 'ফ্রীলান্সিং রিলেটেড ভিডিও সার্চ করুন',
+              hintText: 'সার্চ করুন',
               fillColor: Color(0xFFF5F3F4),
               isDense: true,
               filled: true,
@@ -399,13 +424,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 5,
-                        spreadRadius: 2,
-                      )
-                    ]
                   ),
                   child: Icon(
                     Icons.search,
@@ -415,7 +433,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                 ),
               ),
             ),
-          ),
+          )
+          : SizedBox(),
 
           SizedBox(
             height: 16,
@@ -527,6 +546,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                 );
               }
               return Shimmer(
+                  shimmer: ShimmerState(),
                   child: Container(
                     height: 170,
                     width: MediaQuery.of(context).size.width,
@@ -560,7 +580,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                       ),
                     ),
                   ) ,
-                  shimmer: ShimmerState(),
               );
             }
           ),
