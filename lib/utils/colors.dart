@@ -18,7 +18,7 @@ const darkWhite = Color(0xFFD6D6D6);
 const backWhite = Color(0xFFFCFCFC);
 const greyWhite = Color(0xFFB3B3B3);
 const waterColor = Color(0xFFECF0FF);
-const primaryColor = Color(0xFFFF2156);
+const primaryColor = Color(0xFF1E8668);
 const deepColor = Color(0xFF979DA8);
 const boldRed = Color(0xFFFF0000);
 
