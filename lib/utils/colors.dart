@@ -6,6 +6,7 @@ const Color accentColor = Color(0xFF0B7952);
 const Color pinkish = Color(0xFFFF718D);
 const Color yellish = Color(0xFFFFA459);
 
+const Color backGreen = Color(0xFFF3FAF6);
 const Color color2 = Color(0xFF035058);
 const Color color2dark = Color(0xFF003D46);
 
