@@ -67,10 +67,6 @@ class _VideoListState extends State<VideoList> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        leading: IconButton(
-          icon: const Icon(FeatherIcons.arrowLeft),
-          onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  Learning())),
-        ),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),

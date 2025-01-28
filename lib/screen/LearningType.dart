@@ -1,3 +1,4 @@
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -17,7 +18,7 @@ class LearningType extends StatefulWidget {
   State<LearningType> createState() => _LearningTypeState();
 }
 
-class _LearningTypeState extends State<LearningType> {
+class _LearningTypeState extends State<LearningType> with SingleTickerProviderStateMixin {
 
   BannerAd? _bannerAd;
   RewardedAd? _rewardedAd;
@@ -100,25 +101,108 @@ class _LearningTypeState extends State<LearningType> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: backGreen,
       appBar: AppBar(
-          title: const Text('Learning'),
-          centerTitle: true,
-          iconTheme: const IconThemeData(
-            color: blackColor,
-          ),
-          leading: IconButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-            },
-            icon: const Icon(Icons.arrow_back),
-          )
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
+        title:  Text(
+            'Your Courses',
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold,
+              fontSize: 18
+            ),
+        ),
+        backgroundColor: backGreen,
+        actions: [
           Container(
+            margin: EdgeInsets.only(right: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FreeApps()));
+              },
+              child: Row(
+                children: [
+                  Text(
+                    'Free Software',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                      margin: EdgeInsets.only(left: 8),
+                    child: Icon(
+                      Icons.download_outlined,
+                      color: Colors.redAccent,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: <Widget>[
+            ButtonsTabBar(
+              backgroundColor: primaryColor,
+              borderWidth: 1.5,
+              borderColor: primaryColor,
+              labelSpacing: 15,
+              contentPadding: EdgeInsets.symmetric(horizontal: 16),
+              unselectedBorderColor: primaryColor,
+              labelStyle: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              unselectedBackgroundColor: backGreen,
+              unselectedLabelStyle: TextStyle(
+                color: color2dark,
+                fontWeight: FontWeight.bold,
+              ),
+              // Add your tabs here
+              tabs: [
+                Tab(
+                  text: 'Free Courses',
+                ),
+                Tab(
+                  text: 'Paid Courses',
+                ),
+                Tab(
+                  icon: Icon(
+                      Icons.videocam_rounded,
+                    color: Colors.red,
+                  ),
+                  text: 'Live',
+                ),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  Learning(),
+                  LearningPremium(),
+                  Container(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+/*          Container(
             decoration: BoxDecoration(
               color: Color(0xFF4360AE),
               borderRadius: BorderRadius.circular(10),
@@ -325,11 +409,4 @@ class _LearningTypeState extends State<LearningType> {
                 ),
               ),
             )
-                : SizedBox(),
-
-
-          ]
-      ),
-    );
-  }
-}
+                : SizedBox(),*/

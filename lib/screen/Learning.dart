@@ -16,25 +16,6 @@ class _LearningState extends State<Learning> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.redAccent,
-        title: const Text(
-            'Free Learning',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-          leading: IconButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LearningType()));
-            },
-            icon: const Icon(Icons.arrow_back),
-          )
-      ),
       body: FirestoreListView(
         query: FirebaseFirestore.instance.collection('course'),
         padding: const EdgeInsets.all(10),
