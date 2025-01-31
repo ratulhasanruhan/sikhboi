@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sikhboi/screen/FreeApps.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
 import 'package:sikhboi/screen/LearningPremium.dart';
+import 'package:sikhboi/screen/LiveMain.dart';
 import '../utils/colors.dart';
 import 'Dictionary.dart';
 import 'Home.dart';
@@ -192,7 +193,7 @@ class _LearningTypeState extends State<LearningType> with SingleTickerProviderSt
                 children: [
                   Learning(),
                   LearningPremium(),
-                  Container(),
+                  LiveMain()
                 ],
               ),
             ),

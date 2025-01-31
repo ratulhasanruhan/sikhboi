@@ -294,7 +294,7 @@ class _RegisterState extends State<Register> {
                             else {
 
                               await database.collection('users').doc(referUsers[0]).update({
-                                'point' : FieldValue.increment(1),
+                                'point' : FieldValue.increment(50),
                               });
 
                               await database.collection('users').doc(phoneController.text).set(
@@ -302,7 +302,7 @@ class _RegisterState extends State<Register> {
                                     "name": nameController.text,
                                     "phone": phoneController.text,
                                     "password": passCOntroller.text,
-                                    "point": 0,
+                                    "point": 50,
                                     "image": '',
                                     "upgraded": false,
                                     "code" : refferController.text ?? '',
