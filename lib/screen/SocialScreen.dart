@@ -31,8 +31,15 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
   FirebaseFirestore database = FirebaseFirestore.instance;
   var user = Hive.box('user').get('phone');
 
+  bool onlyVideo = false;
+
   @override
   Widget build(BuildContext context) {
+
+    var query = onlyVideo
+        ? database.collection('posts').where('isVideo', isEqualTo: true).orderBy('time', descending: true).snapshots()
+        : database.collection('posts').orderBy('time', descending: true).snapshots();
+
     return Scaffold(
       backgroundColor: backGreen,
       appBar: PreferredSize(
@@ -163,7 +170,66 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[
-
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.person,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => AddPost()));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Text(
+                              'অভিজ্ঞতা শেয়ার করুন',
+                              style: TextStyle(
+                                color: Color(0xFFB3D891),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () async{
+                            setState(() {
+                              onlyVideo = !onlyVideo;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.ondemand_video_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async{
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MessageList()));
+                          },
+                          icon: Icon(
+                            Icons.mark_chat_unread_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ]
                 )
               ],
@@ -172,7 +238,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
         ),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('posts').orderBy('time', descending: true).snapshots(),
+        stream: query,
         builder: (context, AsyncSnapshot snapshot){
           if(snapshot.hasData){
             return ListView.builder(
