@@ -71,19 +71,6 @@ class _LiveMainState extends State<LiveMain> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text(
-          'লাইভ ক্লাস',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        centerTitle: true,
-      ),
       body: ListView(
         padding: EdgeInsets.all(12),
         children: [

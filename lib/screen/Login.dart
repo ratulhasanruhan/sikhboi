@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backGreen,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
                 Column(
                   children: [
                     SizedBox(height: 30,),
-                    Center(child: Image.asset('assets/logo.png', height: 125,)),
+                    Center(child: Image.asset('assets/logo_stamp.png', height: 125,)),
                     SizedBox(
                       height: 70,
                     ),
@@ -90,6 +90,7 @@ class _LoginState extends State<Login> {
                         if(val.length < 11 || !val.startsWith('01')){
                           return "মোবাইল নম্বরটি সঠিক নয়";
                         }
+                        return null;
                       },
                     ),
                     TextFormField(
@@ -126,6 +127,7 @@ class _LoginState extends State<Login> {
                         if(val!.isEmpty){
                           return "আপনার পাসওয়ার্ড লিখুন";
                         }
+                        return null;
                       },
                     ),
                     SizedBox(

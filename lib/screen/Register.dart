@@ -25,34 +25,19 @@ class _RegisterState extends State<Register> {
   TextEditingController refferController = TextEditingController();
   TextEditingController passCOntroller = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController lastDonated = TextEditingController();
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
   final _formKey = GlobalKey<FormState>();
 
 
   FirebaseFirestore database = FirebaseFirestore.instance;
-  final storage = FirebaseStorage.instance;
   var box = Hive.box('user');
 
-  var area;
-  var subArea;
-  var organization;
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Sikhboi',
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            color: color2dark,
-          ),
-        ),
-      ),
+      backgroundColor: backGreen,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -67,6 +52,22 @@ class _RegisterState extends State<Register> {
                   children: [
                     SizedBox(
                       height: 40,
+                    ),
+
+                    Image.asset(
+                      'assets/logo_stamp.png',
+                      height: 120,
+                    ),
+                    Text(
+                      'Register Your Account',
+                      style: GoogleFonts.poppins(
+                        fontSize: 30,
+                        color: color2dark,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
                     ),
 
                     TextFormField(
@@ -244,8 +245,12 @@ class _RegisterState extends State<Register> {
                       elevation: 0,
                       successColor: primaryColor,
                       child: Text(
-                        'নিবন্ধন',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        'Let\'s Go',
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 22,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
                       color: primaryColor,
                       width: MediaQuery.of(context).size.width,
@@ -289,7 +294,7 @@ class _RegisterState extends State<Register> {
                             else {
 
                               await database.collection('users').doc(referUsers[0]).update({
-                                'point' : FieldValue.increment(1),
+                                'point' : FieldValue.increment(50),
                               });
 
                               await database.collection('users').doc(phoneController.text).set(
@@ -297,7 +302,7 @@ class _RegisterState extends State<Register> {
                                     "name": nameController.text,
                                     "phone": phoneController.text,
                                     "password": passCOntroller.text,
-                                    "point": 0,
+                                    "point": 50,
                                     "image": '',
                                     "upgraded": false,
                                     "code" : refferController.text ?? '',
