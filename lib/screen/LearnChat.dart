@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
+import 'package:sikhboi/utils/colors.dart';
 import '../model/LearnChatModel.dart';
 
 class LearnChat extends StatefulWidget {
@@ -25,54 +26,11 @@ class _LearnChatState extends State<LearnChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "ইংরেজি",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            Text(
-              "জিজ্ঞাসা করুন এবং শিখুন",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
-        leadingWidth: 75,
-        leading: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-            ),
-            CircleAvatar(
-              radius: 13,
-              backgroundColor: Colors.white,
-              backgroundImage: NetworkImage(
-                  "https://lh3.googleusercontent.com/CmH_wma2nqnYeVYoGoyD_O0sp-ySSH5uoczhgORsSwMYxw60_hDdyujFyydgZasasw",
-              ),
-            )
-          ],
-        ),
-      ),
+      backgroundColor: backGreen,
       bottomNavigationBar: Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
-          color: Colors.white,
+          color: backGreen,
           padding: EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 5,
@@ -83,21 +41,21 @@ class _LearnChatState extends State<LearnChat> {
               hintText: "Ask a question...",
               border: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.red,
+                  color: primaryColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.red,
+                  color: primaryColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.red,
+                  color: primaryColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(20),
@@ -151,7 +109,7 @@ class _LearnChatState extends State<LearnChat> {
                 ) :
                 Icon(
                   Icons.send,
-                  color: Colors.red,
+                  color: primaryColor,
                 ),
               ),
             ),
@@ -196,7 +154,7 @@ class _LearnChatState extends State<LearnChat> {
             margin: EdgeInsets.only(
               bottom: 10,
             ),
-            backGroundColor: messageList[index].isUser ? Colors.red : Colors.grey[200],
+            backGroundColor: messageList[index].isUser ? primaryColor : greenish,
             child: Container(
               constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.7,

@@ -5,6 +5,7 @@ import 'package:sikhboi/screen/HomeScreen.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
 import 'package:sikhboi/screen/LearningType.dart';
 import 'package:sikhboi/screen/SocialScreen.dart';
+import 'package:sikhboi/screen/SpokenEnglish.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 
 import '../utils/colors.dart';
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               HomeScreen(),
               LearningType(),
-              LearnChat(),
+              SpokenEnglish(),
               SocialScreen(),
               Freelance(),
               Ecom()

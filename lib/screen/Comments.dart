@@ -23,6 +23,8 @@ class _CommentScreenState extends State<CommentScreen> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
 
+  var user = Hive.box('user').get('phone');
+
 
   Widget commentChild(data) {
     return ListView(
@@ -98,6 +100,10 @@ class _CommentScreenState extends State<CommentScreen> {
                       'user': Hive.box('user').get('phone'),
                       'message': commentController.text,
                       'date': Timestamp.now(),
+                    });
+
+                    FirebaseFirestore.instance.collection('users').doc(user).update({
+                      'point': FieldValue.increment(1),
                     });
 
                     commentController.clear();
