@@ -2,6 +2,7 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:sikhboi/screen/Dictionary.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
+import 'package:sikhboi/screen/QuizScreen.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -165,6 +166,7 @@ class _SpokenEnglishState extends State<SpokenEnglish> {
                 children: [
                   LearnChat(),
                   Dictionary(),
+                  QuizScreen()
                 ],
               ),
             ),
