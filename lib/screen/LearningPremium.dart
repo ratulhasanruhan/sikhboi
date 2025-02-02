@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:hive/hive.dart';
+import 'package:sikhboi/screen/PremiumCourseOutline.dart';
 import 'package:sikhboi/screen/PremiumVideoList.dart';
 import 'package:sikhboi/widgets/loginPermission.dart';
 import 'LearningType.dart';
@@ -33,7 +34,7 @@ class _LearningPremiumState extends State<LearningPremium> {
                   loginPermissionDialog(context);
                 }
                 else{
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumVideoList(catId: snapshot.id)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumCourseOutline(catId: snapshot.id)));
                 }
               },
               radius: 10,
