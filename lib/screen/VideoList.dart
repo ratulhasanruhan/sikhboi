@@ -5,6 +5,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/screen/Learning.dart';
 import 'package:sikhboi/screen/PlayVideo.dart';
+import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/yt_details.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -56,7 +57,7 @@ class _VideoListState extends State<VideoList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: color2dark,
         title: Text(
             widget.catId,
           style: TextStyle(
@@ -134,7 +135,7 @@ class _VideoListState extends State<VideoList> {
               var data = snapshot.data();
 
               return Card(
-                color: Colors.red,
+                color: color2dark,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

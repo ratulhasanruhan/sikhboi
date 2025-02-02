@@ -39,7 +39,7 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: color2dark,
           title: Text(
               widget.catId,
             style: TextStyle(
@@ -116,7 +116,7 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
                 var data = snapshot.data();
 
                 return Card(
-                  color: Colors.red,
+                  color: color2dark,
                   child: ListTile(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),

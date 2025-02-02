@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sikhboi/screen/FreeCourseOutline.dart';
 import 'package:sikhboi/screen/LearningType.dart';
+import 'package:sikhboi/utils/colors.dart';
 import 'VideoList.dart';
 
 class Learning extends StatefulWidget {
@@ -16,6 +18,7 @@ class _LearningState extends State<Learning> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backGreen,
       body: FirestoreListView(
         query: FirebaseFirestore.instance.collection('course'),
         padding: const EdgeInsets.all(10),
@@ -24,7 +27,7 @@ class _LearningState extends State<Learning> {
             padding: const EdgeInsets.symmetric( vertical: 5),
             child: InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => VideoList(catId: snapshot.id)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FreeCourseOutline(catId: snapshot.id)));
               },
               radius: 10,
               child: Container(
