@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/utils/colors.dart';
-import 'DictionaryDetails.dart';
 
 class Dictionary extends StatefulWidget {
   const Dictionary({Key? key}) : super(key: key);
@@ -104,36 +102,194 @@ class _DictionaryState extends State<Dictionary> {
                             ),
                           ),
                           child: StreamBuilder(
-                              stream: FirebaseFirestore.instance.collection('dictionary').doc(snapshot.data!.docs[day_index].id).collection('word').snapshots(),
-                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> words){
+                              stream: FirebaseFirestore.instance.collection('dictionary').doc(snapshot.data!.docs[day_index].id).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> words){
                                 if (words.hasData) {
-                                  return ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: words.data!.docs.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return Card(
-                                        color: Colors.white,
-                                        child: ListTile(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          onTap: () {
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => DictionaryDetails(name: words.data!.docs[index]['name'], id: words.data!.docs[index].id,)));
-                                          },
-                                          title: Text(
-                                            words.data!.docs[index]['name'],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.red,
-                                              fontSize: 20,
+                                  return Column(
+                                    children: [
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: words.data?['words'].length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  words.data!['words'][index],
+                                                  style: TextStyle(
+                                                    color: color2dark,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+
+                                                    if((words.data!.data() as Map<String, dynamic>).containsKey('sentences')){
+                                                      showModalBottomSheet(
+                                                          context: context,
+                                                          backgroundColor: color2dark,
+                                                          builder: (BuildContext context) {
+                                                            return SizedBox(
+                                                              height: MediaQuery.sizeOf(context).height * 0.45,
+                                                              child: Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: Text(
+                                                                      words.data!['words'][index],
+                                                                      style: TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 20,
+                                                                        fontWeight: FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Divider(
+                                                                    color: Colors.white,
+                                                                    thickness: 1,
+                                                                  ),
+                                                                  ListView.separated(
+                                                                    shrinkWrap: true,
+                                                                    itemCount: words.data!['sentences'][index]['english'].length,
+                                                                    separatorBuilder: (BuildContext context, int s_index) {
+                                                                      return SizedBox(
+                                                                        height: 8,
+                                                                      );
+                                                                    },
+                                                                    itemBuilder: (BuildContext context, int s_index) {
+                                                                      return Padding(
+                                                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                                                                        child: Row(
+                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              '${s_index + 1}. ',
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 18,
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                            ),
+                                                                            Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(
+                                                                                  words.data!['sentences'][index]['english'][s_index],
+                                                                                  style: TextStyle(
+                                                                                    color: Colors.white,
+                                                                                    fontSize: 18,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                                ),
+                                                                                Text(
+                                                                                  words.data!['sentences'][index]['bangla'][s_index],
+                                                                                  style: TextStyle(
+                                                                                    color: Colors.white,
+                                                                                    fontSize: 18,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          }
+                                                      );
+                                                    }
+                                                    else{
+                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'এই শব্দের জন্য কোন বাক্য নেই!',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 16,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                          backgroundColor: color2dark,
+                                                        ),
+                                                      );
+                                                      return;
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                                                    decoration: BoxDecoration(
+                                                      color: color2dark,
+                                                      borderRadius: BorderRadius.circular(12),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'বাক্য তৈরী',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        Icon(
+                                                          Icons.arrow_drop_down_sharp,
+                                                          color: Colors.white,
+                                                          size: 16,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
+                                          );
+                                        },
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          day_index > 0 ?
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    day_index--;
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.arrow_circle_left_rounded,
+                                                  color: primaryColor,
+                                                  size: 30,
+                                                ),
+                                              )
+                                              : SizedBox(),
+                                          SizedBox(
+                                            width: 10,
                                           ),
-                                          subtitle: Text(words.data!.docs[index]['title']),
-                                          trailing: Image.network(words.data!.docs[index]['icon']),
-                                        ),
-                                      );
-                                    },
+                                          day_index < snapshot.data!.docs.length - 1 ?
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    day_index++;
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.arrow_circle_right_rounded,
+                                                  color: primaryColor,
+                                                  size: 30,
+                                                ),
+                                              )
+                                              : SizedBox(),
+                                        ],
+                                      )
+                                    ],
                                   );
                                 } else {
                                   return Center(
@@ -152,35 +308,11 @@ class _DictionaryState extends State<Dictionary> {
                   }
                 }
             ),
-
-            /*FirestoreListView(
-              padding: EdgeInsets.all(8),
-              query: FirebaseFirestore.instance.collection('dictionary'),
-              itemBuilder: (BuildContext context,  snapshot) {
-                return Card(
-                  color: Colors.white,
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DictionaryDetails(name: snapshot['name'], id: snapshot.id,)));
-                    },
-                    title: Text(
-                        snapshot['name'],
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.red,
-                        fontSize: 20,
-                      ),
-                    ),
-                    subtitle: Text(snapshot['title']),
-                    trailing: Image.network(snapshot['icon']),
-                  ),
-                );
-              },
-            ),*/
+            SizedBox(
+              height: 18,
+            ),
             _bannerAd != null ?
+
             Align(
               alignment: Alignment.bottomCenter,
               child: SafeArea(
