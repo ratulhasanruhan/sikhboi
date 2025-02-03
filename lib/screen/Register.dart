@@ -163,12 +163,6 @@ class _RegisterState extends State<Register> {
                         color: blackColor,
                       ),
                       keyboardType: TextInputType.text,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return "আপনার রেফারেল কোড লিখুন";
-                        }
-                        return null;
-                      },
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(vertical: 15),
                           fillColor: offWhite,
@@ -281,28 +275,20 @@ class _RegisterState extends State<Register> {
                                 _btnController.reset();
                               });
                             }
-                            else if(referUsers.isEmpty){
-                              showTopSnackBar(
-                                Overlay.of(context),
-                                const CustomSnackBar.error(message: "আপনার রেফারেল কোডটি সঠিক নয়।"),
-                              );
-                              _btnController.error();
-                              Future.delayed(const Duration(seconds: 1), () {
-                                _btnController.reset();
-                              });
-                            }
                             else {
 
-                              await database.collection('users').doc(referUsers[0]).update({
-                                'point' : FieldValue.increment(50),
-                              });
+                              if(referUsers.isNotEmpty){
+                                await database.collection('users').doc(referUsers[0]).update({
+                                  'point' : FieldValue.increment(50),
+                                });
+                              }
 
                               await database.collection('users').doc(phoneController.text).set(
                                   {
                                     "name": nameController.text,
                                     "phone": phoneController.text,
                                     "password": passCOntroller.text,
-                                    "point": 50,
+                                    "point": refferController.text.trim() == '' ? 0 : 50,
                                     "image": '',
                                     "upgraded": false,
                                     "code" : refferController.text ?? '',
