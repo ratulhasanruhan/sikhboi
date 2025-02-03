@@ -19,31 +19,238 @@ class _LearningState extends State<Learning> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backGreen,
-      body: FirestoreListView(
-        query: FirebaseFirestore.instance.collection('course'),
-        padding: const EdgeInsets.all(10),
-        itemBuilder: (context, snapshot) {
-          return Padding(
-            padding: const EdgeInsets.symmetric( vertical: 5),
-            child: InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => FreeCourseOutline(catId: snapshot.id)));
-              },
-              radius: 10,
-              child: Container(
-                height: 175,
-                decoration: BoxDecoration(
-                  color: Color(0xFF272264),
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(snapshot['icon']),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 10,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Soft Skills',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          );
-        },
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 230,
+              child: FirestoreListView(
+                query: FirebaseFirestore.instance.collection('course').where('type', isEqualTo: 'soft_skill'),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, snapshot) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric( horizontal: 6),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreeCourseOutline(catId: snapshot.id)));
+                        },
+                        radius: 10,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 175,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF272264),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(snapshot['icon']),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                snapshot.id,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              'Hard Skills',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 230,
+              child: FirestoreListView(
+                query: FirebaseFirestore.instance.collection('course').where('type', isEqualTo: 'hard_skill'),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, snapshot) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric( horizontal: 6),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreeCourseOutline(catId: snapshot.id)));
+                        },
+                        radius: 10,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 175,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF272264),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(snapshot['icon']),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                snapshot.id,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              'Language Courses',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 230,
+              child: FirestoreListView(
+                query: FirebaseFirestore.instance.collection('course').where('type', isEqualTo: 'language'),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, snapshot) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric( horizontal: 6),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreeCourseOutline(catId: snapshot.id)));
+                        },
+                        radius: 10,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 175,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF272264),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(snapshot['icon']),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                snapshot.id,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
