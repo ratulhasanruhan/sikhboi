@@ -23,6 +23,8 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
   bool isSubscribed = false;
 
   YoutubePlayerController controller = YoutubePlayerController();
+  var box = Hive.box('courses');
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
     });
 
     return Scaffold(
+      backgroundColor: backGreen,
         appBar: AppBar(
           backgroundColor: color2dark,
           title: Text(
@@ -116,14 +119,16 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
                 var data = snapshot.data();
 
                 return Card(
-                  color: color2dark,
+                  color: backGreen,
+                  elevation: 0,
                   child: ListTile(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     onTap: ()async{
+                      box.values.contains(data['name']) ? null : box.add(data['name']);
 
-                     if(isSubscribed){
+                      if(isSubscribed){
                        controller.mute();
                        Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumPlayVideo(videoId: data['youtube'], link: data['link'], name: data['name'],)));
                      }
@@ -198,18 +203,19 @@ class _PremiumVideoListState extends State<PremiumVideoList> {
                     title: Text(
                       data['name'],
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     trailing: Icon(
-                      isSubscribed ? FeatherIcons.arrowRight : FeatherIcons.lock,
-                      color: Colors.white,
+                      box.values.contains(data['name']) ? FeatherIcons.checkCircle : FeatherIcons.circle,
+                      color: box.values.contains(data['name']) ? Color(0xFF0B7C69) : Colors.grey,
                     ),
-                    leading: const Icon(
-                      FeatherIcons.playCircle,
-                      color: Colors.white,
+                    leading: Icon(
+                      Icons.play_circle,
+                      color: box.values.contains(data['name']) ? Color(0xFF0B7C69) : Color(0xFFB9DAD3),
+                      size: 42,
                     ),
                     minLeadingWidth: 0,
                   ),

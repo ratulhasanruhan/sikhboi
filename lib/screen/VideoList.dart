@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/Learning.dart';
 import 'package:sikhboi/screen/PlayVideo.dart';
 import 'package:sikhboi/utils/colors.dart';
@@ -20,6 +21,7 @@ class VideoList extends StatefulWidget {
 class _VideoListState extends State<VideoList> {
   InterstitialAd? _interstitialAd;
   YoutubePlayerController controller = YoutubePlayerController();
+  var box = Hive.box('courses');
 
   @override
   void initState() {
@@ -56,6 +58,7 @@ class _VideoListState extends State<VideoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backGreen,
       appBar: AppBar(
         backgroundColor: color2dark,
         title: Text(
@@ -135,7 +138,8 @@ class _VideoListState extends State<VideoList> {
               var data = snapshot.data();
 
               return Card(
-                color: color2dark,
+                color: backGreen,
+                elevation: 0,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -143,6 +147,9 @@ class _VideoListState extends State<VideoList> {
                   onTap: ()async{
                     controller.close();
                     controller.mute();
+                    
+                    box.values.contains(data['name']) ? null : box.add(data['name']);
+                    box.values.contains(data['name']) ? null : _interstitialAd!.show();
 
                     await getDetail('https://www.youtube.com/watch?v=' + data['youtube']).then((metaData) {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => PlayVideo(
@@ -157,18 +164,19 @@ class _VideoListState extends State<VideoList> {
                   title: Text(
                     data['name'],
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   trailing: Icon(
-                     FeatherIcons.arrowRight,
-                    color: Colors.white,
+                     box.values.contains(data['name']) ? FeatherIcons.checkCircle : FeatherIcons.circle,
+                    color: box.values.contains(data['name']) ? Color(0xFF0B7C69) : Colors.grey,
                   ),
-                  leading: const Icon(
-                    FeatherIcons.playCircle,
-                    color: Colors.white,
+                  leading: Icon(
+                    Icons.play_circle,
+                    color: box.values.contains(data['name']) ? Color(0xFF0B7C69) : Color(0xFFB9DAD3),
+                    size: 42,
                   ),
                   minLeadingWidth: 0,
                 ),

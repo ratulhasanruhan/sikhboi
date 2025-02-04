@@ -23,6 +23,7 @@ void main() async{
 
   await Hive.initFlutter();
   await Hive.openBox('user');
+  await Hive.openBox('courses');
 
   final runnableApp = _buildRunnableApp(
     isWeb: kIsWeb,
