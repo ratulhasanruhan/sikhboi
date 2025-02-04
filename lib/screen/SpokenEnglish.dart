@@ -2,6 +2,7 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:sikhboi/screen/Dictionary.dart';
 import 'package:sikhboi/screen/LearnChat.dart';
+import 'package:sikhboi/screen/PremiumDictionary.dart';
 import 'package:sikhboi/screen/QuizScreen.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -91,7 +92,7 @@ class _SpokenEnglishState extends State<SpokenEnglish> {
                       ),
                       child: InkWell(
                         onTap: () async {
-                          await launch('https://www.facebook.com/sikhboi');
+                          await launch('https://www.facebook.com/groups/sikhboi.spoken/?ref=share&mibextid=NSMWBT');
                         },
                         child: Row(
                           children: [
@@ -125,7 +126,7 @@ class _SpokenEnglishState extends State<SpokenEnglish> {
         ),
       ),
       body: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -142,7 +143,6 @@ class _SpokenEnglishState extends State<SpokenEnglish> {
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
-              buttonMargin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
               unselectedBackgroundColor: backGreen,
               unselectedLabelStyle: TextStyle(
                 color: color2dark,
@@ -157,6 +157,9 @@ class _SpokenEnglishState extends State<SpokenEnglish> {
                   text: 'Vocabulary',
                 ),
                 Tab(
+                  text: 'Freelancing',
+                ),
+                Tab(
                   text: 'Quiz',
                 ),
               ],
@@ -165,8 +168,9 @@ class _SpokenEnglishState extends State<SpokenEnglish> {
               child: TabBarView(
                 children: [
                   LearnChat(),
-                  Dictionary(),
-                  QuizScreen()
+                  Dictionary(type: 'dictionary',),
+                  PremiumDictionary(),
+                  QuizScreen(),
                 ],
               ),
             ),

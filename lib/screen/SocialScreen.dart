@@ -221,6 +221,15 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                         ),
                         IconButton(
                           onPressed: () async{
+                            await launch('https://www.facebook.com/groups/support.sikhboi/?ref=share&mibextid=NSMWBT');
+                          },
+                          icon: Icon(
+                            Icons.groups,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async{
                             Navigator.push(context, MaterialPageRoute(builder: (context) => MessageList()));
                           },
                           icon: Icon(
