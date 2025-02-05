@@ -126,7 +126,6 @@ class _FreeCourseOutlineState extends State<FreeCourseOutline> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
           StreamBuilder(
               stream: FirebaseFirestore.instance.collection('course').doc(widget.catId).snapshots(),
@@ -141,14 +140,8 @@ class _FreeCourseOutlineState extends State<FreeCourseOutline> {
                     ),
                   );
 
-                  return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4,),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: YoutubePlayer(
-                        controller: controller,
-                      ),
-                    ),
+                  return YoutubePlayer(
+                    controller: controller,
                   );
                 }
                 return Container(
@@ -177,79 +170,139 @@ class _FreeCourseOutlineState extends State<FreeCourseOutline> {
                 );
               }
           ),
-          SizedBox(
-            height: 14,
-          ),
-          Text(
-            widget.catId,
-            style: TextStyle(
-              color: color2dark,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(
-            height: 22,
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '৳ ০০',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 14,
                 ),
-              ),
-              Text(
-                '100 % off',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  widget.catId,
+                  style: TextStyle(
+                    color: color2dark,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 22,
-          ),
-          const Text(
-            'কিছু নীতিকথা ▼', // Title
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8.0), // Add some spacing between title and text
-          const Text(
-            'এই কোর্সটি এমন ভাবে সাজানো হয়েছে যাতে আপনি বেসিক থেকে হাতে কলমে শিখতে পারেন। তবে শুধু ভিডিও দেখলেই শিখতে পারবেন না, ভালো ভাবে যে কোন কিছু আয়ত্ত করার জন্য প্রয়োজন প্রচুর প্রাকটিস। এই কোর্সটি এমন ভাবে সাজানো হয়েছে যাতে আপনি বেসিক থেকে হাতে কলমে শিখতে পারেন। তবে শুধু ভিডিও দেখলেই শিখতে পারবেন না, ভালো ভাবে যে কোন কিছু আয়ত্ত করার জন্য প্রয়োজন প্রচুর প্রাকটিস। এই কোর্সটি এমন ভাবে সাজানো হয়েছে যাতে আপনি বেসিক থেকে হাতে কলমে শিখতে পারেন। তবে শুধু ভিডিও দেখলেই শিখতে পারবেন না, ভালো ভাবে যে কোন কিছু আয়ত্ত করার জন্য প্রয়োজন প্রচুর প্রাকটিস!',
-            style: TextStyle(fontSize: 16.0),
-          ),
-          SizedBox(
-            height: 14,
-          ),
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection('course').doc(widget.catId).snapshots(),
+                  builder: (context,AsyncSnapshot snapshot) {
+                    if(snapshot.hasData){
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Created By ',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: snapshot.data['created_by'] ?? 'Sikhboi',
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.watch_later_outlined,
+                                size: 18,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                snapshot.data.data() == null ? '0' : snapshot.data.data()['duration'] ?? '00:00:00',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      );
+                    }
+                    return const SizedBox();
+                  }
+                ),
+                SizedBox(
+                  height: 22,
+                ),
 
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => VideoList(catId: widget.catId)));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor,
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text(
-              'Start Learning',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '৳ ০০',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '100 % off',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 22,
+                ),
+                const Text(
+                  'কিছু নীতিকথা ▼', // Title
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8.0), // Add some spacing between title and text
+                const Text(
+                  'এই কোর্সটি এমন ভাবে সাজানো হয়েছে যাতে আপনি বেসিক থেকে হাতে কলমে শিখতে পারেন। তবে শুধু ভিডিও দেখলেই শিখতে পারবেন না, ভালো ভাবে যে কোন কিছু আয়ত্ত করার জন্য প্রয়োজন প্রচুর প্রাকটিস। এই কোর্সটি এমন ভাবে সাজানো হয়েছে যাতে আপনি বেসিক থেকে হাতে কলমে শিখতে পারেন। তবে শুধু ভিডিও দেখলেই শিখতে পারবেন না, ভালো ভাবে যে কোন কিছু আয়ত্ত করার জন্য প্রয়োজন প্রচুর প্রাকটিস। এই কোর্সটি এমন ভাবে সাজানো হয়েছে যাতে আপনি বেসিক থেকে হাতে কলমে শিখতে পারেন। তবে শুধু ভিডিও দেখলেই শিখতে পারবেন না, ভালো ভাবে যে কোন কিছু আয়ত্ত করার জন্য প্রয়োজন প্রচুর প্রাকটিস!',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => VideoList(catId: widget.catId)));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'Start Learning',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 

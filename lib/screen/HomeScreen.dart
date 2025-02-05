@@ -281,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: light_green,
+                      color: searchText == '' ? Colors.black26 : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -303,7 +303,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: light_green,
+                      color: searchText == 'Soft Skill' ? Colors.black26 : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -325,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: light_green,
+                      color: searchText == 'Hard Skill' ? Colors.black26 : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -347,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: light_green,
+                      color: searchText == 'Ai Tools' ? Colors.black26 : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -369,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: light_green,
+                      color: searchText == 'Event' ? Colors.black26 : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -473,6 +473,23 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                                               ),
                                               fit: BoxFit.cover,
                                             )
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Container(
+                                            padding: EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                              color: Colors.black.withOpacity(0.5),
+                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(8)),
+                                            ),
+                                            child: Text(
+                                              snapshot.data.docs[index]['duration'] ?? '00:00',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
