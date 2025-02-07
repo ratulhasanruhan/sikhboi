@@ -261,12 +261,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: light_green,
+                      color: searBox ? primaryColor : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       Icons.search,
-                      color: color2dark,
+                      color: searBox ? Colors.white : color2dark,
                       size: 20,
                     ),
                   ),
@@ -281,13 +281,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: searchText == '' ? Colors.black26 : light_green,
+                      color: searchText == '' ? primaryColor : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       "All",
                       style: TextStyle(
-                        color: color2dark,
+                        color: searchText == '' ? Colors.white : color2dark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -303,13 +303,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: searchText == 'Soft Skill' ? Colors.black26 : light_green,
+                      color: searchText == 'Soft Skill' ? primaryColor : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       "Soft Skill",
                       style: TextStyle(
-                        color: color2dark,
+                        color: searchText == 'Soft Skill' ? Colors.white : color2dark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -325,13 +325,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: searchText == 'Hard Skill' ? Colors.black26 : light_green,
+                      color: searchText == 'Hard Skill' ? primaryColor : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       "Hard Skill",
                       style: TextStyle(
-                        color: color2dark,
+                        color: searchText == 'Hard Skill' ? Colors.white : color2dark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -347,13 +347,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: searchText == 'Ai Tools' ? Colors.black26 : light_green,
+                      color: searchText == 'Ai Tools' ? primaryColor : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       "Ai Tools",
                       style: TextStyle(
-                        color: color2dark,
+                        color: searchText == 'Ai Tools' ? Colors.white : color2dark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -369,13 +369,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: searchText == 'Event' ? Colors.black26 : light_green,
+                      color: searchText == 'Event' ? primaryColor : light_green,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       "Event",
                       style: TextStyle(
-                        color: color2dark,
+                        color: searchText == 'Event' ? Colors.white : color2dark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -394,36 +394,39 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         children: [
 
           searBox
-          ? TextField(
-            onChanged: (value){
-              setState(() {
-                searchText = value;
-              });
-            },
-            decoration: InputDecoration(
-              hintText: 'সার্চ করুন',
-              fillColor: Color(0xFFF5F3F4),
-              isDense: true,
-              filled: true,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              prefixIconConstraints: BoxConstraints(
-                minWidth: 56,
-                minHeight: 45,
-              ),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.red,
-                    size: 25,
+          ? Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: TextField(
+              onChanged: (value){
+                setState(() {
+                  searchText = value;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'সার্চ করুন',
+                fillColor: Color(0xFFF5F3F4),
+                isDense: true,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                prefixIconConstraints: BoxConstraints(
+                  minWidth: 56,
+                  minHeight: 45,
+                ),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.red,
+                      size: 25,
+                    ),
                   ),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/screen/VideoList.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,9 +22,35 @@ class HomePlayVideo extends StatefulWidget {
 }
 
 class _HomePlayVideoState extends State<HomePlayVideo> {
+  RewardedAd? _rewardedAd;
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
+
+  void loadRewardAd() {
+    RewardedAd.load(
+        adUnitId: "ca-app-pub-3028551801469741/2741904985",
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          // Called when an ad is successfully received.
+          onAdLoaded: (ad) {
+            debugPrint('$ad loaded.');
+            // Keep a reference to the ad so you can show it later.
+            _rewardedAd = ad;
+          },
+          // Called when an ad request failed.
+          onAdFailedToLoad: (LoadAdError error) {
+            debugPrint('RewardedAd failed to load: $error');
+          },
+        ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadRewardAd();
+  }
 
   Widget commentChild(data) {
     return ListView(
@@ -96,6 +123,10 @@ class _HomePlayVideoState extends State<HomePlayVideo> {
                        children: [
                          ElevatedButton(
                            onPressed: () async {
+                             _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+                               print('User rewarded: ${reward.amount}');
+                             });
+
                              await launchUrl(Uri.parse('https://www.facebook.com/groups/support.sikhboi/?ref=share&mibextid=NSMWBT'));
                            },
                            style: ElevatedButton.styleFrom(
@@ -133,6 +164,10 @@ class _HomePlayVideoState extends State<HomePlayVideo> {
                          ),
                          ElevatedButton(
                            onPressed: () async {
+                             _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+                               print('User rewarded: ${reward.amount}');
+                             });
+
                              await FirebaseFirestore.instance.collection('course').doc(widget.catId).collection('video').doc(widget.videoId).get().then((value) {
                                if((value.data() as Map<String, dynamic>).containsKey('file')) {
                                  launchUrl(Uri.parse(value['file']));

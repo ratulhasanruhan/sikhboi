@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/VideoList.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,12 +20,12 @@ class PlayVideo extends StatefulWidget {
 }
 
 class _PlayVideoState extends State<PlayVideo> {
-  static const _insets = 16.0;
   BannerAd? _bannerAd;
   late Orientation _currentOrientation;
 
-  double get _adWidth => MediaQuery.of(context).size.width - (2 * _insets);
   YoutubePlayerController _controller = YoutubePlayerController();
+
+  var user = Hive.box('user').get('phone');
 
 
   @override
@@ -48,8 +49,10 @@ class _PlayVideoState extends State<PlayVideo> {
       request: const AdRequest(),
       size: AdSize.mediumRectangle,
       listener: BannerAdListener(
-        onAdLoaded: (ad) {
-
+        onAdLoaded: (ad) async{
+          FirebaseFirestore.instance.collection('users').doc(user).update({
+            'point': FieldValue.increment(5),
+          });
         },
         onAdFailedToLoad: (ad, err) {
           debugPrint('BannerAd failed to load: $err');
@@ -84,6 +87,9 @@ class _PlayVideoState extends State<PlayVideo> {
       builder: (context, player) {
         return Scaffold(
           backgroundColor: backGreen,
+          appBar: AppBar(
+            backgroundColor: backGreen,
+          ),
           body: Column(
             children: [
               player,
@@ -93,20 +99,9 @@ class _PlayVideoState extends State<PlayVideo> {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
-                      IconButton(
-                          onPressed: (){
-                            if(widget.catId == null) {
-                              Navigator.pop(context);
-                            } else {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => VideoList(catId: widget.catId!,)));
-                            }
-                            _controller.mute();
-                          },
-                          icon: const Icon(Icons.arrow_back_ios)
-                      ),
-                      const SizedBox(height: 10),
                       Text(
                         widget.title,
+                        textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -201,13 +196,6 @@ class _PlayVideoState extends State<PlayVideo> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      Text(
-                        widget.description,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
                       _bannerAd != null ?
                       Align(
                         alignment: Alignment.bottomCenter,

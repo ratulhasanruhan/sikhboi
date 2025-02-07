@@ -153,7 +153,7 @@ class _VideoListState extends State<VideoList> {
 
                     await getDetail('https://www.youtube.com/watch?v=' + data['youtube']).then((metaData) {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => PlayVideo(
-                        title: metaData['title'],
+                        title: snapshot.data()['name'],
                         videoId: data['youtube'],
                         description: metaData['title'],
                         catId: widget.catId,
