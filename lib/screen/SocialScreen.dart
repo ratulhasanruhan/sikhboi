@@ -15,6 +15,7 @@ import 'package:sikhboi/widgets/loginPermission.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/assets_path.dart';
+import 'NoticeScreen.dart';
 import 'Profile.dart';
 
 
@@ -82,6 +83,7 @@ class _SocialScreenState extends State<SocialScreen> with TickerProviderStateMix
                      children: [
                        IconButton(
                            onPressed: (){
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeScreen()));
 
                            },
                            iconSize: 30,

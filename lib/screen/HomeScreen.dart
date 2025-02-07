@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/HomeVideoPlayer.dart';
+import 'package:sikhboi/screen/NoticeScreen.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/getVideoUrl.dart';
 import 'package:sikhboi/utils/yt_details.dart';
@@ -125,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         actions: [
           IconButton(
               onPressed: (){
-
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeScreen()));
               },
               iconSize: 30,
               icon: Badge(
