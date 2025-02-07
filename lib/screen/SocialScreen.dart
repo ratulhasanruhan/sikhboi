@@ -11,10 +11,7 @@ import 'package:sikhboi/screen/Comments.dart';
 import 'package:sikhboi/screen/MessageList.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/time_difference.dart';
-import 'package:sikhboi/widgets/loginPermission.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../utils/assets_path.dart';
 import 'NoticeScreen.dart';
 import 'Profile.dart';
 

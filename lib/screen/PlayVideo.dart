@@ -21,6 +21,7 @@ class PlayVideo extends StatefulWidget {
 
 class _PlayVideoState extends State<PlayVideo> {
   BannerAd? _bannerAd;
+  RewardedAd? _rewardedAd;
   late Orientation _currentOrientation;
 
   YoutubePlayerController _controller = YoutubePlayerController();
@@ -33,6 +34,14 @@ class _PlayVideoState extends State<PlayVideo> {
     // TODO: implement initState
     super.initState();
     loadAd();
+    Future.delayed(const Duration(minutes: 1), () {
+      loadRewardAd();
+      _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+        FirebaseFirestore.instance.collection('users').doc(user).update({
+          'point': FieldValue.increment(5),
+        });
+      });
+    });
   }
 
   @override
@@ -50,9 +59,7 @@ class _PlayVideoState extends State<PlayVideo> {
       size: AdSize.mediumRectangle,
       listener: BannerAdListener(
         onAdLoaded: (ad) async{
-          FirebaseFirestore.instance.collection('users').doc(user).update({
-            'point': FieldValue.increment(5),
-          });
+
         },
         onAdFailedToLoad: (ad, err) {
           debugPrint('BannerAd failed to load: $err');
@@ -61,6 +68,24 @@ class _PlayVideoState extends State<PlayVideo> {
         },
       ),
     )..load();
+  }
+
+  void loadRewardAd() {
+    RewardedAd.load(
+        adUnitId: "ca-app-pub-3028551801469741/2741904985",
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          // Called when an ad is successfully received.
+          onAdLoaded: (ad) {
+            debugPrint('$ad loaded.');
+            // Keep a reference to the ad so you can show it later.
+            _rewardedAd = ad;
+          },
+          // Called when an ad request failed.
+          onAdFailedToLoad: (LoadAdError error) {
+            debugPrint('RewardedAd failed to load: $error');
+          },
+        ));
   }
 
   @override
