@@ -34,8 +34,8 @@ class _PlayVideoState extends State<PlayVideo> {
     // TODO: implement initState
     super.initState();
     loadAd();
+    loadRewardAd();
     Future.delayed(const Duration(minutes: 1), () {
-      loadRewardAd();
       _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
         FirebaseFirestore.instance.collection('users').doc(user).update({
           'point': FieldValue.increment(5),
