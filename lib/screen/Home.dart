@@ -9,6 +9,7 @@ import 'package:sikhboi/screen/SpokenEnglish.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 
 import '../utils/colors.dart';
+import 'FreelanceOnboard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -213,7 +214,7 @@ class _HomePageState extends State<HomePage> {
               LearningType(),
               SpokenEnglish(),
               SocialScreen(),
-              Freelance(),
+              FreelanceOnboard(),
               Ecom()
             ],
           ),
