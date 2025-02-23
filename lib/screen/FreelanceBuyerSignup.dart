@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 import 'package:sikhboi/utils/colors.dart';
 
+import 'FreelanceMain.dart';
+
 class FreelanceBuyerSignup extends StatefulWidget {
   const FreelanceBuyerSignup({super.key});
 
@@ -217,7 +219,9 @@ class _FreelanceBuyerSignupState extends State<FreelanceBuyerSignup> {
                             ),
                           );
                         } else {
-                          isLoading = true;
+                          setState(() {
+                            isLoading = true;
+                          });
                           // Save to Firebase
                           firestore.collection('freelance_buyer').doc(user).set({
                             'name': nameController.text,
@@ -247,6 +251,8 @@ class _FreelanceBuyerSignupState extends State<FreelanceBuyerSignup> {
 
                             // Save to Hive
                             Hive.box('user').put('type', 'buyer');
+
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceMain()));
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

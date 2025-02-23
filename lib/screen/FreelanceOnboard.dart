@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikhboi/screen/FreelanceSellerSignup.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
 
@@ -65,7 +66,7 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
                   children: [
                     InkWell(
                       onTap: () {
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceSellerSignup()));
                       },
                       child: Card(
                         elevation: 5,

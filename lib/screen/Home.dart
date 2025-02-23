@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/Ecom.dart';
-import 'package:sikhboi/screen/Freelance.dart';
+import 'package:sikhboi/screen/FreelanceMain.dart';
 import 'package:sikhboi/screen/HomeScreen.dart';
-import 'package:sikhboi/screen/LearnChat.dart';
 import 'package:sikhboi/screen/LearningType.dart';
 import 'package:sikhboi/screen/SocialScreen.dart';
 import 'package:sikhboi/screen/SpokenEnglish.dart';
@@ -22,25 +22,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   PageController _pageController = PageController();
 
-  @override
-  void initState() {
-    super.initState();
-
-    /*InAppUpdate.checkForUpdate().then((info) {
-      if (info.updateAvailability == UpdateAvailability.updateAvailable) {
-        InAppUpdate.startFlexibleUpdate().then((_) {
-          InAppUpdate.completeFlexibleUpdate().then((_) {
-            print('Update completed successfully');
-          }).catchError((e) {
-            print('Update failed to complete: $e');
-          });
-        }).catchError((e) {
-          print('Update failed to start: $e');
-        });
-      }
-    });*/
-  }
-
+  var box = Hive.box('user');
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +196,9 @@ class _HomePageState extends State<HomePage> {
               LearningType(),
               SpokenEnglish(),
               SocialScreen(),
-              FreelanceOnboard(),
+              box.get('type', defaultValue: '') == 'seller' || box.get('type', defaultValue: '') == 'buyer'
+                  ? FreelanceMain()
+                  : FreelanceOnboard(),
               Ecom()
             ],
           ),
