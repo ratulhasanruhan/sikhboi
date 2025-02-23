@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
 
+import 'FreelanceBuyerSignup.dart';
+
 class FreelanceOnboard extends StatefulWidget {
   const FreelanceOnboard({super.key});
 
@@ -107,7 +109,7 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
                     ),
                     InkWell(
                       onTap: () {
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceBuyerSignup()));
                       },
                       child: Card(
                         elevation: 5,
