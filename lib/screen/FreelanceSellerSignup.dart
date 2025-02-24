@@ -140,6 +140,16 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                   ],
                 ),
                 buildTextField('ইমেইল',emailController, keyboardType: TextInputType.emailAddress),
+
+                workImage != null
+                    ? Image.file(
+                  File(workImage!.path),
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.cover,
+                )
+                    : Container(),
+
                 TextButton.icon(
                   onPressed: () async{
                     await workImagePicker.pickImage(source: ImageSource.gallery).then((value) {
@@ -173,6 +183,17 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                   ),
                 ),
                 const SizedBox(height: 16),
+
+                idImage != null
+                    ? Image.file(
+                  File(idImage!.path),
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.cover,
+                )
+                    : Container(),
+                const SizedBox(height: 6),
+
                 TextButton.icon(
                   onPressed: () async {
                     await idImagePicker.pickImage(source: ImageSource.gallery).then((value) {
@@ -276,6 +297,18 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'ফ্রিল্যান্সার একাউন্ট খুলতে হলে অবশ্যই আপনাকে বাৎসরিক চার্জ মাত্র ১,৭৫০/- টাকা পরিশোধ করতে হবে।',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14,
                   ),
                 ),
 

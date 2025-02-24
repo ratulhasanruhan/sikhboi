@@ -140,6 +140,17 @@ class _FreelanceBuyerSignupState extends State<FreelanceBuyerSignup> {
                     ],
                   ),
                   buildTextField('ইমেইল',emailController, keyboardType: TextInputType.emailAddress),
+
+                  companyImage != null
+                      ? Image.file(
+                      File(companyImage!.path),
+                      height: 100,
+                      width: 100,
+                  )
+                      : Container(),
+
+                  const SizedBox(height: 8),
+
                   TextButton.icon(
                     onPressed: () async{
                       await companyImagePicker.pickImage(source: ImageSource.gallery).then((value) {
@@ -173,6 +184,15 @@ class _FreelanceBuyerSignupState extends State<FreelanceBuyerSignup> {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  idImage != null
+                      ? Image.file(
+                    File(idImage!.path),
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  )
+                      : Container(),
+                  const SizedBox(height: 6),
                   TextButton.icon(
                     onPressed: () async {
                       await idImagePicker.pickImage(source: ImageSource.gallery).then((value) {

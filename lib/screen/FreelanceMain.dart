@@ -151,7 +151,6 @@ class _FreelanceMainState extends State<FreelanceMain> {
         ),
       ),
       body: Center(
-        child: Text('Freelance Main'),
       ),
     );
   }
