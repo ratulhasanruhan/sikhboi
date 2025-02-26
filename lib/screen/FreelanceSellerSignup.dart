@@ -97,7 +97,7 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                 const SizedBox(height: 8),
                 TextButton.icon(
                   onPressed: () async {
-                    await profileImagePicker.pickImage(source: ImageSource.gallery).then((value) {
+                    await profileImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50).then((value) {
                       if (value != null) {
                         setState(() {
                           profileImage = value;
@@ -152,7 +152,7 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
 
                 TextButton.icon(
                   onPressed: () async{
-                    await workImagePicker.pickImage(source: ImageSource.gallery).then((value) {
+                    await workImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50).then((value) {
                       if (value != null) {
                         setState(() {
                           workImage = value;
@@ -196,7 +196,7 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
 
                 TextButton.icon(
                   onPressed: () async {
-                    await idImagePicker.pickImage(source: ImageSource.gallery).then((value) {
+                    await idImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50).then((value) {
                       if (value != null) {
                         setState(() {
                           idImage = value;
