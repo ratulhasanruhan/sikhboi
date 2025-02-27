@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikhboi/screen/FreelancerProfile.dart';
 import 'package:sikhboi/screen/MessageList.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
@@ -135,7 +136,9 @@ class _FreelanceMainState extends State<FreelanceMain> {
                       ),
                       SizedBox(width: 10),
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreelancerProfile()));
+                        },
                         child: Icon(
                           Icons.account_circle,
                           color: color2dark,
