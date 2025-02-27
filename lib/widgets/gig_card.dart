@@ -9,10 +9,11 @@ Widget gigCard({
       required String price,
       required String gigId,
       required BuildContext context,
+      bool isGig = true,
     }) {
   return InkWell(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => GigDetails(gigId: gigId)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => GigDetails(gigId: gigId, isGig: isGig,)));
     },
     borderRadius: BorderRadius.circular(12),
     child: Card(
