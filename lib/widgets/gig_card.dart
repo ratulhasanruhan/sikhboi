@@ -1,15 +1,18 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
+import '../screen/GigDetails.dart';
+
 Widget gigCard({
       required String title,
       required String description,
       required String price,
       required String gigId,
+      required BuildContext context,
     }) {
   return InkWell(
     onTap: () {
-      // Navigate to Gig Details Screen
+      Navigator.push(context, MaterialPageRoute(builder: (context) => GigDetails(gigId: gigId)));
     },
     borderRadius: BorderRadius.circular(12),
     child: Card(

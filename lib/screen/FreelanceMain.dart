@@ -175,6 +175,7 @@ class _FreelanceMainState extends State<FreelanceMain> {
                     gigId: snapshot.id,
                     description: snapshot.data()['description'],
                     price: snapshot.data()['price'],
+                    context: context
                   );
                 },
               )

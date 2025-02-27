@@ -265,6 +265,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                             description: snapshot['description'],
                             price: snapshot['price'],
                             gigId: snapshot.id,
+                            context: context
                           );
                         },
                       ),

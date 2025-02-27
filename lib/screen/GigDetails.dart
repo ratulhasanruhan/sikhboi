@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GigDetails extends StatefulWidget {
-  const GigDetails({super.key});
+  const GigDetails({super.key, required this.gigId});
+  final String gigId;
 
   @override
   State<GigDetails> createState() => _GigDetailsState();
