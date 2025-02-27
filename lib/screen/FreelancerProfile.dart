@@ -49,7 +49,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                       if(future.hasData){
                         return CircleAvatar(
                           radius: 50,
-                          backgroundImage: NetworkImage(future.data),
+                          backgroundImage: NetworkImage(future.data.toString()),
                         );
                       }
                       return CircleAvatar(
