@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/FreelancerProfile.dart';
 import 'package:sikhboi/screen/MessageList.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
+
+import '../widgets/gig_card.dart';
 
 class FreelanceMain extends StatefulWidget {
   const FreelanceMain({super.key});
@@ -13,7 +18,7 @@ class FreelanceMain extends StatefulWidget {
 
 class _FreelanceMainState extends State<FreelanceMain> {
 
-  String searchText = 'Gigs';
+  String selectedType = 'Gigs';
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +51,15 @@ class _FreelanceMainState extends State<FreelanceMain> {
                       InkWell(
                         onTap: (){
                           setState(() {
-                            searchText = 'Gigs';
+                            selectedType = 'Gigs';
                           });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                           decoration: BoxDecoration(
-                            color: searchText == 'Gigs' ? primaryColor : light_green,
+                            color: selectedType == 'Gigs' ? primaryColor : light_green,
                             border: Border.all(
-                              color: searchText == 'Gigs' ? primaryColor : color2dark,
+                              color: selectedType == 'Gigs' ? primaryColor : color2dark,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(4),
@@ -62,7 +67,7 @@ class _FreelanceMainState extends State<FreelanceMain> {
                           child: Text(
                             "Gigs",
                             style: TextStyle(
-                              color: searchText == 'Gigs' ? Colors.white : color2dark,
+                              color: selectedType == 'Gigs' ? Colors.white : color2dark,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -72,15 +77,15 @@ class _FreelanceMainState extends State<FreelanceMain> {
                       InkWell(
                         onTap: (){
                           setState(() {
-                            searchText = 'Buyer Requests';
+                            selectedType = 'Buyer Requests';
                           });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                           decoration: BoxDecoration(
-                            color: searchText == 'Buyer Requests' ? primaryColor : light_green,
+                            color: selectedType == 'Buyer Requests' ? primaryColor : light_green,
                             border: Border.all(
-                              color: searchText == 'Buyer Requests' ? primaryColor : color2dark,
+                              color: selectedType == 'Buyer Requests' ? primaryColor : color2dark,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(4),
@@ -88,7 +93,7 @@ class _FreelanceMainState extends State<FreelanceMain> {
                           child: Text(
                             "Buyer Requests",
                             style: TextStyle(
-                              color: searchText == 'Buyer Requests' ? Colors.white : color2dark,
+                              color: selectedType == 'Buyer Requests' ? Colors.white : color2dark,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -98,15 +103,15 @@ class _FreelanceMainState extends State<FreelanceMain> {
                       InkWell(
                         onTap: (){
                           setState(() {
-                            searchText = 'Contests';
+                            selectedType = 'Contests';
                           });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                           decoration: BoxDecoration(
-                            color: searchText == 'Contests' ? primaryColor : light_green,
+                            color: selectedType == 'Contests' ? primaryColor : light_green,
                             border: Border.all(
-                              color: searchText == 'Contests' ? primaryColor : color2dark,
+                              color: selectedType == 'Contests' ? primaryColor : color2dark,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(4),
@@ -114,7 +119,7 @@ class _FreelanceMainState extends State<FreelanceMain> {
                           child: Text(
                             "Contests",
                             style: TextStyle(
-                              color: searchText == 'Contests' ? Colors.white : color2dark,
+                              color: selectedType == 'Contests' ? Colors.white : color2dark,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -137,7 +142,10 @@ class _FreelanceMainState extends State<FreelanceMain> {
                       SizedBox(width: 10),
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreelancerProfile()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreelancerProfile(
+                            user: Hive.box('user').get('phone'),
+                            isSeller: Hive.box('user').get('type') == 'seller',
+                          )));
                         },
                         child: Icon(
                           Icons.account_circle,
@@ -153,7 +161,25 @@ class _FreelanceMainState extends State<FreelanceMain> {
           ),
         ),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            if(selectedType == 'Gigs')
+              FirestoreListView(
+                query: FirebaseFirestore.instance.collection('gigs'),
+                shrinkWrap: true,
+                itemBuilder: (context, snapshot){
+                  return gigCard(
+                    title: snapshot.data()['title'],
+                    gigId: snapshot.id,
+                    description: snapshot.data()['description'],
+                    price: snapshot.data()['price'],
+                  );
+                },
+              )
+          ],
+        ),
       ),
     );
   }

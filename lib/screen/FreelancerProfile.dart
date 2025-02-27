@@ -1,10 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:sikhboi/utils/colors.dart';
+import 'package:sikhboi/widgets/gig_card.dart';
+
+import 'CreateGig.dart';
 
 class FreelancerProfile extends StatefulWidget {
-  const FreelancerProfile({super.key});
+  const FreelancerProfile({super.key, required this.user, required this.isSeller});
+  final String user;
+  final bool isSeller;
 
   @override
   State<FreelancerProfile> createState() => _FreelancerProfileState();
@@ -12,10 +19,7 @@ class FreelancerProfile extends StatefulWidget {
 
 class _FreelancerProfileState extends State<FreelancerProfile> {
 
-  var type = Hive.box('user').get('type');
-  var phone = Hive.box('user').get('phone');
-
-  bool isSeller = Hive.box('user').get('type') == 'seller';
+  var localUser = Hive.box('user').get('phone');
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          isSeller ? 'Seller Profile' : 'Buyer Profile',
+          widget.isSeller ? 'Seller Profile' : 'Buyer Profile',
           style: TextStyle(
             color: Colors.black87,
             fontSize: 28,
@@ -34,17 +38,16 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
         ),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection(isSeller ? 'freelance_seller' : 'freelance_buyer').doc(phone).snapshots(),
+        stream: FirebaseFirestore.instance.collection(widget.isSeller ? 'freelance_seller' : 'freelance_buyer').doc(widget.user).snapshots(),
         builder: (context,AsyncSnapshot snapshot) {
           if(snapshot.hasData){
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Profile Picture
                   FutureBuilder(
-                    future: FirebaseStorage.instance.ref(isSeller ? 'freelance_seller' : 'freelance_buyer').child(phone).getDownloadURL(),
+                    future: FirebaseStorage.instance.ref(widget.isSeller ? 'freelance_seller/${widget.user}/' : 'freelance_buyer/${widget.user}/').child('profile.jpg').getDownloadURL(),
                     builder: (context, future) {
                       if(future.hasData){
                         return CircleAvatar(
@@ -54,7 +57,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                       }
                       return CircleAvatar(
                         radius: 50,
-                        backgroundImage: const NetworkImage('https://via.placeholder.com/150'),
+                        child: Icon(Icons.person, size: 50),
                       );
                     }
                   ),
@@ -68,7 +71,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                     ),
                   ),
                   Text(
-                    isSeller ? snapshot.data['skill'] : snapshot.data['company_name'],
+                    widget.isSeller ? snapshot.data['skill'] : snapshot.data['company_name'],
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -76,63 +79,195 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                   ),
                   const SizedBox(height: 12),
                   // Contact Button
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.email, color: Colors.white),
-                    label: const Text('Contact'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Contact Information
-                  sectionTitle('Contact'),
-                  const SizedBox(height: 8),
-                  contactInfo(Icons.location_on, 'Shariatpur'),
-                  contactInfo(Icons.work, '5 Years Experience'),
-                  contactInfo(Icons.email, 'abir@gmail.com'),
-                  const SizedBox(height: 20),
-
-                  // About Me Section
-                  sectionTitle('About me'),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'আমি বাপ্পি, একজন গ্রাফিক্স এবং ভিজ্যুয়াল ডিজাইনার। আমি ক্রিয়েটিভ ডিজাইনিংয়ে অভিজ্ঞ এবং বিভিন্ন ধরনের সামাজিক মিডিয়া, পণ্য বিপণন এবং লোগো ডিজাইনের জন্য নির্ভরযোগ্য সেবা প্রদান করে থাকি।',
-                    style: TextStyle(color: Colors.black87),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Skills Section
-                  sectionTitle('Skills'),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'লোগো ডিজাইন, ব্যানার ডিজাইন, সোশাল মিডিয়া ডিজাইন, ফেসবুক কভার ডিজাইন',
-                    style: TextStyle(color: Colors.black87),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Portfolio Section
-                  sectionTitle('Portfolio'),
-                  const SizedBox(height: 8),
-                  GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      portfolioItem('https://via.placeholder.com/100'),
-                      portfolioItem('https://via.placeholder.com/100'),
-                      portfolioItem('https://via.placeholder.com/100'),
-                      portfolioItem('https://via.placeholder.com/100'),
-                      portfolioItem('https://via.placeholder.com/100'),
-                      portfolioItem('https://via.placeholder.com/100'),
+                      // Contact Information
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          sectionTitle('Contact'),
+                          widget.isSeller?
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    TextEditingController _controller = TextEditingController();
+
+                                    return AlertDialog(
+                                      title: Text('Message to ${snapshot.data['name']}'),
+                                      content: TextField(
+                                        controller: _controller,
+                                        decoration: InputDecoration(
+                                          hintText: 'Write a message...',
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                        maxLines: 3,
+                                        minLines: 2,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Close'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async{
+                                            await FirebaseFirestore.instance.collection('chat').add({
+                                              'time': Timestamp.now(),
+                                              'user': [
+                                                Hive.box('user').get('phone'),
+                                                widget.user,
+                                              ],
+                                              'sms' : [
+                                                {
+                                                  'text': _controller.text,
+                                                  'user': Hive.box('user').get('phone'),
+                                                  'time': Timestamp.now(),
+                                                }
+                                              ]
+                                            }).then((value) {
+                                              Navigator.pop(context);
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Message sent')));
+                                            });
+                                          },
+                                          child: const Text('Send'),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                              );
+                            },
+                            icon: const Icon(Icons.email, color: Colors.white),
+                            label: const Text(
+                                'Contact',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          )
+                              : SizedBox()
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      contactInfo(Icons.location_on, snapshot.data['address']),
+                      contactInfo(Icons.work, widget.isSeller ? snapshot.data['workExperience'] + ' Years Experience' : snapshot.data['company_name']),
+                      contactInfo(Icons.email, snapshot.data['email']),
+                      const SizedBox(height: 20),
+
+                      // About Me Section
+                      sectionTitle('About me'),
+                      const SizedBox(height: 8),
+                       Text(
+                         widget.isSeller ? snapshot.data['aboutMe'] : snapshot.data['company_description'],
+                        style: TextStyle(color: Colors.black87),
+                        textAlign: TextAlign.start,
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Skills Section
+                      widget.isSeller
+                      ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          sectionTitle('Skills'),
+                          const SizedBox(height: 8),
+                          Text(
+                            snapshot.data['skill'],
+                            style: TextStyle(color: Colors.black87),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      )
+                      : const SizedBox(),
+
+                      // Portfolio Section
+                      sectionTitle(widget.isSeller ? 'Portfolio' : 'Our Company'),
+                      const SizedBox(height: 8),
+                      GridView.count(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          FutureBuilder(
+                              future: FirebaseStorage.instance.ref(widget.isSeller ? 'freelance_seller/${widget.user}/' : 'freelance_buyer/${widget.user}/')
+                                  .child(widget.isSeller ? 'portfolio.jpg' : 'company.jpg').getDownloadURL(),
+                            builder: (context, snapshot) {
+                              if(snapshot.hasData){
+                                return portfolioItem(snapshot.data.toString());
+                              }
+                              return portfolioItem('https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png');
+                            }
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          sectionTitle(widget.isSeller ? 'My Gigs' : 'My Posts'),
+
+                          widget.user == localUser ?
+                          ElevatedButton(
+                            onPressed: () {
+                              if(widget.isSeller){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGig()));
+                              }else{
+
+                              }
+                            },
+                            child: Text(
+                              widget.isSeller ? 'Publish Gig' : 'Work Post',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColor,
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          )
+                              : SizedBox(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FirestoreListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        query: FirebaseFirestore.instance.collection('gigs').where('user', isEqualTo: widget.user),
+                        itemBuilder: (context, snapshot) {
+                          return gigCard(
+                            title: snapshot['title'],
+                            description: snapshot['description'],
+                            price: snapshot['price'],
+                            gigId: snapshot.id,
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -153,6 +288,8 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
         fontSize: 20,
         fontWeight: FontWeight.bold,
         color: Colors.green,
+        decorationColor: Colors.green,
+        decoration: TextDecoration.underline,
       ),
     );
   }
@@ -162,7 +299,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Icon(icon, color: Colors.black54, size: 20),
           const SizedBox(width: 8),
