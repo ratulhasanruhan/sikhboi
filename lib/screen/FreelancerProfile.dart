@@ -261,7 +261,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                       FirestoreListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        query: FirebaseFirestore.instance.collection('gigs').where('user', isEqualTo: widget.user),
+                        query: FirebaseFirestore.instance.collection(widget.isSeller ? 'gigs' : 'buyer_request').where('user', isEqualTo: widget.user),
                         itemBuilder: (context, snapshot) {
                           return gigCard(
                             title: snapshot['title'],

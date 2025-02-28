@@ -114,7 +114,7 @@ class _CreateBuyerRequestState extends State<CreateBuyerRequest> {
                 const SizedBox(height: 12),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
                       onTap: () {
@@ -172,6 +172,7 @@ class _CreateBuyerRequestState extends State<CreateBuyerRequest> {
                         ),
                       ),
                     ),
+                    const SizedBox(width: 12),
                     sampleImageFile != null
                         ? Image.file(
                       File(sampleImageFile!.path),
@@ -181,7 +182,7 @@ class _CreateBuyerRequestState extends State<CreateBuyerRequest> {
                     )
                         : uploadPhotoBox(
                           () {
-                        sampleImage.pickImage(source: ImageSource.gallery, imageQuality: 40).then((value) {
+                        sampleImage.pickImage(source: ImageSource.gallery, imageQuality: 30).then((value) {
                           setState(() {
                             sampleImageFile = value;
                           });
