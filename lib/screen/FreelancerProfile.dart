@@ -3,10 +3,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:sikhboi/screen/CreateBuyerRequest.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/widgets/gig_card.dart';
 
 import 'CreateGig.dart';
+import 'MessageList.dart';
 
 class FreelancerProfile extends StatefulWidget {
   const FreelancerProfile({super.key, required this.user, required this.isSeller});
@@ -132,6 +134,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                                               ]
                                             }).then((value) {
                                               Navigator.pop(context);
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => MessageList()));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Message sent')));
                                             });
                                           },
@@ -231,7 +234,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                               if(widget.isSeller){
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGig()));
                               }else{
-
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateBuyerRequest()));
                               }
                             },
                             child: Text(

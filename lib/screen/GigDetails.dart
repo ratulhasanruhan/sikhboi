@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import '../utils/colors.dart';
+import 'MessageList.dart';
 
 class GigDetails extends StatefulWidget {
   const GigDetails({super.key, required this.gigId, required this.isGig});
@@ -284,6 +285,7 @@ class _GigDetailsState extends State<GigDetails> {
                                               ]
                                             }).then((value) {
                                               Navigator.pop(context);
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => MessageList()));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Message sent')));
                                             });
                                           },
