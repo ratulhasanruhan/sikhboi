@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 class MessagesDetails extends StatefulWidget {
   QueryDocumentSnapshot<Map<String,dynamic>> data;
   dynamic user;
-  MessagesDetails({required this.data, required this.user, Key? key}) : super(key: key);
+  MessagesDetails({required this.data, required this.user, super.key});
 
   @override
   State<MessagesDetails> createState() => _MessagesDetailsState();

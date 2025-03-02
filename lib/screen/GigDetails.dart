@@ -115,30 +115,23 @@ class _GigDetailsState extends State<GigDetails> {
                                   }),
                               SizedBox(width: 10),
                               StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection(widget.isGig
-                                          ? 'freelance_seller'
-                                          : 'freelancer_buyer')
-                                      .doc(snapshot.data['user'])
-                                      .snapshots(),
-                                  builder: (context, AsyncSnapshot snapshot) {
-                                    if (snapshot.hasData) {
-                                      print(snapshot.data.data());
+                                  stream: FirebaseFirestore.instance.collection(widget.isGig ? 'freelance_seller' : 'freelance_buyer').doc(snapshot.data['user']).snapshots(),
+                                  builder: (context, AsyncSnapshot userSnap) {
+                                    if (userSnap.hasData) {
+                                      print(userSnap.data);
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Text(snapshot.data['name'] ?? 'User',
+                                          Text(userSnap.data['name'] ?? 'User',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16,
                                               )),
                                           Text(
                                             widget.isGig
-                                                ? snapshot.data['skill'] ?? ''
-                                                : snapshot
-                                                        .data['company_name'] ??
-                                                    '',
+                                                ? userSnap.data['skill'] ?? ''
+                                                : userSnap.data['company_name'] ?? '',
                                             style: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 14,
@@ -226,8 +219,8 @@ class _GigDetailsState extends State<GigDetails> {
                                       )
                                     : InkWell(
                                         onTap: () async {
-                                          if(await canLaunchUrl(Uri.parse(snapshot.data['ur']))){
-                                            await launchUrl(Uri.parse(snapshot.data['ur']));
+                                          if(await canLaunchUrl(Uri.parse(snapshot.data['url']))){
+                                            await launchUrl(Uri.parse(snapshot.data['url']));
                                           }else{
                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid URL')));
                                           }
