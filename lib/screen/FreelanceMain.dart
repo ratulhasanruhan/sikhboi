@@ -179,6 +179,21 @@ class _FreelanceMainState extends State<FreelanceMain> {
                   );
                 },
               )
+            else if(selectedType == 'Buyer Requests')
+              FirestoreListView(
+                query: FirebaseFirestore.instance.collection('buyer_request'),
+                shrinkWrap: true,
+                itemBuilder: (context, snapshot){
+                  return gigCard(
+                    title: snapshot.data()['title'],
+                    gigId: snapshot.id,
+                    description: snapshot.data()['description'],
+                    price: snapshot.data()['price'],
+                    context: context,
+                    isGig: false
+                  );
+                },
+              )
           ],
         ),
       ),
