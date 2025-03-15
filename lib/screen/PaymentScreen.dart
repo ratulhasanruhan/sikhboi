@@ -15,8 +15,7 @@ class PaymentScreen extends StatefulWidget {
   bool subscription;
   String reason;
   Map<String,dynamic>? data;
-  PaymentScreen({Key? key, required this.amount, required this.subscription, this.data, required this.reason})
-      : super(key: key);
+  PaymentScreen({super.key, required this.amount, required this.subscription, this.data, required this.reason});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();

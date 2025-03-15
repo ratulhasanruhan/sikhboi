@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
+import 'package:sikhboi/screen/PaymentScreen.dart';
 
 import '../utils/colors.dart';
 import 'FreelanceMain.dart';
@@ -272,7 +273,7 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                           // Save to Hive
                           Hive.box('user').put('type', 'seller');
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceMain()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(amount: 1750, subscription: false, reason: 'seller_signup')));
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
