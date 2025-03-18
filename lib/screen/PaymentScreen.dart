@@ -557,7 +557,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             });
                           }
                           else{
-                            await FirebaseFirestore.instance.collection('freelance').add(widget.data!);
+                            if(widget.data != null) {
+                              await FirebaseFirestore.instance.collection('freelance').add(widget.data!);
+                            }
 
                             await FirebaseFirestore.instance.collection('payment_${widget.reason}').add({
                               'user' : Hive.box('user').get('phone'),

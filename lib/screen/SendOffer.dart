@@ -311,7 +311,7 @@ class _SendOfferState extends State<SendOffer> {
                                 ),
                                 TextButton(
                                   onPressed: ()async{
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(amount: snapshot['amount'], subscription: false, reason: 'offer_request')));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(amount: int.parse(snapshot['amount'].toString()), subscription: false, reason: 'offer_request')));
                                   },
                                   child: Text('Accept'),
                                 ),
