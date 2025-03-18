@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikhboi/screen/FreelanceMain.dart';
 import 'package:sikhboi/screen/FreelanceSellerSignup.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
@@ -48,7 +49,7 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
                   SizedBox(height: 35),
                   Container(
                     width: double.infinity,
-                    height: 180,
+                    height: 190,
                     decoration: BoxDecoration(
                       color: backGreen,
                       borderRadius: BorderRadius.only(
@@ -60,7 +61,7 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
                 ],
               ),
               Positioned(
-                bottom: 30,
+                bottom: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -154,7 +155,23 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
                     ),
                   ],
                 ),
-              )
+              ),
+              Positioned(
+                bottom: 0,
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceMain()));
+                    },
+                    child: Text(
+                      'Or, Continue without account',
+                      style: TextStyle(
+                        color: color2dark,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+              ),
             ],
           ),
         ),

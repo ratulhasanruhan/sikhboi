@@ -6,6 +6,7 @@ import 'package:sikhboi/screen/FreelancerProfile.dart';
 import 'package:sikhboi/screen/MessageList.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
+import 'package:sikhboi/widgets/loginPermission.dart';
 
 import '../widgets/gig_card.dart';
 
@@ -19,6 +20,7 @@ class FreelanceMain extends StatefulWidget {
 class _FreelanceMainState extends State<FreelanceMain> {
 
   String selectedType = 'Gigs';
+  var box = Hive.box('user');
 
   @override
   Widget build(BuildContext context) {
@@ -142,10 +144,15 @@ class _FreelanceMainState extends State<FreelanceMain> {
                       SizedBox(width: 10),
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FreelancerProfile(
-                            user: Hive.box('user').get('phone'),
-                            isSeller: Hive.box('user').get('type') == 'seller',
-                          )));
+                          if(box.get('type') != null){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => FreelancerProfile(
+                              user: Hive.box('user').get('phone'),
+                              isSeller: Hive.box('user').get('type') == 'seller',
+                            )));
+                          }
+                          else{
+                            loginPermissionDialog(context);
+                          }
                         },
                         child: Icon(
                           Icons.account_circle,
@@ -154,7 +161,7 @@ class _FreelanceMainState extends State<FreelanceMain> {
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),

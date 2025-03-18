@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:sikhboi/widgets/loginPermission.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/colors.dart';
@@ -18,6 +19,9 @@ class GigDetails extends StatefulWidget {
 }
 
 class _GigDetailsState extends State<GigDetails> {
+
+  var box = Hive.box('user');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -325,69 +329,75 @@ class _GigDetailsState extends State<GigDetails> {
                           Center(
                             child: ElevatedButton.icon(
                               onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      TextEditingController _controller =
-                                          TextEditingController();
+                                if(box.get('type') != null){
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        TextEditingController _controller =
+                                        TextEditingController();
 
-                                      return AlertDialog(
-                                        title: Text('Message to this User'),
-                                        content: TextField(
-                                          controller: _controller,
-                                          decoration: InputDecoration(
-                                            hintText: 'Write a message...',
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                        return AlertDialog(
+                                          title: Text('Message to this User'),
+                                          content: TextField(
+                                            controller: _controller,
+                                            decoration: InputDecoration(
+                                              hintText: 'Write a message...',
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(8),
+                                              ),
                                             ),
+                                            maxLines: 3,
+                                            minLines: 2,
                                           ),
-                                          maxLines: 3,
-                                          minLines: 2,
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Close'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () async {
-                                              await FirebaseFirestore.instance
-                                                  .collection('chat')
-                                                  .add({
-                                                'time': Timestamp.now(),
-                                                'user': [
-                                                  Hive.box('user').get('phone'),
-                                                  snapshot.data['user'],
-                                                ],
-                                                'sms': [
-                                                  {
-                                                    'text': _controller.text,
-                                                    'user': Hive.box('user')
-                                                        .get('phone'),
-                                                    'time': Timestamp.now(),
-                                                  }
-                                                ]
-                                              }).then((value) {
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
                                                 Navigator.pop(context);
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageList()));
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                        content: Text(
-                                                            'Message sent')));
-                                              });
-                                            },
-                                            child: const Text('Send'),
-                                          ),
-                                        ],
-                                      );
-                                    });
+                                              },
+                                              child: const Text('Close'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await FirebaseFirestore.instance
+                                                    .collection('chat')
+                                                    .add({
+                                                  'time': Timestamp.now(),
+                                                  'user': [
+                                                    Hive.box('user').get('phone'),
+                                                    snapshot.data['user'],
+                                                  ],
+                                                  'sms': [
+                                                    {
+                                                      'text': _controller.text,
+                                                      'user': Hive.box('user')
+                                                          .get('phone'),
+                                                      'time': Timestamp.now(),
+                                                    }
+                                                  ]
+                                                }).then((value) {
+                                                  Navigator.pop(context);
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MessageList()));
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          'Message sent')));
+                                                });
+                                              },
+                                              child: const Text('Send'),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                }
+                                else{
+                                  loginPermissionDialog(context);
+                                }
+
                               },
                               label: Text(
                                 'এখনি মেসেজ করুন',
