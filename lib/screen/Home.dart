@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
               LearningType(),
               SpokenEnglish(),
               SocialScreen(),
-              box.get('type', defaultValue: '') == 'seller' || box.get('type', defaultValue: '') == 'buyer'
+              box.get('type', defaultValue: '') == 'seller' || box.get('type', defaultValue: '') == 'buyer' || box.get('type', defaultValue: '') == 'pending'
                   ? FreelanceMain()
                   : FreelanceOnboard(),
               Ecom()

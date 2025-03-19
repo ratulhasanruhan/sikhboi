@@ -24,6 +24,8 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
 
   var localUser = Hive.box('user').get('phone');
 
+  var type = Hive.box('user').get('type');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -252,7 +254,70 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                           ElevatedButton(
                             onPressed: () {
                               if(widget.isSeller){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGig()));
+                                if (type == 'pending') {
+                                  FirebaseFirestore.instance.collection('freelance_seller').doc(localUser).get().then((value) {
+                                    if (value.exists) {
+                                      String status = value['status'];
+
+                                      if(status == 'active'){
+                                        Hive.box('user').put('type', 'seller');
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGig()));
+                                      }
+                                      else if(status == 'pending'){
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text('Pending'),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(Icons.watch_later_outlined, color: color2, size: 50),
+                                                  Text(
+                                                    'Your account is under review. Please wait for approval.',
+                                                    textAlign: TextAlign.center,
+
+                                                  ),
+                                                ],
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('OK'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                      else{
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text('Rejected'),
+                                              content: Text('Your account is rejected. Please contact with admin.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('OK'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }
+                                  });
+                                }
+                                {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGig()));
+                                }
                               }else{
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => CreateBuyerRequest()));
                               }
