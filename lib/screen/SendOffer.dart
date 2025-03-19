@@ -23,6 +23,9 @@ class _SendOfferState extends State<SendOffer> {
 
   final database = FirebaseFirestore.instance.collection('offer_requests');
 
+  TextEditingController amount = TextEditingController();
+  TextEditingController message = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +48,6 @@ class _SendOfferState extends State<SendOffer> {
           onTap: ()async{
             // send offer
             showModalBottomSheet(context: context, builder: (context) {
-              TextEditingController amount = TextEditingController();
-              TextEditingController message = TextEditingController();
-
               return Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

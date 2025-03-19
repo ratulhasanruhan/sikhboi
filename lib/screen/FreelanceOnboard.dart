@@ -18,6 +18,32 @@ class FreelanceOnboard extends StatefulWidget {
 class _FreelanceOnboardState extends State<FreelanceOnboard> {
 
   var type = Hive.box('user').get('type');
+  var box = Hive.box('user');
+  var user = Hive.box('user').get('user');
+
+  var database = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    database.collection('freelance_seller').doc(user).get().then((value) {
+      if(value.exists){
+        box.put('type','seller');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceMain()));
+      }
+      else{
+        database.collection('freelance_buyer').doc(user).get().then((value) {
+          if(value.exists){
+            box.put('type','buyer');
+            Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceMain()));
+          }
+        });
+      }
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
