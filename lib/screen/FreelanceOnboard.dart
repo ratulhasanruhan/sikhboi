@@ -19,7 +19,7 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
 
   var type = Hive.box('user').get('type');
   var box = Hive.box('user');
-  var user = Hive.box('user').get('user');
+  var user = Hive.box('user').get('phone');
 
   var database = FirebaseFirestore.instance;
 
