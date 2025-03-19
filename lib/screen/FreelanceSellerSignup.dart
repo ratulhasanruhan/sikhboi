@@ -7,9 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 import 'package:sikhboi/screen/PaymentScreen.dart';
-
 import '../utils/colors.dart';
-import 'FreelanceMain.dart';
 
 class FreelanceSellerSignup extends StatefulWidget {
   const FreelanceSellerSignup({super.key});
@@ -37,7 +35,7 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
   ImagePicker idImagePicker = ImagePicker();
 
   XFile? profileImage;
-  XFile? workImage;
+  List<XFile?> workImage = [];
   XFile? idImage;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -98,7 +96,7 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                 const SizedBox(height: 8),
                 TextButton.icon(
                   onPressed: () async {
-                    await profileImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50).then((value) {
+                    await profileImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 30).then((value) {
                       if (value != null) {
                         setState(() {
                           profileImage = value;
@@ -142,19 +140,46 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                 ),
                 buildTextField('ইমেইল',emailController, keyboardType: TextInputType.emailAddress),
 
-                workImage != null
-                    ? Image.file(
-                  File(workImage!.path),
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
+                workImage.isNotEmpty
+                ? GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: workImage.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Image.file(
+                          File(workImage[index]!.path),
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          right: 10,
+                          top: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                workImage.removeAt(index);
+                              });
+                            },
+                            icon: const Icon(Icons.close, color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 )
-                    : Container(),
+                : Container(),
 
                 TextButton.icon(
                   onPressed: () async{
-                    await workImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50).then((value) {
-                      if (value != null) {
+                    await workImagePicker.pickMultiImage(imageQuality: 20, limit: 10).then((value) {
+                      if (value.isNotEmpty) {
                         setState(() {
                           workImage = value;
                         });
@@ -256,22 +281,25 @@ class _FreelanceSellerSignupState extends State<FreelanceSellerSignup> {
                           'postOffice': postOfficeController.text,
                           'email': emailController.text,
                           'education': educationController.text,
+                          'status': 'pending',
                         }).then((value) async {
                           // Upload Images
                           Reference profileRef = storage.ref().child(
                               'freelance_seller/${user}/profile.jpg');
                           await profileRef.putFile(File(profileImage!.path));
 
-                          Reference companyRef = storage.ref().child(
-                              'freelance_seller/${user}/portfolio.jpg');
-                          await companyRef.putFile(File(workImage!.path));
-
                           Reference idRef = storage.ref().child(
                               'freelance_seller/${user}/id.jpg');
                           await idRef.putFile(File(idImage!.path));
 
+                          for (var i = 0; i < workImage.length; i++) {
+                            Reference workRef = storage.ref().child(
+                                'freelance_seller/$user/work_$i.jpg');
+                            await workRef.putFile(File(workImage[i]!.path));
+                          }
+
                           // Save to Hive
-                          Hive.box('user').put('type', 'seller');
+                          Hive.box('user').put('type', 'pending');
 
                           Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(amount: 1750, subscription: false, reason: 'seller_signup')));
 

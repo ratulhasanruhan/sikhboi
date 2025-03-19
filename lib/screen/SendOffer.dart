@@ -67,6 +67,7 @@ class _SendOfferState extends State<SendOffer> {
                       children: [
                         TextFormField(
                           controller: amount,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             label: Text(
                                 'Enter your amount',

@@ -4,6 +4,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/CreateBuyerRequest.dart';
+import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/widgets/gig_card.dart';
 
@@ -199,7 +200,27 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                       // Portfolio Section
                       sectionTitle(widget.isSeller ? 'Portfolio' : 'Our Company'),
                       const SizedBox(height: 8),
-                      GridView.count(
+                      widget.isSeller
+                      ? GridView.count(
+                        crossAxisCount: 6,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          for(int i = 1; i < 10; i++)
+                            FutureBuilder(
+                              future: FirebaseStorage.instance.ref('freelance_seller/${widget.user}/').child('work_$i.jpg').getDownloadURL(),
+                              builder: (context, snapshot) {
+                                if(snapshot.hasData){
+                                  return portfolioItem(snapshot.data.toString());
+                                }
+                                return portfolioItem('https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg');
+                              }
+                            ),
+                        ],
+                      )
+                      : GridView.count(
                         crossAxisCount: 3,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
@@ -207,8 +228,7 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           FutureBuilder(
-                              future: FirebaseStorage.instance.ref(widget.isSeller ? 'freelance_seller/${widget.user}/' : 'freelance_buyer/${widget.user}/')
-                                  .child(widget.isSeller ? 'portfolio.jpg' : 'company.jpg').getDownloadURL(),
+                              future: FirebaseStorage.instance.ref('freelance_buyer/${widget.user}/').child('company.jpg').getDownloadURL(),
                             builder: (context, snapshot) {
                               if(snapshot.hasData){
                                 return portfolioItem(snapshot.data.toString());
@@ -320,9 +340,39 @@ class _FreelancerProfileState extends State<FreelancerProfile> {
   Widget portfolioItem(String imageUrl) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
+      child: InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 100,),
+                        Icon(Icons.error),
+                        Text('Image not found'),
+                        SizedBox(height: 100,),
+                      ],
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        },
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Icon(Icons.error);
+          },
+        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/FreelanceMain.dart';
 import 'package:sikhboi/screen/FreelanceSellerSignup.dart';
 import 'package:sikhboi/utils/assets_path.dart';
@@ -14,6 +16,80 @@ class FreelanceOnboard extends StatefulWidget {
 }
 
 class _FreelanceOnboardState extends State<FreelanceOnboard> {
+
+  var type = Hive.box('user').get('type');
+  var user = Hive.box('user').get('phone');
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (type != null) {
+      if (type == 'pending') {
+        FirebaseFirestore.instance.collection('freelance_seller').doc(user).get().then((value) {
+          if (value.exists) {
+            String status = value['status'];
+
+            if(status == 'active'){
+              Hive.box('user').put('type', 'seller');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => FreelanceMain()));
+            }
+            else if(status == 'pending'){
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Pending'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.watch_later_outlined, color: color2, size: 50),
+                        Text(
+                            'Your account is under review. Please wait for approval.',
+                          textAlign: TextAlign.center,
+
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+            else{
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Rejected'),
+                    content: Text('Your account is rejected. Please contact with admin.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          }
+        });
+      }
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -165,7 +241,9 @@ class _FreelanceOnboardState extends State<FreelanceOnboard> {
                     child: Text(
                       'Or, Continue without account',
                       style: TextStyle(
-                        color: color2dark,
+                        decoration: TextDecoration.underline,
+                        color: primaryColor,
+                        decorationColor: primaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
