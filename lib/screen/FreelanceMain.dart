@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:sikhboi/screen/Contests.dart';
 import 'package:sikhboi/screen/FreelancerProfile.dart';
 import 'package:sikhboi/screen/MessageList.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
+import 'package:sikhboi/widgets/ContestsScreenWidgets.dart';
 import 'package:sikhboi/widgets/loginPermission.dart';
 
 import '../widgets/gig_card.dart';
@@ -201,6 +203,8 @@ class _FreelanceMainState extends State<FreelanceMain> {
                   );
                 },
               )
+            else if(selectedType == 'Contests')
+              contestScreen(context)
           ],
         ),
       ),
