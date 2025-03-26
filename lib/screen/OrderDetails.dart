@@ -27,6 +27,7 @@ class _OrderDetailsState extends State<OrderDetails> {
   TextEditingController promoCodeController = TextEditingController();
   TextEditingController jelaController = TextEditingController();
   TextEditingController postController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   @override
   void initState() {
@@ -118,6 +119,29 @@ class _OrderDetailsState extends State<OrderDetails> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'আপনার মোবাইল নাম্বার লিখুন';
+                }
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: "আপনার ইমেইল",
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'আপনার ইমেইল লিখুন';
                 }
                 return null;
               },
@@ -258,6 +282,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                             'price': widget.price,
                             'product': widget.productName,
                             'productID': widget.productId,
+                            'email': emailController.text,
                             'image': '',
                             'status': 'pending',
                           },
