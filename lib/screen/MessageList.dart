@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:hive/hive.dart';
+import 'package:sikhboi/utils/colors.dart';
 import 'package:sikhboi/utils/time_difference.dart';
 import 'package:skeletons/skeletons.dart';
 import 'MessagesDetails.dart';
@@ -30,7 +31,7 @@ class _MessageListState extends State<MessageList> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: color2dark,
         centerTitle: true,
       ),
       body: FirestoreListView(

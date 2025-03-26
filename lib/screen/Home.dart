@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:sikhboi/screen/Ecom.dart';
-import 'package:sikhboi/screen/Freelance.dart';
+import 'package:sikhboi/screen/FreelanceMain.dart';
 import 'package:sikhboi/screen/HomeScreen.dart';
-import 'package:sikhboi/screen/LearnChat.dart';
 import 'package:sikhboi/screen/LearningType.dart';
 import 'package:sikhboi/screen/SocialScreen.dart';
 import 'package:sikhboi/screen/SpokenEnglish.dart';
 import 'package:sikhboi/utils/assets_path.dart';
 
 import '../utils/colors.dart';
+import 'FreelanceOnboard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,25 +22,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   PageController _pageController = PageController();
 
-  @override
-  void initState() {
-    super.initState();
-
-    /*InAppUpdate.checkForUpdate().then((info) {
-      if (info.updateAvailability == UpdateAvailability.updateAvailable) {
-        InAppUpdate.startFlexibleUpdate().then((_) {
-          InAppUpdate.completeFlexibleUpdate().then((_) {
-            print('Update completed successfully');
-          }).catchError((e) {
-            print('Update failed to complete: $e');
-          });
-        }).catchError((e) {
-          print('Update failed to start: $e');
-        });
-      }
-    });*/
-  }
-
+  var box = Hive.box('user');
 
   @override
   Widget build(BuildContext context) {
@@ -63,50 +46,134 @@ class _HomePageState extends State<HomePage> {
               iconSize: 38,
               items: [
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    AssetsPath.home,
-                    width: 38,
-                    height: 38,
+                  icon: Column(
+                    children: [
+                      Image.asset(
+                        AssetsPath.home,
+                        width: 38,
+                        height: 38,
+                      ),
+                      _selectedIndex == 0
+                          ? Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: color2,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    AssetsPath.course,
-                    width: 38,
-                    height: 38,
+                  icon: Column(
+                    children: [
+                      Image.asset(
+                        AssetsPath.course,
+                        width: 38,
+                        height: 38,
+                      ),
+                      _selectedIndex == 1
+                          ? Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: color2,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   label: 'Course',
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    AssetsPath.translate,
-                    width: 38,
-                    height: 38,
+                  icon: Column(
+                    children: [
+                      Image.asset(
+                        AssetsPath.translate,
+                        width: 38,
+                        height: 38,
+                      ),
+                      _selectedIndex == 2
+                          ? Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: color2,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   label: 'Translate',
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    AssetsPath.social,
-                    width: 38,
-                    height: 38,
+                  icon: Column(
+                    children: [
+                      Image.asset(
+                        AssetsPath.social,
+                        width: 38,
+                        height: 38,
+                      ),
+                      _selectedIndex == 3
+                          ? Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: color2,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   label: 'Social',
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    AssetsPath.freelance,
-                    width: 38,
-                    height: 38,
+                  icon: Column(
+                    children: [
+                      Image.asset(
+                        AssetsPath.freelance,
+                        width: 38,
+                        height: 38,
+                      ),
+                      _selectedIndex == 4
+                          ? Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: color2,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   label: 'Freelance',
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    AssetsPath.ecom,
-                    width: 38,
-                    height: 38,
+                  icon: Column(
+                    children: [
+                      Image.asset(
+                        AssetsPath.ecom,
+                        width: 38,
+                        height: 38,
+                      ),
+                      _selectedIndex == 5
+                          ? Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: color2,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   label: 'Ecom',
                 ),
@@ -129,7 +196,9 @@ class _HomePageState extends State<HomePage> {
               LearningType(),
               SpokenEnglish(),
               SocialScreen(),
-              Freelance(),
+              box.get('type', defaultValue: '') == 'seller' || box.get('type', defaultValue: '') == 'buyer' || box.get('type', defaultValue: '') == 'pending'
+                  ? FreelanceMain()
+                  : FreelanceOnboard(),
               Ecom()
             ],
           ),

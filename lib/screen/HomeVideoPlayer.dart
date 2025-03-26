@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
-import 'package:sikhboi/screen/VideoList.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sikhboi/utils/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../utils/time_difference.dart';
@@ -20,9 +21,35 @@ class HomePlayVideo extends StatefulWidget {
 }
 
 class _HomePlayVideoState extends State<HomePlayVideo> {
+  RewardedAd? _rewardedAd;
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
+
+  void loadRewardAd() {
+    RewardedAd.load(
+        adUnitId: "ca-app-pub-3028551801469741/2741904985",
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          // Called when an ad is successfully received.
+          onAdLoaded: (ad) {
+            debugPrint('$ad loaded.');
+            // Keep a reference to the ad so you can show it later.
+            _rewardedAd = ad;
+          },
+          // Called when an ad request failed.
+          onAdFailedToLoad: (LoadAdError error) {
+            debugPrint('RewardedAd failed to load: $error');
+          },
+        ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadRewardAd();
+  }
 
   Widget commentChild(data) {
     return ListView(
@@ -56,6 +83,11 @@ class _HomePlayVideoState extends State<HomePlayVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: backGreen,
+        elevation: 0,
+      ),
+      backgroundColor: backGreen,
       body: Column(
         children: [
           Expanded(
@@ -77,16 +109,6 @@ class _HomePlayVideoState extends State<HomePlayVideo> {
              ? Container()
              : Column(
                    children: [
-                     IconButton(
-                         onPressed: (){
-                           if(widget.catId == null) {
-                             Navigator.pop(context);
-                           } else {
-                             Navigator.push(context, MaterialPageRoute(builder: (context) => VideoList(catId: widget.catId!,)));
-                           }
-                         },
-                         icon: const Icon(Icons.arrow_back_ios)
-                     ),
                      Text(
                        widget.title,
                        style: const TextStyle(
@@ -94,14 +116,101 @@ class _HomePlayVideoState extends State<HomePlayVideo> {
                          fontWeight: FontWeight.w600,
                        ),
                      ),
-                     const SizedBox(height: 8),
-                     Text(
-                       widget.description,
-                       style: const TextStyle(
-                         fontSize: 16,
-                       ),
-                       maxLines: 2,
-                       overflow: TextOverflow.fade,
+                     const SizedBox(height: 12),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       children: [
+                         ElevatedButton(
+                           onPressed: () async {
+                             _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+                               print('User rewarded: ${reward.amount}');
+                             });
+
+                             await launchUrl(Uri.parse('https://www.facebook.com/groups/support.sikhboi/?ref=share&mibextid=NSMWBT'));
+                           },
+                           style: ElevatedButton.styleFrom(
+                             backgroundColor: Color(0xFFB3D891),
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(10),
+                             ),
+                             fixedSize: const Size(175, 40),
+                           ),
+                           child: Row(
+                             children: [
+                               Container(
+                                 padding: const EdgeInsets.all(5),
+                                 decoration: BoxDecoration(
+                                   color: color2dark,
+                                   shape: BoxShape.circle,
+                                 ),
+                                 child: Icon(
+                                   Icons.facebook,
+                                   color: Colors.white,
+                                   size: 22,
+                                 ),
+                               ),
+                               const SizedBox(width: 5),
+                               const Text(
+                                 'Support',
+                                 style: TextStyle(
+                                     color: color2dark,
+                                     fontWeight: FontWeight.bold,
+                                     fontSize: 20
+                                 ),
+                               ),
+                             ],
+                           ),
+                         ),
+                         ElevatedButton(
+                           onPressed: () async {
+                             _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+                               print('User rewarded: ${reward.amount}');
+                             });
+
+                             await FirebaseFirestore.instance.collection('course').doc(widget.catId).collection('video').doc(widget.videoId).get().then((value) {
+                               if((value.data() as Map<String, dynamic>).containsKey('file')) {
+                                 launchUrl(Uri.parse(value['file']));
+                               }else{
+                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                   content: Text('No source file found'),
+                                 ));
+                               }
+                             });
+                           },
+                           style: ElevatedButton.styleFrom(
+                             backgroundColor: primaryColor,
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(10),
+                             ),
+                             fixedSize: const Size(182, 40),
+                           ),
+                           child: Row(
+                             children: [
+                               Container(
+                                 padding: const EdgeInsets.all(5),
+                                 decoration: BoxDecoration(
+                                   color: color2dark,
+                                   shape: BoxShape.circle,
+                                 ),
+                                 child: Icon(
+                                   Icons.file_download_outlined,
+                                   color: Colors.white,
+                                   size: 22,
+                                 ),
+                               ),
+                               const SizedBox(width: 5),
+                               const Text(
+                                 'Source File',
+                                 style: TextStyle(
+                                     color: Colors.white,
+                                     fontWeight: FontWeight.bold,
+                                     fontSize: 20
+                                 ),
+                               ),
+                             ],
+                           ),
+                         ),
+                       ],
                      ),
                    ],
                  ),
