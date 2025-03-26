@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:sikhboi/screen/PaymentScreen.dart';
+import 'package:sikhboi/utils/assets_path.dart';
 import 'package:sikhboi/utils/colors.dart';
 
 class SendOffer extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SendOfferState extends State<SendOffer> {
       appBar: AppBar(
         backgroundColor: color2dark,
         title: Text(
-            type == 'seller' ? 'Send Offer' : 'Offer Request',
+            'Order Request',
             style: TextStyle(
               color: Colors.white,
             ),
@@ -52,71 +53,33 @@ class _SendOfferState extends State<SendOffer> {
         child: InkWell(
           onTap: ()async{
             // send offer
-            print(
-                "User: $user\n"
-                    "Receiver : ${widget.user['phone']}"
-            );
-            showModalBottomSheet(context: context, builder: (context) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
+            showDialog(context: context, builder: (context) {
+              return Dialog(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 24,
+                    horizontal: 16,
+                    vertical: 22,
                   ),
                   child: Form(
                     key: key,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TextFormField(
-                          controller: amount,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            label: Text(
-                                'Enter your amount',
-                                style: TextStyle(
-                                  color: color2dark,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                            prefixIcon: Icon(Icons.attach_money),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color2dark,
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color2dark,
-                              ),
-                            ),
-                          ),
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return 'Please enter amount';
-                            }
-                            return null;
-                          },
+                        Text(
+                            'বায়ারকে আপনার অর্ডার রিকোয়েস্ট পাঠান',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: color2dark,
-                            fontSize: 20,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 14,),
                         TextFormField(
                           controller: message,
                           maxLines: 3,
@@ -153,7 +116,7 @@ class _SendOfferState extends State<SendOffer> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 10),
                         TextFormField(
                           controller: bkash,
                           keyboardType: TextInputType.phone,
@@ -173,6 +136,16 @@ class _SendOfferState extends State<SendOffer> {
                             ),
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
+                              child: Image.asset(
+                                AssetsPath.bkash,
+                              ),
+                            ),
+                            prefixIconConstraints: BoxConstraints(
+                              maxHeight: 30,
+                              maxWidth: 30,
+                            ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: color2dark,
@@ -190,7 +163,59 @@ class _SendOfferState extends State<SendOffer> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          controller: amount,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            label: Text(
+                                'Enter your amount',
+                                style: TextStyle(
+                                  color: color2dark,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            ),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
+                              child: Image.asset(
+                                AssetsPath.taka,
+                              ),
+                            ),
+                            prefixIconConstraints: BoxConstraints(
+                              maxHeight: 30,
+                              maxWidth: 30,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: color2dark,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: color2dark,
+                              ),
+                            ),
+                          ),
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return 'Please enter amount';
+                            }
+                            return null;
+                          },
+                          style: TextStyle(
+                            color: color2dark,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
                         InkWell(
                           onTap: ()async{
                             if(key.currentState!.validate()){
@@ -209,12 +234,12 @@ class _SendOfferState extends State<SendOffer> {
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
-                              color: color2dark,
+                              color: primaryColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
                               child: Text(
-                                'Submit',
+                                'রিকোয়েস্ট পাঠান',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -239,7 +264,7 @@ class _SendOfferState extends State<SendOffer> {
             ),
             child: Center(
               child: Text(
-                'Send Offer',
+                'Order Request',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -258,7 +283,7 @@ class _SendOfferState extends State<SendOffer> {
           itemBuilder: (context, snapshot) {
             return Container(
               margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(18),
               decoration: BoxDecoration(
                 color: color2dark,
                 borderRadius: BorderRadius.circular(10),
@@ -266,90 +291,6 @@ class _SendOfferState extends State<SendOffer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    '৳ ${snapshot['amount']}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '${snapshot['message']}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'bKash: ${snapshot.data().keys == 'bkash' ? snapshot['bkash'] : 'Not Provided'}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: (){
-                          Clipboard.setData(ClipboardData(text: snapshot['bkash']));
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('bKash number copied'),
-                          ));
-                        },
-                        child: Icon(
-                          Icons.copy,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  snapshot['status'] == "Awaiting Approval" && snapshot.data().keys.contains('buyerSendAccount') && snapshot.data().keys.contains('buyerTrxId')
-                    ? Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Colors.white,
-                        )
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            'পাঠিয়েছেন',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Number: ' + snapshot['buyerSendAccount'],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'TrxId: ' + snapshot['buyerTrxId'],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )
-                    )
-                      : SizedBox(),
-
-                  SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -376,12 +317,88 @@ class _SendOfferState extends State<SendOffer> {
                       ),
                     ],
                   ),
-                  type == 'buyer'
-                      ? Divider(
-                    color: Colors.white,
-                    thickness: .5,
-                  )
-                      : SizedBox(),
+                  SizedBox(height: 6),
+                  Text(
+                    '${snapshot['message']}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1
+                      ),
+                      borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(
+                          AssetsPath.bkash,
+                          height: 20,
+                          width: 20,
+                        ),
+                        Text(
+                          '${snapshot['bkash']}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26
+                          ),
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Clipboard.setData(ClipboardData(text: snapshot['bkash']));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('bKash number copied'),
+                            ));
+                          },
+                          child: Icon(
+                            Icons.copy,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.white,
+                            width: 1
+                        ),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(
+                          AssetsPath.taka,
+                          height: 20,
+                          width: 20,
+                        ),
+                        Text(
+                          '${snapshot['amount']} টাকা',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                      ],
+                    ),
+                  ),
 
                   type == 'buyer' && snapshot['status'] == 'pending'
                       ? Row(
@@ -579,7 +596,7 @@ class _SendOfferState extends State<SendOffer> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Text(
-                            'Accept',
+                            'Pay',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

@@ -6,6 +6,8 @@ import 'package:sikhboi/utils/Checker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../utils/colors.dart';
+
 class OrderDetails extends StatefulWidget {
   final int price;
   final String productName;
@@ -62,7 +64,7 @@ class _OrderDetailsState extends State<OrderDetails> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: primaryColor,
         centerTitle: true,
       ),
       body: Form(
@@ -321,7 +323,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: primaryColor,
                 ),
                 child: Text(
                   "পেমেন্ট করুন",

@@ -17,4 +17,7 @@ class AssetsPath {
   static const String seller = 'assets/seller.png';
   static const String buyer = 'assets/buyer.png';
 
+  static const String bkash = 'assets/bkash.png';
+  static const String taka = 'assets/taka.png';
+
 }
